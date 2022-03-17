@@ -22,7 +22,7 @@ export async function fetchExchangeRate(): Promise<number> {
 
 export async function fetchTargetAPY() {
   const resp = await axios.get(
-    "https://celo-on-chain-data-service.onrender.com/target-apy"
+    `https://${process.env.NEXT_PUBLIC_DATA_SERVICE_HOST}.onrender.com/target-apy`
   );
   return resp.data;
 }
