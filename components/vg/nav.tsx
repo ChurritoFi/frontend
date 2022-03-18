@@ -9,7 +9,7 @@ export default function nav() {
   return (
     <nav className="flex justify-between items-center px-16 py-4 shadow-md flex-shrink-0">
       <Link href="/" passHref>
-        <a className="flex items-center space-x-1">
+        <a className="flex items-center space-x-1.5">
           <ChurroFi />
           <svg
             width="35"

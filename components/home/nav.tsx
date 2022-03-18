@@ -14,7 +14,7 @@ export default function Nav() {
     >
       <div className="flex justify-between items-center">
         <Link href="/" passHref>
-          <a className="flex items-center space-x-1">
+          <a className="flex items-center space-x-1.5">
             <ChurroFi />
             <svg
               width="35"
