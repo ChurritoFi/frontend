@@ -23,7 +23,7 @@ declare global {
 }
 
 const client = createClient({
-  url: "https://celo-tool-backend.onrender.com/query",
+  url: `https://${process.env.NEXT_PUBLIC_BACKEND_HOST}.onrender.com/query`,
 });
 
 function App({ Component, pageProps }: AppProps) {
