@@ -66,6 +66,7 @@ function App({ Component, pageProps }: AppProps) {
           name: "ChurroFi",
           description: "Stake your CELO",
           url: "https://churrofi.onrender.com",
+          icon: "", // TODO
         }}
       >
         <Provider value={client}>
