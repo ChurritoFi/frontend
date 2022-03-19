@@ -8,7 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "@celo-tools/use-contractkit": "1.0.6",
+    "@celo-tools/use-contractkit": "^3.0.1",
+    "@celo/contractkit": "^1.5.2",
     "@headlessui/react": "^1.2.0",
     "@hookform/resolvers": "^2.6.0",
     "@supabase/supabase-js": "^1.21.0",
@@ -37,9 +38,6 @@
     "xstate": "^4.20.0",
     "yup": "^0.32.9",
     "zustand": "^3.5.2"
-  },
-  "resolutions": {
-    "@celo-tools/use-contractkit/@celo/contractkit": "^1.2.0"
   },
   "devDependencies": {
     "@types/react": "17.0.9",
