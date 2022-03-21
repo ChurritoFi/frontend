@@ -13,8 +13,12 @@ import Layout from "../../components/app/layout";
 import VoteVGDialog from "../../components/app/dialogs/vote-vg";
 import ReminderModal from "../../components/app/dialogs/reminder";
 import CeloInput from "../../components/app/celo-input";
-import { fetchExchangeRate, fetchTargetAPY } from "../../lib/utils";
-import { getCELOBalance, getNonVotingLockedGold } from "../../lib/celo";
+import { fetchExchangeRate } from "../../lib/utils";
+import {
+  getCELOBalance,
+  getNonVotingLockedGold,
+  getTargetVotingYield,
+} from "../../lib/celo";
 import useVG from "../../hooks/useValidatorGroups";
 import InfoIcon from "../../components/icons/info";
 import ReactTooltip from "react-tooltip";
@@ -102,9 +106,7 @@ function Invest() {
 
   useEffect(() => {
     fetchExchangeRate().then((rate) => setExchangeRate(rate));
-    fetchTargetAPY().then((resp) =>
-      setEstimatedAPY(new BigNumber(parseFloat(resp.target_apy)))
-    );
+    getTargetVotingYield(kit).then((value) => setEstimatedAPY(value));
   }, []);
 
   useEffect(() => {

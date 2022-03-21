@@ -294,3 +294,30 @@ async function fetchGroupRewardsPerEpoch(kit, groups) {
   }
   return r;
 }
+
+export async function getTargetVotingYield(kit) {
+  const epochReward = await kit._web3Contracts.getEpochRewards();
+
+  const [rewardMultiplierResp, targetVotingYieldResp] = await Promise.all([
+    // fetches the current reward multiplier from the contract.
+    epochReward.methods.getRewardsMultiplier().call(),
+    // fetches the current target voting yield parameters  from the contract.
+    epochReward.methods.getTargetVotingYieldParameters().call(),
+  ]);
+
+  // targetVotingYield -> 160000000000000000000 (0.00016 * 10^24)
+  // target inflation over an year -> (0.00016 + 1) ** 365 = 1.06
+  // 1.06 represents 6% increase year-over-year.
+  const targetVotingYield = new BigNumber(targetVotingYieldResp[0])
+    .div(10 ** 24)
+    .plus(1)
+    .exponentiatedBy(365)
+    .minus(1);
+
+  // rewardMultiplier changes based on the target inflation rate for the network.
+  // for more info -> https://docs.celo.org/celo-codebase/protocol/proof-of-stake/epoch-rewards#adjusting-rewards-for-target-schedule
+  const rewardMultiplier = new BigNumber(rewardMultiplierResp).div(10 ** 24);
+
+  // target yield -> targetVotingYield * rewardMultiplier
+  return targetVotingYield.times(rewardMultiplier).times(100);
+}

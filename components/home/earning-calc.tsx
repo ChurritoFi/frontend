@@ -1,35 +1,41 @@
 import { useEffect, useMemo, useState } from "react";
-import { fetchExchangeRate, fetchTargetAPY } from "../../lib/utils";
+import { fetchExchangeRate } from "../../lib/utils";
 import { BigNumber } from "bignumber.js";
+import { getTargetVotingYield } from "../../lib/celo";
+import { useContractKit } from "@celo-tools/use-contractkit";
 
 export default function EarningCalculator() {
-  const [exchangeRate, setExchangeRate] = useState(0);
-  const [estimatedAPY, setEstimatedAPY] = useState(new BigNumber(0));
+  const { kit } = useContractKit();
+  const [exchangeRate, setExchangeRate] = useState<number | undefined>(
+    undefined
+  );
+  const [estimatedAPY, setEstimatedAPY] = useState<BigNumber | undefined>(
+    undefined
+  );
   const [celoAmountToInvest, setCeloAmountToInvest] = useState("1000.00");
   const celoToInvestInUSD = useMemo(
     () => parseFloat(celoAmountToInvest) * exchangeRate,
     [celoAmountToInvest, exchangeRate]
   );
   const yearlyEarning = useMemo(() => {
+    if (!exchangeRate) return undefined;
     if (celoAmountToInvest === "") return new BigNumber(0);
     return new BigNumber(celoAmountToInvest).times(estimatedAPY).div(100);
   }, [celoAmountToInvest, estimatedAPY]);
   const yearlyEarningInUSD = useMemo(
-    () => yearlyEarning.times(exchangeRate),
+    () => yearlyEarning?.times(exchangeRate),
     [yearlyEarning, exchangeRate]
   );
 
-  const monthlyEarning = useMemo(() => yearlyEarning.div(12), [yearlyEarning]);
+  const monthlyEarning = useMemo(() => yearlyEarning?.div(12), [yearlyEarning]);
   const monthlyEarningInUSD = useMemo(
-    () => monthlyEarning.times(exchangeRate),
+    () => monthlyEarning?.times(exchangeRate),
     [monthlyEarning, exchangeRate]
   );
 
   useEffect(() => {
     fetchExchangeRate().then((resp) => setExchangeRate(resp));
-    fetchTargetAPY().then((resp) =>
-      setEstimatedAPY(new BigNumber(parseFloat(resp.target_apy)))
-    );
+    getTargetVotingYield(kit).then((value) => setEstimatedAPY(value));
   }, []);
   return (
     <div className="mt-20 lg:mt-0 lg:p-10 p-8 text-gray-dark border border-gray-light rounded-md">
@@ -74,15 +80,19 @@ export default function EarningCalculator() {
         <div className="mt-5">
           <p className="text-gray text-sm">Yearly Earning</p>
           <div className="flex justify-between items-baseline mt-2">
-            <p>{yearlyEarning.toFixed(2)} CELO</p>
-            <p className="text-gray">$ {yearlyEarningInUSD.toFixed(2)}</p>
+            <p>{yearlyEarning ? yearlyEarning.toFixed(2) : "-"} CELO</p>
+            <p className="text-gray">
+              $ {yearlyEarningInUSD ? yearlyEarningInUSD.toFixed(2) : "-"}
+            </p>
           </div>
         </div>
         <div className="mt-5">
           <p className="text-gray text-sm">Monthly Earning</p>
           <div className="flex justify-between items-baseline mt-2">
-            <p>{monthlyEarning.toFixed(2)} CELO</p>
-            <p className="text-gray">${monthlyEarningInUSD.toFixed(2)}</p>
+            <p>{monthlyEarning ? monthlyEarning.toFixed(2) : "-"} CELO</p>
+            <p className="text-gray">
+              $ {monthlyEarningInUSD ? monthlyEarningInUSD.toFixed(2) : "-"}
+            </p>
           </div>
         </div>
       </div>

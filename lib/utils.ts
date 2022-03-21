@@ -19,10 +19,3 @@ export async function fetchExchangeRate(): Promise<number> {
   const data = response.data;
   return data[0]["current_price"];
 }
-
-export async function fetchTargetAPY() {
-  const resp = await axios.get(
-    `https://${process.env.NEXT_PUBLIC_DATA_SERVICE_HOST}.onrender.com/target-apy`
-  );
-  return resp.data;
-}
