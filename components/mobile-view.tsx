@@ -4,7 +4,6 @@ import Footer from "./home/footer";
 import NavHome from "./home/nav";
 
 function Mobile() {
-  return null;
   return (
     <div className="lg:hidden text-center flex flex-col items-center justify-center min-h-screen">
       <NavHome />
