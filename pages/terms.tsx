@@ -8,9 +8,9 @@ function Terms() {
       <Nav />
       <main className="md:mb-32 md:mt-52 mt-32 mb-16 px-8 prose prose-md lg:prose-lg mx-auto">
         <article>
-          <h2>Terms of Service of https://churrofi.app</h2>
+          <h2>Terms of Service of https://churrito.fi</h2>
           <p>
-            ChurroFi ("Us" or "We") provides the https://churrofi.app website
+            ChurritoFi ("Us" or "We") provides the https://churrito.fi website
             and various related services (collectively, the "Website") to you,
             the User, subject to your compliance with all the terms, conditions,
             and notices contained or referenced herein (the "Terms of Service"),
@@ -150,10 +150,11 @@ function Terms() {
           <p>
             All custom graphics, icons, logos, and service names used on the
             Website are registered trademarks, service marks, and/or artwork
-            held under copyright of ChurroFi or its Affiliates. All other marks
-            are property of their respective owners. Nothing in these Terms of
-            Service grants you any right to use any trademark, service mark,
-            logo, and/or the name or trade names of ChurroFi or its Affiliates.
+            held under copyright of ChurritoFi or its Affiliates. All other
+            marks are property of their respective owners. Nothing in these
+            Terms of Service grants you any right to use any trademark, service
+            mark, logo, and/or the name or trade names of ChurritoFi or its
+            Affiliates.
           </p>
         </article>
         <article>
@@ -163,7 +164,7 @@ function Terms() {
             and judgments of an information provider, site user, or other person
             or entity not connected with us. We do not endorse, nor are we
             responsible for the accuracy or reliability of, any opinion, advice,
-            or statement made by anyone other than an authorized ChurroFi
+            or statement made by anyone other than an authorized ChurritoFi
             spokesperson speaking in his/her official capacity. Please refer to
             the specific editorial policies posted on various sections of this
             Website for further information, which policies are incorporated by

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import ChurroFi from "../icons/churrofi";
+import ChurritoFi from "../icons/churritofi";
 import { Disclosure } from "@headlessui/react";
 
 export default function Nav() {
@@ -15,7 +15,7 @@ export default function Nav() {
       <div className="flex justify-between items-center">
         <Link href="/" passHref>
           <a className="flex items-center space-x-1.5">
-            <ChurroFi />
+            <ChurritoFi />
             <svg
               width="35"
               height="19"

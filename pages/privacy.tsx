@@ -8,13 +8,13 @@ function Privacy() {
       <Nav />
       <main className="md:mb-32 md:mt-52 mt-32 mb-16 px-8 prose prose-md lg:prose-lg mx-auto">
         <article>
-          <h2>Privacy Policy for churrofi.app</h2>
+          <h2>Privacy Policy for churrito.fi</h2>
           <div>
             <p>
-              At ChurroFi, accessible from https://churrofi.app, one of our main
-              priorities is the privacy of our visitors. This Privacy Policy
-              document contains types of information that is collected and
-              recorded by ChurroFi and how we use it.
+              At ChurritoFi, accessible from https://churrito.fi, one of our
+              main priorities is the privacy of our visitors. This Privacy
+              Policy document contains types of information that is collected
+              and recorded by ChurritoFi and how we use it.
             </p>
             <p>
               If you have additional questions or require more information about
@@ -23,7 +23,7 @@ function Privacy() {
             <p>
               This Privacy Policy applies only to our online activities and is
               valid for visitors to our website with regards to the information
-              that they shared and/or collect in ChurroFi. This policy is not
+              that they shared and/or collect in ChurritoFi. This policy is not
               applicable to any information collected offline or via channels
               other than this website.
             </p>
@@ -74,7 +74,7 @@ function Privacy() {
         <article>
           <h2>Log Files</h2>
           <p>
-            ChurroFi follows a standard procedure of using log files. These
+            ChurritoFi follows a standard procedure of using log files. These
             files log visitors when they visit websites. All hosting companies
             do this and a part of hosting services' analytics. The information
             collected by log files include internet protocol (IP) addresses,
@@ -89,7 +89,7 @@ function Privacy() {
         <article>
           <h2>Cookies and Web Beacons</h2>
           <p>
-            Like any other website, ChurroFi uses 'cookies'. These cookies are
+            Like any other website, ChurritoFi uses 'cookies'. These cookies are
             used to store information including visitors' preferences, and the
             pages on the website that the visitor accessed or visited. The
             information is used to optimize the users' experience by customizing
@@ -185,7 +185,7 @@ function Privacy() {
           </p>
 
           <p>
-            ChurroFi does not knowingly collect any Personal Identifiable
+            ChurritoFi does not knowingly collect any Personal Identifiable
             Information from children under the age of 13. If you think that
             your child provided this kind of information on our website, we
             strongly encourage you to contact us immediately and we will do our

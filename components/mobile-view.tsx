@@ -15,7 +15,7 @@ function Mobile() {
           <img src="/assets/broken-phone.png" className="block mx-auto" />
         </div>
         <p className="text-lg text-gray-dark mt-8">
-          Please visit ChurroFi Dashboard via a Personal Computer or Laptop
+          Please visit ChurritoFi Dashboard via a Personal Computer or Laptop
           device.
         </p>
         <Link href="/" passHref>

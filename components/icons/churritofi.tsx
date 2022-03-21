@@ -1,6 +1,6 @@
 import React from "react";
 
-function ChurroFi() {
+function ChurritoFi() {
   return (
     <svg
       width="138"
@@ -80,4 +80,4 @@ function ChurroFi() {
   );
 }
 
-export default ChurroFi;
+export default ChurritoFi;

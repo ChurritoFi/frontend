@@ -710,7 +710,7 @@ function Invest() {
                 </button>
                 <a
                   className="text-primary flex items-center justify-center border-2 border-primary bg-white font-medium py-2 w-full text-lg rounded-md"
-                  href={`https://twitter.com/intent/tweet?text=I just invested some $CELO via @ChurroFi. Earn profits on the go with one of the simplest staking experiences on @CeloOrg protocol. Give it a try: https://churrofi.app`}
+                  href={`https://twitter.com/intent/tweet?text=I just invested some $CELO via @ChurritoFi. Earn profits on the go with one of the simplest staking experiences on @CeloOrg protocol. Give it a try: https://churrito.fi`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

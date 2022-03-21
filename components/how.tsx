@@ -50,7 +50,7 @@ function How() {
               Investing CELO is Easy, as it should be.
             </h2>
             <p className="text-gray text-lg mt-5 lg:w-2/3 mx-auto">
-              ChurroFi is a simple & smart way to put CELOs to work & earn
+              ChurritoFi is a simple & smart way to put CELOs to work & earn
               profits on the go! All you need to get started is a Celo Wallet
               and some CELOs in it.
             </p>

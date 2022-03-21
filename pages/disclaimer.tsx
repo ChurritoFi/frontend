@@ -10,9 +10,9 @@ function Disclaimer() {
       <main className="md:mb-32 md:mt-52 mt-32 mb-16 px-8 prose prose-md lg:prose-lg mx-auto">
         <h1>Disclaimer</h1>
         <article>
-          <h2>1. Information published on churrofi.app</h2>
+          <h2>1. Information published on churrito.fi</h2>
           <p>
-            The website https://churrofi.app/ (hereinafter, referred to as the
+            The website https://churrito.fi/ (hereinafter, referred to as the
             "Website") provides information and material of a general nature.
             You are not authorized and nor should you rely on the Website for
             legal advice, business advice, or advice of any kind. You act at

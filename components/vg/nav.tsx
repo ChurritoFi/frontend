@@ -1,6 +1,6 @@
 import useStore from "../../store/vg-store";
 import Link from "next/link";
-import ChurroFi from "../icons/churrofi";
+import ChurritoFi from "../icons/churritofi";
 
 export default function nav() {
   const user = useStore((state) => state.user);
@@ -10,7 +10,7 @@ export default function nav() {
     <nav className="flex justify-between items-center px-16 py-4 shadow-md flex-shrink-0">
       <Link href="/" passHref>
         <a className="flex items-center space-x-1.5">
-          <ChurroFi />
+          <ChurritoFi />
           <svg
             width="35"
             height="19"

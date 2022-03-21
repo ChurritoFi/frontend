@@ -51,7 +51,7 @@ function TwitterDialog({ open, setOpen }) {
                     </Dialog.Title>
                     <Dialog.Description as="p" className="mt-5 text-gray">
                       Congratulations! You’ve built your Validator Group profile
-                      on ChurroFi. Share with your followers on Twitter.
+                      on ChurritoFi. Share with your followers on Twitter.
                       <p className="mt-10 border border-gray-light rounded-md p-4 flex">
                         <div className="bg-gray-light h-8 w-8 rounded-full flex-shrink-0 mr-3"></div>
                         <div className="flex-1 flex flex-col text-left">
@@ -65,15 +65,17 @@ function TwitterDialog({ open, setOpen }) {
                           </div>
                           <p className="text-xs text-gray-dark mt-2 leading-relaxed">
                             We just built our Validator Group profile on{" "}
-                            <span className="text-accent-dark">@ChurroFi</span>.
-                            This not only brings us closer to the community of{" "}
+                            <span className="text-accent-dark">
+                              @ChurritoFi
+                            </span>
+                            . This not only brings us closer to the community of{" "}
                             <span className="text-accent-dark">$CELO</span>{" "}
                             Holders but also helps us earning higher
                             Epoch-Rewards on{" "}
                             <span className="text-accent-dark">@CeloOrg</span>{" "}
                             protocol. Build your Validator Group profile today:{" "}
                             <span className="text-accent-dark">
-                              https://churrofi.app
+                              https://churrito.fi
                             </span>
                           </p>
                         </div>
@@ -83,7 +85,7 @@ function TwitterDialog({ open, setOpen }) {
                       </p>
                     </Dialog.Description>
                     <a
-                      href={`https://twitter.com/intent/tweet?text=We just built our Validator Group profile on @ChurroFi. This not only brings us closer to the community of $CELO Holders but also helps us earning higher Epoch-Rewards on @CeloOrg protocol. Build your Validator Group profile today: https://churrofi.app`}
+                      href={`https://twitter.com/intent/tweet?text=We just built our Validator Group profile on @ChurritoFi. This not only brings us closer to the community of $CELO Holders but also helps us earning higher Epoch-Rewards on @CeloOrg protocol. Build your Validator Group profile today: https://churrito.fi`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="transition px-8 py-2 w-full bg-white text-primary text-lg border-2 border-primary rounded-md shadow focus:outline-none disabled:opacity-50 mt-5 flex items-center justify-center space-x-3"

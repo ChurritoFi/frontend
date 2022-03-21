@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ChurroFi from "../icons/churrofi";
+import ChurritoFi from "../icons/churritofi";
 import {
   FaDiscord,
   FaGithub,
@@ -107,7 +107,7 @@ export default function Footer() {
         <div>
           <Link href="/" passHref>
             <a className="flex items-center space-x-1.5">
-              <ChurroFi />
+              <ChurritoFi />
               <svg
                 width="35"
                 height="19"
@@ -140,7 +140,7 @@ export default function Footer() {
             </Link>
           </div>
           <div className="mt-16 space-x-5 text-sm">
-            <p className="text-gray-dark inline">Copyright © Buidl Labs Inc</p>
+            <p className="text-gray-dark inline">Copyright ©</p>
             <Link href="/privacy" passHref>
               <a className="text-gray-dark hover:text-black underline">
                 Privacy Policy
@@ -198,7 +198,7 @@ export default function Footer() {
             </div>
             <div className="w-1/3 space-y-5">
               <p className="text-primary font-medium">Contact</p>
-              <a
+              {/* <a
                 href="https://buidllabs.io"
                 target="_blank"
                 className="flex items-center text-gray-dark hover:text-black underline"
@@ -269,9 +269,9 @@ export default function Footer() {
                   </svg>
                 </span>
                 buidllabs.io
-              </a>
+              </a> */}
               <a
-                href="mailto:saumay@findsignal.studio"
+                href="mailto:contact@churrito.fi"
                 target="_blank"
                 className="flex items-center text-gray-dark hover:text-black underline"
               >
@@ -301,25 +301,25 @@ export default function Footer() {
                     />
                   </svg>
                 </span>
-                saumay@findsignal.studio
+                contact@churrito.fi
               </a>
-              <div className="flex justify-between">
+              <div className="flex space-x-4">
                 <a
-                  href="https://twitter.com/ChurroFi"
+                  href="https://twitter.com/ChurritoFi"
                   target="_blank"
                   className="text-xl"
                 >
                   <FaTwitter />
                 </a>
-                <a
+                {/* <a
                   href="https://discord.com/invite/5uWg3DVd2B"
                   target="_blank"
                   className="text-xl"
                 >
                   <FaDiscord />
-                </a>
+                </a> */}
                 <a
-                  href="https://github.com/buidl-labs/cvvt-frontend"
+                  href="https://github.com/ChurritoFi"
                   target="_blank"
                   className="text-xl"
                 >
@@ -329,8 +329,9 @@ export default function Footer() {
             </div>
           </div>
           <div className="mt-16 flex justify-end">
-            {"</>"} with <span className="ml-1 mr-3">💛</span> by{" "}
-            <span className="font-semibold ml-1">Team Buidl</span>
+            {"</>"} with <span className="ml-1 mr-3">💛</span>
+            {/* by{" "}
+            <span className="font-semibold ml-1">TODO</span>*/}
           </div>
         </div>
       </footer>
@@ -338,7 +339,7 @@ export default function Footer() {
         <div>
           <Link href="/" passHref>
             <a className="flex items-center space-x-1">
-              <ChurroFi />
+              <ChurritoFi />
               <svg
                 width="35"
                 height="19"
@@ -413,7 +414,7 @@ export default function Footer() {
           <div className="mt-10">
             <p className="text-primary font-medium">Contact us</p>
             <div className="mt-4 flex  space-x-10">
-              <a
+              {/* <a
                 href="https://buidllabs.io"
                 target="_blank"
                 className="flex items-center text-gray-dark hover:text-black underline"
@@ -422,36 +423,36 @@ export default function Footer() {
                   <FaGlobe />
                 </span>
                 buidllabs.io
-              </a>
+              </a> */}
               <a
-                href="mailto:saumay@findsignal.studio"
+                href="mailto:contact@churrito.fi"
                 target="_blank"
                 className="flex items-center text-gray-dark hover:text-black underline"
               >
                 <span className="mr-3">
                   <FaEnvelope />
                 </span>
-                saumay@findsignal.studio
+                contact@churrito.fi
               </a>
             </div>
           </div>
-          <div className="flex justify-between mt-10">
+          <div className="flex space-x-4 mt-10">
             <a
-              href="https://twitter.com/ChurroFi"
+              href="https://twitter.com/ChurritoFi"
               target="_blank"
               className="text-3xl"
             >
               <FaTwitter />
             </a>
-            <a
+            {/* <a
               href="https://discord.com/invite/5uWg3DVd2B"
               target="_blank"
               className="text-3xl"
             >
               <FaDiscord />
-            </a>
+            </a> */}
             <a
-              href="https://github.com/buidl-labs/cvvt-frontend"
+              href="https://github.com/ChurritoFi"
               target="_blank"
               className="text-3xl"
             >
@@ -482,10 +483,11 @@ export default function Footer() {
             </p>
           </div>
           <div className="flex justify-between mt-10 text-xs">
-            <p className="text-gray-dark inline">Copyright © Buidl Labs Inc</p>
+            <p className="text-gray-dark inline">Copyright ©</p>
             <p className="flex justify-end">
-              {"</>"} with <span className="ml-1 mr-3">💛</span> by{" "}
-              <span className="font-semibold ml-1">Team Buidl</span>
+              {"</>"} with <span className="ml-1 mr-3">💛</span>
+              {/* by{" "}
+              <span className="font-semibold ml-1">TODO</span>*/}
             </p>
           </div>
         </div>

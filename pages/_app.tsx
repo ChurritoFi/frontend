@@ -31,8 +31,8 @@ function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     Fathom.load(process.env.NEXT_PUBLIC_FATHOM_ID, {
-      includedDomains: ["churrofi.app"],
-      url: "https://wildcat.churrofi.app/script.js",
+      includedDomains: ["churrito.fi"],
+      url: "https://wildcat.churrito.fi/script.js",
     });
 
     function onRouteChangeComplete() {
@@ -46,6 +46,12 @@ function App({ Component, pageProps }: AppProps) {
       router.events.off("routeChangeComplete", onRouteChangeComplete);
     };
   }, []);
+
+  const appUrl =
+    typeof window === "undefined"
+      ? "https://churrito.fi"
+      : window.location.origin;
+
   return (
     <div>
       <Head>
@@ -58,15 +64,15 @@ function App({ Component, pageProps }: AppProps) {
           href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Jost:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/churrofi-logo.png" />
-        <title>ChurroFi - Investing CELO made easy</title>
+        <link rel="icon" href="/churritofi-logo.png" />
+        <title>ChurritoFi - Investing CELO made easy</title>
       </Head>
       <ContractKitProvider
         dapp={{
-          name: "ChurroFi",
+          name: "ChurritoFi",
           description: "Stake your CELO",
-          url: "https://churrofi.onrender.com",
-          icon: "", // TODO
+          url: appUrl,
+          icon: `${appUrl}/favicon.ico`,
         }}
       >
         <Provider value={client}>
