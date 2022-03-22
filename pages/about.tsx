@@ -39,9 +39,38 @@ function About() {
       <Nav />
       <div className="mb-36 pt-16 px-5 lg:px-0">
         <div className="text-center mt-16">
-          <p className="text-sm text-gray">Behind the product, here's</p>
+          <p className="text-sm text-gray">
+            ChurritoFi was forked from ChurroFi. Here's
+          </p>
           <h2 className="text-gray-dark text-3xl font-medium font-serif mt-2">
             Our Team
+          </h2>
+          <div className="grid grid-cols-1 mt-16 mx-auto max-w-4xl gap-14">
+            <div className="flex justify-self-center">
+              <div className="mr-5">
+                <img
+                  src={`/assets/about/jeanregisser.jpg`}
+                  className="lg:w-24 lg:h-24 w-20 h-20 rounded-full overflow-hidden object-cover"
+                />
+              </div>
+              <div className="text-left">
+                <p className="text-gray-dark text-lg font-medium">
+                  Jean Regisser
+                </p>
+                <p className="text-sm text-gray mt-1">Project Lead</p>
+                <div className="mt-2 text-secondary-light-light">
+                  <a href="https://jeanregisser.com/" target="_blank">
+                    <FaGlobe />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p className="text-sm text-gray mt-16">
+            We are forever grateful to the original
+          </p>
+          <h2 className="text-gray-dark text-3xl font-medium font-serif mt-2">
+            ChurroFi Team
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 mt-16 mx-auto max-w-4xl gap-14">
             <div className="flex justify-self-center">
