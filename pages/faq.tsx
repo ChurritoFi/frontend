@@ -52,7 +52,7 @@ function FAQ() {
           </p>
           <div className="mt-5 space-y-5 lg:space-x-4 text-lg px-6 text-center">
             <a
-              href="https://discord.com/invite/5uWg3DVd2B"
+              href="mailto:contact@churrito.fi" // "https://discord.com/invite/5uWg3DVd2B"
               target="_blank"
               className="inline-block w-full lg:w-auto px-14 py-2 border-2 border-primary bg-primary text-white font-medium rounded-md shadow-md"
             >

@@ -169,7 +169,7 @@ export default function Footer() {
                   </a>
                 </Link>
               </p>
-              <p>
+              {/* <p>
                 <a
                   href="https://discord.com/invite/5uWg3DVd2B"
                   target="_blank"
@@ -177,7 +177,7 @@ export default function Footer() {
                 >
                   Contact us
                 </a>
-              </p>
+              </p> */}
             </div>
             <div className="w-1/3 space-y-5">
               <p className="text-primary font-medium">Resources</p>
@@ -381,7 +381,7 @@ export default function Footer() {
                   </a>
                 </Link>
               </p>
-              <p>
+              {/* <p>
                 <a
                   href="https://discord.com/invite/5uWg3DVd2B"
                   target="_blank"
@@ -389,7 +389,7 @@ export default function Footer() {
                 >
                   Contact us
                 </a>
-              </p>
+              </p> */}
             </div>
           </div>
           <div className="mt-10">
