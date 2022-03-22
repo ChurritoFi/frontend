@@ -20,9 +20,9 @@ export const FIELDS = [
     tip: "How many validators are elected out of the total validators in the group.",
   },
   {
-    name: "Recieved Votes",
-    key: "recieved",
-    tip: "Total votes recieved by the group (in CELO)",
+    name: "Received Votes",
+    key: "received",
+    tip: "Total votes received by the group (in CELO)",
   },
   {
     name: "Available Votes",

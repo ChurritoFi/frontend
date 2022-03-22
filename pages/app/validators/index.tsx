@@ -84,7 +84,7 @@ function ValidatorExplorer() {
         newSortStatus.order == Order.ASC
           ? a.AvailableVotes - b.AvailableVotes
           : b.AvailableVotes - a.AvailableVotes;
-    } else if (newSortStatus.key == "recieved") {
+    } else if (newSortStatus.key == "received") {
       sortFn = (a, b) =>
         newSortStatus.order == Order.ASC
           ? a.RecievedVotes - b.RecievedVotes
