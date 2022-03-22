@@ -14,22 +14,27 @@ export default function EarningCalculator() {
   );
   const [celoAmountToInvest, setCeloAmountToInvest] = useState("1000.00");
   const celoToInvestInUSD = useMemo(
-    () => parseFloat(celoAmountToInvest) * exchangeRate,
+    () =>
+      exchangeRate
+        ? parseFloat(celoAmountToInvest || "0") * exchangeRate
+        : undefined,
     [celoAmountToInvest, exchangeRate]
   );
-  const yearlyEarning = useMemo(() => {
-    if (!exchangeRate) return undefined;
-    if (celoAmountToInvest === "") return new BigNumber(0);
-    return new BigNumber(celoAmountToInvest).times(estimatedAPY).div(100);
-  }, [celoAmountToInvest, estimatedAPY]);
+  const yearlyEarning = useMemo(
+    () =>
+      estimatedAPY
+        ? new BigNumber(celoAmountToInvest || 0).times(estimatedAPY).div(100)
+        : undefined,
+    [celoAmountToInvest, estimatedAPY]
+  );
   const yearlyEarningInUSD = useMemo(
-    () => yearlyEarning?.times(exchangeRate),
+    () => (exchangeRate ? yearlyEarning?.times(exchangeRate) : undefined),
     [yearlyEarning, exchangeRate]
   );
 
   const monthlyEarning = useMemo(() => yearlyEarning?.div(12), [yearlyEarning]);
   const monthlyEarningInUSD = useMemo(
-    () => monthlyEarning?.times(exchangeRate),
+    () => (exchangeRate ? monthlyEarning?.times(exchangeRate) : undefined),
     [monthlyEarning, exchangeRate]
   );
 
@@ -61,7 +66,10 @@ export default function EarningCalculator() {
             </label>
             <div className="h-full py-0 pl-2 pr-7 text-sm lg:text-lg rounded-md flex items-center justify-center text-primary">
               <span>
-                $ {celoToInvestInUSD ? celoToInvestInUSD.toFixed(2) : "-"}
+                ${" "}
+                {celoToInvestInUSD !== undefined
+                  ? celoToInvestInUSD.toFixed(2)
+                  : "-"}
               </span>
             </div>
           </div>
