@@ -47,7 +47,7 @@ export default function EarningCalculator() {
       <h3 className="text-xl font-medium">Calculate Your Earnings</h3>
       <div className="mt-5">
         <label htmlFor="amount" className="block text-sm text-gray-dark">
-          If you invest this much CELO:
+          If you stake this much CELO:
         </label>
 
         <div className="relative mt-2.5 w-full rounded-md shadow-sm text-left cursor-default focus:outline-none text-gray-dark-dark">

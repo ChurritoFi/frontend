@@ -52,7 +52,7 @@ const InvestMachine = createMachine({
 
 const formatter = new Intl.NumberFormat("en-US");
 
-function Invest() {
+function Stake() {
   const { address, kit, performActions } = useContractKit();
   const router = useRouter();
 
@@ -242,7 +242,7 @@ function Invest() {
           action="activate"
         />
 
-        <h1 className="text-2xl font-medium text-gray-dark">Invest CELO</h1>
+        <h1 className="text-2xl font-medium text-gray-dark">Stake CELO</h1>
         <main className="space-y-10 mt-10">
           {/* Amount Panel */}
           <div
@@ -261,12 +261,12 @@ function Invest() {
                       : "text-primary-dark"
                   } text-xl`}
                 >
-                  Step 1: Investment Amount
+                  Step 1: Staking Amount
                 </h3>
                 {current.matches("idle") ? (
                   <div
                     className="-mb-1"
-                    data-tip="This is the amount of CELOs you want to invest to gain profits."
+                    data-tip="This is the amount of CELOs you want to stake to gain profits."
                   >
                     <InfoIcon />
                   </div>
@@ -283,7 +283,7 @@ function Invest() {
               </div>
               {!current.matches("idle") && (
                 <p className="text-primary-light text-lg font-medium">
-                  You are investing:{" "}
+                  You are staking:{" "}
                   {parseFloat(celoToInvest == "" ? "0" : celoToInvest).toFixed(
                     2
                   )}{" "}
@@ -419,7 +419,7 @@ function Invest() {
                 ) : (
                   <button
                     className="-mb-1"
-                    data-tip="In order to invest CELOs, you need to cast vote towards electing Validator Groups on the network."
+                    data-tip="In order to stake CELOs, you need to cast vote towards electing Validator Groups on the network."
                   >
                     <InfoIcon />
                   </button>
@@ -441,15 +441,15 @@ function Invest() {
                   Its easier than it sounds. Here’s how it work:
                   <ul className="list-disc list-inside my-2 space-y-1">
                     <li>
-                      The investment process of Celo is based on the mechanism
+                      The staking process of Celo is based on the mechanism
                       where you vote for Validator Groups with your CELO
                     </li>
                     <li>
                       When the Validator Groups you vote for performs well - you
-                      earn CELOs. Its that simple!
+                      earn CELOs. It's that simple!
                     </li>
                   </ul>
-                  You don’t have to go through the hustle of deciding which
+                  You don't have to go through the hustle of deciding which
                   Validator Group to vote for. We have the most suited Group for
                   you. You can vote for it right-away!
                 </p>
@@ -650,11 +650,11 @@ function Invest() {
           <div className="border border-gray-light rounded-md py-8 px-10">
             <div className="flex items-center justify-start space-x-3">
               <h3 className="text-gray-dark text-xl">
-                Step 3: Activate Investment
+                Step 3: Activate Staking
               </h3>
               <button
                 className="-mb-1"
-                data-tip="For security purposes, you need to Activate Vote in the next epoch. Only then the investment process will be complete."
+                data-tip="For security purposes, you need to Activate Vote in the next epoch. Only then the staking process will be complete."
               >
                 <InfoIcon />
               </button>
@@ -666,14 +666,14 @@ function Invest() {
             >
               <p className="text-gray text-lg mt-5">Almost there!</p>
               <p className="text-gray mt-3">
-                To finish your investment & start earning profits - please
-                return back in{" "}
+                To finish staking & start earning profits - please return back
+                in{" "}
                 <span className="text-primary text-lg">
                   {`${hoursToNextEpoch} ${
                     hoursToNextEpoch == 1 ? "hour" : "hours"
                   }`}
                 </span>{" "}
-                to activate your investment and start earning rewards.
+                to activate your stake and start earning rewards.
               </p>
               <div className="mt-5 grid grid-cols-2 gap-5">
                 <button
@@ -710,7 +710,7 @@ function Invest() {
                 </button>
                 <a
                   className="text-primary flex items-center justify-center border-2 border-primary bg-white font-medium py-2 w-full text-lg rounded-md"
-                  href={`https://twitter.com/intent/tweet?text=I just invested some $CELO via @ChurritoFi. Earn profits on the go with one of the simplest staking experiences on @CeloOrg protocol. Give it a try: https://churrito.fi`}
+                  href={`https://twitter.com/intent/tweet?text=I just staked some $CELO via @ChurritoFi. Earn profits on the go with one of the simplest staking experiences on @CeloOrg protocol. Give it a try: https://churrito.fi`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -728,4 +728,4 @@ function Invest() {
   );
 }
 
-export default Invest;
+export default Stake;

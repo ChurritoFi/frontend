@@ -125,12 +125,12 @@ export default function Footer() {
           </Link>
           <div className="mt-4">
             Simple & smart way to put CELOs to work & earn profits on the go!
-            Investing CELOs has never been this easy. Let’s get started...
+            Staking CELOs has never been this easy. Let’s get started...
           </div>
           <div className="mt-10 flex flex-wrap">
             <Link href="/app/dashboard" passHref>
               <a className="mt-2 inline-block px-10 py-2 border-2 border-primary bg-primary hover:bg-primary-dark focus:bg-primary-dark hover:border-primary-dark focus:border-primary-dark focus:outline-none text-white font-medium rounded-md shadow-md mr-4">
-                Start Investing
+                Start Staking
               </a>
             </Link>
             <Link href="/how" passHref>
@@ -357,12 +357,12 @@ export default function Footer() {
           </Link>
           <div className="mt-4">
             Simple & smart way to put CELOs to work & earn profits on the go!
-            Investing CELOs has never been this easy. Let’s get started...
+            Staking CELOs has never been this easy. Let’s get started...
           </div>
           <div className="mt-10 flex flex-col flex-wrap">
             <Link href="/app/dashboard" passHref>
               <a className="mt-2 flex items-center justify-center w-full px-10 py-2 border-2 border-primary bg-primary hover:bg-primary-dark focus:bg-primary-dark hover:border-primary-dark focus:border-primary-dark focus:outline-none text-white font-medium rounded-md shadow-md mr-4">
-                Start Investing
+                Start Staking
               </a>
             </Link>
             <Link href="/how" passHref>

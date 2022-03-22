@@ -65,7 +65,7 @@ function App({ Component, pageProps }: AppProps) {
           rel="stylesheet"
         />
         <link rel="icon" href="/churritofi-logo.png" />
-        <title>ChurritoFi - Investing CELO made easy</title>
+        <title>ChurritoFi - Staking CELO made easy</title>
       </Head>
       <ContractKitProvider
         dapp={{

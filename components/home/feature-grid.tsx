@@ -7,19 +7,19 @@ export default function FeatureGrid() {
       asset: <FeatureIllustrationOne />,
       heading: "Start with 1 CELO",
       subtext:
-        "Start earning profits with as low as 1 CELO in your wallet. The more you hold & invest, the more you earn.",
+        "Start earning profits with as low as 1 CELO in your wallet. The more you hold & stake, the more you earn.",
     },
     {
       asset: <FeatureIllustrationTwo />,
       heading: "Earn Automatically",
       subtext:
-        "The CELOs earned in profit automatically gets added to your invested CELO for compounding.",
+        "The CELOs earned in profit automatically gets added to your staked CELO for compounding.",
     },
     {
       asset: <FeatureIllustrationThree />,
       heading: "Earn without Risk",
       subtext:
-        "When you invest CELO the invested CELO is never exposed to slashing, making it a risk free investment.",
+        "When you stake CELO it is never exposed to slashing, making it a risk free investment.",
     },
   ];
   return (

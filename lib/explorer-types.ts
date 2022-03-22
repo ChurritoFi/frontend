@@ -42,6 +42,6 @@ export const FIELDS = [
   {
     name: "Estimated APY",
     key: "apy",
-    tip: "Percentage of return you can expect on your invested CELO over an year.",
+    tip: "Percentage of return you can expect on your staked CELO over an year.",
   },
 ];

@@ -26,9 +26,9 @@ export default function layout({ children }: layoutProps) {
       icon: "/assets/nav/nav-home",
     },
     {
-      text: "Invest CELO",
-      to: "/app/invest",
-      icon: "/assets/nav/nav-invest",
+      text: "Stake CELO",
+      to: "/app/stake",
+      icon: "/assets/nav/nav-stake",
     },
     {
       text: "Withdraw CELO",

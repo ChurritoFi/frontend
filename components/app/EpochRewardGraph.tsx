@@ -112,9 +112,9 @@ function EpochRewardGraph({
               <h3 className="text-xl">
                 Sorry, you've no past rewards to show yet 🥲
               </h3>
-              <Link href="/app/invest" passHref>
+              <Link href="/app/stake" passHref>
                 <a className="bg-primary inline-block px-14 py-3 rounded-md text-white text-base shadow-sm hover:bg-primary-dark transition-all">
-                  Start Investing
+                  Start Staking
                 </a>
               </Link>
             </div>
@@ -136,7 +136,7 @@ const Header = ({
 }) => (
   <div className="flex justify-between items-center">
     <h3 className="text-gray-dark text-xl font-medium">
-      Profits earned on Invested CELO
+      Profits earned on staked CELO
     </h3>
     <div className="w-1/4">
       <Select

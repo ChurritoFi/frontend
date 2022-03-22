@@ -142,7 +142,7 @@ export default function dashboard() {
               <p className="mt-2.5 text-gray text-lg w-4/5">
                 Safest way to put your CELOs to work &amp; earn profits on the
                 go! All you need to get started is a Celo Wallet &amp; some
-                CELOs in it. Investing CELOs has never been this easy. Let’s get
+                CELOs in it. Staking CELOs has never been this easy. Let’s get
                 started by connecting your Celo Wallet...
               </p>
             </div>

@@ -289,7 +289,7 @@ function Withdraw() {
         </Transition.Root>
 
         <h3 className="text-gray-dark font-medium text-2xl">
-          Withdraw Invested CELO
+          Withdraw staked CELO
         </h3>
         <div>
           <div className="mt-10 pt-8">
@@ -322,7 +322,7 @@ function Withdraw() {
                       scope="col"
                       className="px-6 py-4 text-center font-normal text-sm  tracking-wider"
                     >
-                      Withdraw Invested CELO
+                      Withdraw staked CELO
                     </th>
                   </tr>
                 </thead>
@@ -381,7 +381,7 @@ function Withdraw() {
             </div>
           </div>
           <div className="mt-10 pt-8">
-            <h3 className="text-xl font-medium">Current Investment Summary</h3>
+            <h3 className="text-xl font-medium">Current Staking Summary</h3>
             <div className="overflow-hidden border border-gray-light rounded-lg shadow-sm mt-5">
               <table className="min-w-full divide-y divide-gray-light">
                 <thead className="border-b border-gray-light text-gray">
@@ -403,13 +403,13 @@ function Withdraw() {
                       scope="col"
                       className="px-6 py-4 text-center font-normal text-sm  tracking-wider"
                     >
-                      Total Invested CELO
+                      Total Staked CELO
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-4 text-center font-normal text-sm  tracking-wider"
                     >
-                      Withdraw Invested CELO
+                      Withdraw staked CELO
                     </th>
                   </tr>
                 </thead>
@@ -445,13 +445,13 @@ function Withdraw() {
                 if (loadingVotingSummary) {
                   return (
                     <p className="w-full flex py-4 justify-center items-center text-gray">
-                      Loading your investments...
+                      Loading your stakes...
                     </p>
                   );
                 } else if (votingSummary.length == 0) {
                   return (
                     <p className="w-full flex py-4 justify-center items-center text-gray">
-                      You've no current investments.
+                      You've no current stakes.
                     </p>
                   );
                 }

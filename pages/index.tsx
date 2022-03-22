@@ -17,7 +17,7 @@ import Footer from "../components/home/footer";
 export default function Home() {
   const faqs = [
     {
-      question: "How does Celo Investing work?",
+      question: "How does Celo staking work?",
       answer:
         "First, you need to lock your CELO. Once your CELO is locked, you can use that to vote on a Validator Group. If the Validator Group you vote on performs well - you earn an amount of CELO every day.",
     },
@@ -29,7 +29,7 @@ export default function Home() {
     {
       question: "What is Locking & Unlocking of CELO?",
       answer:
-        "To invest your CELO, you need to first lock it on the network. When you want to get your CELO back, you need to unlock your CELO and you'll be able to withdraw it in three days.",
+        "To stake your CELO, you need to first lock it on the network. When you want to get your CELO back, you need to unlock your CELO and you'll be able to withdraw it in three days.",
     },
     {
       question: "What is Activating of CELO?",
@@ -37,8 +37,8 @@ export default function Home() {
         "Once your CELO is locked, and you've voted it with it. It needs to be activated the next day to start earning with it.",
     },
     {
-      question: "Am I eligible to Invest CELO?",
-      answer: "If you've CELO, you can invest with it.",
+      question: "Am I eligible to stake CELO?",
+      answer: "If you've CELO, you can stake with it.",
     },
   ];
   return (
@@ -47,16 +47,16 @@ export default function Home() {
       <main className="md:mb-32 md:mt-52 mt-32 mb-16 px-10 lg:px-36">
         <div className="lg:grid lg:grid-cols-2">
           <div className="text-gray-dark text-center lg:text-left">
-            <div className="text-secondary text-sm">Invest • Earn • Grow</div>
+            <div className="text-secondary text-sm">Stake • Earn • Grow</div>
             <h2 className="mt-3 font-serif font-medium text-4xl">
-              Earn Profits by Investing CELO
+              Earn Profits by staking CELO
             </h2>
             <p className="mt-5 leading-relaxed">
               Simple & smart way to put CELOs to work & earn profits on the go!
               <br />
               All you need to get started is a Celo Wallet and some CELOs in it.
               <br />
-              Investing CELOs has never been this easy. Let’s get started.
+              Staking CELOs has never been this easy. Let’s get started.
             </p>
             <div className="mt-10">
               <HeroIllustration />
@@ -64,7 +64,7 @@ export default function Home() {
             <div className="mt-10 md:space-x-4 text-lg space-y-4">
               <Link href="/app/dashboard" passHref>
                 <a className="inline-block px-14 py-2 border-2 border-primary bg-primary hover:bg-primary-dark focus:bg-primary-dark hover:border-primary-dark focus:border-primary-dark focus:outline-none text-white font-medium rounded-md shadow-md">
-                  Start Investing
+                  Start Staking
                 </a>
               </Link>
               <Link href="/how" passHref>
@@ -127,9 +127,9 @@ export default function Home() {
               Simple. Secure. Surreal.
             </h4>
             <p className="mt-3 text-gray max-w-xl">
-              Investing CELO is simple & easy, as it should be. We take pride in
+              Staking CELO is simple & easy, as it should be. We take pride in
               binding this simplicity with utmost security by securing your
-              investment related transactions on the Celo blockchain.
+              staking related transactions on the Celo blockchain.
             </p>
 
             <div className="mt-7 lg:mt-5 text-left">
@@ -138,7 +138,7 @@ export default function Home() {
                   <PiggyBank />
                 </div>
                 <p className="ml-5 text-gray">
-                  Simple, Quick & Delightful Investing Experience for You!
+                  Simple, Quick & Delightful Staking Experience for You!
                 </p>
               </div>
               <div className="flex items-center mt-5">
@@ -146,7 +146,7 @@ export default function Home() {
                   <Website />
                 </div>
                 <p className="ml-5 text-gray">
-                  Secure Investment based on Celo’s blockchain protocol.
+                  Secure staking based on Celo’s blockchain protocol.
                 </p>
               </div>
               <div className="flex items-center mt-5">
@@ -154,14 +154,14 @@ export default function Home() {
                   <Exchange />
                 </div>
                 <p className="ml-5 text-gray">
-                  Withdraw the Invested CELO within 3 days (unlocking period).
+                  Withdraw the staked CELO within 3 days (unlocking period).
                 </p>
               </div>
             </div>
             <div className="mt-10 lg:space-x-4 space-y-4 text-lg">
               <Link href="/app/dashboard" passHref>
                 <a className="inline-block px-14 py-2 border-2 border-primary bg-primary hover:bg-primary-dark focus:bg-primary-dark hover:border-primary-dark focus:border-primary-dark focus:outline-none text-white font-medium rounded-md shadow-md">
-                  Start Investing
+                  Start Staking
                 </a>
               </Link>
               <Link href="/how" passHref>
@@ -217,14 +217,14 @@ export default function Home() {
                 Ready to Earn Profits?
               </h4>
               <p className="mt-3 text-gray-dark max-w-md">
-                Start earning maximum Profits by investing your CELOs based on
-                our Recommendations-Algorithm.
+                Start earning maximum Profits by staking your CELOs based on our
+                Recommendations-Algorithm.
               </p>
             </div>
             <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
               <Link href="/app/dashboard" passHref>
                 <a className="inline-block px-14 py-2 border-2 border-primary bg-primary hover:bg-primary-dark focus:bg-primary-dark hover:border-primary-dark focus:border-primary-dark focus:outline-none text-white font-medium rounded-md shadow-md">
-                  Start Investing
+                  Start Staking
                 </a>
               </Link>
             </div>
@@ -264,7 +264,7 @@ export default function Home() {
           <div className="text-center text-gray-dark">
             <p className="text-gray text-sm">Staking made Easy</p>
             <p className="mt-5  text-3xl font-serif">
-              Benefits of Investing CELO
+              Benefits of staking CELO
             </p>
             <SecondFeatureGrid />
           </div>

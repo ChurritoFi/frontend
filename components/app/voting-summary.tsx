@@ -17,11 +17,11 @@ export default function VotingSummary({
       <ReactTooltip place="top" type="dark" effect="solid" />
       <div className="flex justify-start space-x-3 items-center">
         <h3 className="text-xl font-medium">
-          Current {showWithdraw ? "Investment" : "Voting"} Summary
+          Current {showWithdraw ? "Staking" : "Voting"} Summary
         </h3>
         <button
           data-tip={
-            "This summary highlights the performance & returns of your invested CELO"
+            "This summary highlights the performance & returns of your staked CELO"
           }
           className="-mb-1"
         >
@@ -87,13 +87,13 @@ export default function VotingSummary({
           if (loading) {
             return (
               <p className="w-full flex py-4 justify-center items-center text-gray">
-                Loading your investments...
+                Loading your stakes...
               </p>
             );
           } else if (votingSummary.length == 0) {
             return (
               <p className="w-full flex py-4 justify-center items-center text-gray">
-                You've no current investments.
+                You've no current stakes.
               </p>
             );
           }
@@ -102,7 +102,7 @@ export default function VotingSummary({
       {showWithdraw && votingSummary.length > 0 && (
         <Link href="/app/withdraw" passHref>
           <a className="flex justify-center py-2 mt-7 shadow rounded-md text-lg font-medium text-alert border-2 border-alert hover:border-alert-dark hover:text-alert-dark focus:border-alert-dark focus:text-alert-dark focus:outline-none active:bg-alert-light-light active:border-alert-dark-dark active:text-alert-dark-dark">
-            Withdraw Investments
+            Withdraw Stakes
           </a>
         </Link>
       )}

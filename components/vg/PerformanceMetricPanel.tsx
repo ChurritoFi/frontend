@@ -64,7 +64,7 @@ export default function PerformanceMetricsPanel({
         <div className="grid grid-rows-2 gap-1 text-center">
           <p
             className="text-sm text-gray"
-            data-tip="Estimated Annual Percentage of Yield that the Validator Group can provide on investment."
+            data-tip="Estimated Annual Percentage of Yield that the Validator Group can provide on staking."
           >
             Estimated APY
           </p>

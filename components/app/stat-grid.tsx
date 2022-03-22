@@ -63,7 +63,7 @@ export default function StatGrid({
               value={balances.totalCelo}
               exchangeRate={exchangeRate}
               tipText={
-                "Total CELO present in your account, including Invested & Waiting for Activation CELOs."
+                "Total CELO present in your account, including Staked & Waiting for Activation CELOs."
               }
             />
             <StatCard
@@ -74,20 +74,20 @@ export default function StatGrid({
               tipText={"Voting CELO that is waiting to be activated."}
             />
             <StatCard
-              label="Invested CELO"
+              label="Staked CELO"
               labelColor="text-secondary"
               value={balances.votingLockedCelo}
               exchangeRate={exchangeRate}
               tipText={
-                "CELO that has been invested, including activated and pending votes."
+                "CELO that has been staked, including activated and pending votes."
               }
             />
             <StatCard
-              label="CELO available to invest"
+              label="CELO available to stake"
               labelColor="text-primary"
               value={balances.nonVotingLockedCelo.plus(balances.unlockedCelo)}
               exchangeRate={exchangeRate}
-              tipText={"CELO amount that you can invest."}
+              tipText={"CELO amount that you can stake."}
             />
           </>
         )}

@@ -8,7 +8,7 @@ import FAQ from "./FAQ";
 function How() {
   const faqs = [
     {
-      question: "How does Celo Investing work?",
+      question: "How does Celo staking work?",
       answer:
         "First, you need to lock your CELO. Once your CELO is locked, you can use that to vote on a Validator Group. If the Validator Group you vote on performs well - you earn an amount of CELO every day.",
     },
@@ -20,7 +20,7 @@ function How() {
     {
       question: "What is Locking & Unlocking of CELO?",
       answer:
-        "To invest your CELO, you need to first lock it on the network. When you want to get your CELO back, you need to unlock your CELO and you'll be able to withdraw it in three days.",
+        "To stake your CELO, you need to first lock it on the network. When you want to get your CELO back, you need to unlock your CELO and you'll be able to withdraw it in three days.",
     },
     {
       question: "What is Activating of CELO?",
@@ -28,8 +28,8 @@ function How() {
         "Once your CELO is locked, and you've voted it with it. It needs to be activated the next day to start earning with it.",
     },
     {
-      question: "Am I eligible to Invest CELO?",
-      answer: "If you've CELO, you can invest with it.",
+      question: "Am I eligible to stake CELO?",
+      answer: "If you've CELO, you can stake with it.",
     },
     {
       question: "How do we suggest which group to vote on?",
@@ -47,7 +47,7 @@ function How() {
               Simplicity First, and Second.
             </p>
             <h2 className="text-gray-dark text-4xl font-medium font-serif mt-2">
-              Investing CELO is Easy, as it should be.
+              Staking CELO is Easy, as it should be.
             </h2>
             <p className="text-gray text-lg mt-5 lg:w-2/3 mx-auto">
               ChurritoFi is a simple & smart way to put CELOs to work & earn
@@ -59,14 +59,14 @@ function How() {
             <div>
               <p className="text-gray font-medium">STEP 1</p>
               <h3 className="font-serif font-medium text-3xl text-gray-dark mt-2">
-                Select the investment amount
+                Select the staking amount
               </h3>
               <div className="mt-5 lg:mt-10 flex justify-center">
                 <FeatureIllustrationOne />
               </div>
               <p className="text-gray mt-6 max-w-sm mx-auto text-lg">
                 Start earning profits with as low as 1 CELO in your wallet. The
-                more you hold & invest, the more you earn.
+                more you hold & stake, the more you earn.
               </p>
             </div>
             <div>
@@ -106,7 +106,7 @@ function How() {
               </div>
               <p className="text-gray mt-6 text-lg max-w-sm mx-auto">
                 Monitor growth as the CELOs earned in profit automatically gets
-                added to your invested CELO for compounding.
+                added to your staked CELO for compounding.
               </p>
             </div>
           </section>

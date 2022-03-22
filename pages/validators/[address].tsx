@@ -28,7 +28,7 @@ function ValidatorGroupPage() {
           <ProfileHeader VG={VG} />
           <PerformanceMetricsPanel VG={VG} />
           <ValidatorsPanel VG={VG} />
-          <Link href={`/app/invest?vg=${VG.Address}`} passHref>
+          <Link href={`/app/stake?vg=${VG.Address}`} passHref>
             <a
               target="_blank"
               className="fixed bottom-20 right-40 bg-primary hover:bg-primary-dark focus:bg-primary-dark active:bg-primary-dark-dark focus:outline-none px-14 py-3 rounded-md text-white text-lg font-medium shadow-sm transition-all"

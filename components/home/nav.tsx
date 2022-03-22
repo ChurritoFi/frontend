@@ -90,7 +90,7 @@ export default function Nav() {
                   "mt-5 bg-primary hover:bg-primary-dark focus:bg-primary-dark active:bg-primary-dark-dark focus:outline-none  px-11 py-2 rounded-md text-white text-base shadow-sm transition-all block text-center"
                 }
               >
-                Invest CELO
+                Stake CELO
               </a>
             </Link>
           </div>

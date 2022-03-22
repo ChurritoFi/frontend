@@ -7,7 +7,7 @@ import Nav from "../components/home/nav";
 function FAQ() {
   const faqs = [
     {
-      question: "How does Celo Investing work?",
+      question: "How does Celo staking work?",
       answer:
         "First, you need to lock your CELO. Once your CELO is locked, you can use that to vote on a Validator Group. If the Validator Group you vote on performs well - you earn an amount of CELO every day.",
     },
@@ -19,7 +19,7 @@ function FAQ() {
     {
       question: "What is Locking & Unlocking of CELO?",
       answer:
-        "To invest your CELO, you need to first lock it on the network. When you want to get your CELO back, you need to unlock your CELO and you'll be able to withdraw it in three days.",
+        "To stake your CELO, you need to first lock it on the network. When you want to get your CELO back, you need to unlock your CELO and you'll be able to withdraw it in three days.",
     },
     {
       question: "What is Activating of CELO?",
@@ -27,8 +27,8 @@ function FAQ() {
         "Once your CELO is locked, and you've voted it with it. It needs to be activated the next day to start earning with it.",
     },
     {
-      question: "Am I eligible to Invest CELO?",
-      answer: "If you've CELO, you can invest with it.",
+      question: "Am I eligible to stake CELO?",
+      answer: "If you've CELO, you can stake with it.",
     },
   ];
 
