@@ -161,7 +161,7 @@ export default function Footer() {
         <div className="flex flex-col">
           <div className="flex flex-1 space-x-2">
             <div className="w-1/3 space-y-5">
-              <p className="text-primary font-medium">Company</p>
+              <p className="text-primary font-medium">Project</p>
               <p>
                 <Link href="/about" passHref>
                   <a className="text-gray-dark hover:text-black underline">
@@ -372,10 +372,10 @@ export default function Footer() {
             </Link>
           </div>
           <div className="mt-10">
-            <p className="text-primary font-medium">Company</p>
+            <p className="text-primary font-medium">Project</p>
             <div className="mt-4 flex space-x-10">
               <p>
-                <Link href="/" passHref>
+                <Link href="/about" passHref>
                   <a className="text-gray-dark hover:text-black underline">
                     About us
                   </a>
