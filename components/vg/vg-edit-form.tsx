@@ -79,7 +79,7 @@ export default function VGEditForm({
 
         send("NEXT");
         toast.success("Group details updated.");
-        Fathom.trackGoal("ZX7HIDAN", 0);
+        Fathom.trackGoal("H0U4OOXH", 0);
 
         console.log("update complete");
         setTwitterOpen();

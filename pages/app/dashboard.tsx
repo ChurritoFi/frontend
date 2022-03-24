@@ -100,12 +100,14 @@ export default function dashboard() {
       // gets all VGs voted for by the user.
       fetchVotingSummary();
 
-      Fathom.trackGoal("85ZBBEN3", 0);
+      Fathom.trackGoal("H0U4OOXH", 0);
     }
   }, [address]);
 
   async function connectWallet() {
     await connect();
+
+    Fathom.trackGoal("Z3PWXCND", 0);
   }
 
   const activateVG = async () => {
