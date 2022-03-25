@@ -5,7 +5,7 @@ import useVG from "../../../hooks/useVG";
 import { ValidatorGroup } from "../../../lib/types";
 import ProfileHeader from "../../../components/vg/ProfileHeader";
 import PerformanceMetricsPanel from "../../../components/vg/PerformanceMetricPanel";
-import ValidatorsPanel from "../../../components/vg/ValidatorPanel";
+import ValidatorsPanel from "../../../components/vg/ValidatorsPanel";
 import Layout from "../../../components/app/layout";
 
 function ValidatorGroupPage() {

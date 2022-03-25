@@ -72,13 +72,13 @@ function VoteVg({
                     </button>
                   </div>
                   <div className="mt-5">
-                    <div>
+                    <div className="flex overflow-x-auto">
                       <RadioGroup value={selectedVG} onChange={setSelectedVG}>
                         <div className="relative bg-white rounded-md -space-y-px">
                           <div
                             className="grid gap-12 p-4 text-sm text-gray"
                             style={{
-                              gridTemplateColumns: "0.5fr 1fr 1fr 1fr 1fr 1fr",
+                              gridTemplateColumns: "0.5fr 2fr 1fr 1fr 1fr 1fr",
                             }}
                           >
                             <div className="text-center">Select</div>
@@ -116,7 +116,7 @@ function VoteVg({
                                     className="grid gap-12 text-gray-dark text-lg"
                                     style={{
                                       gridTemplateColumns:
-                                        "0.5fr 1fr 1fr 1fr 1fr 1fr",
+                                        "0.5fr 2fr 1fr 1fr 1fr 1fr",
                                     }}
                                   >
                                     <div

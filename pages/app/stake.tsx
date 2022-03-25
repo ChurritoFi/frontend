@@ -297,8 +297,8 @@ function Stake() {
               )}
             </div>
             <div className={`${!current.matches("idle") && "hidden"}`}>
-              <div className="flex items-end mt-5">
-                <div className="w-1/3">
+              <div className="md:flex items-end mt-5">
+                <div className="md:shrink-0 md:w-1/3">
                   <CeloInput
                     celoAmountToInvest={celoToInvest}
                     setCeloAmountToInvest={setCeloToInvest}
@@ -312,7 +312,7 @@ function Stake() {
                   in your Wallet
                 </div>
               </div>
-              <div className="mt-5 flex space-x-32">
+              <div className="mt-5 grid sm:grid-cols-2 md:grid-cols-3 gap-x-32">
                 <div className="text-gray-dark">
                   <p className="text-sm">You could be earning</p>
                   <p className="mt-2 text-lg font-medium">
@@ -483,9 +483,9 @@ function Stake() {
                     Edit Validator Group preference
                   </button>
                 </div>
-                <div className="border border-gray-light rounded-md pl-6 pr-12 py-5 mt-3">
+                <div className="border border-gray-light rounded-md pl-6 pr-12 py-5 mt-3 overflow-x-auto">
                   <div className="flex">
-                    <div className="flex items-center justify-center w-6">
+                    <div className="flex items-center justify-center">
                       <button
                         className="text-gray-dark mx-auto flex items-center justify-center rounded-full p-2 relative z-20 hover:bg-primary-light-light focus:outline-none"
                         onClick={() => setExpandedVG((curr) => !curr)}
@@ -505,14 +505,14 @@ function Stake() {
                         </svg>
                       </button>
                     </div>
-                    <div className="grid grid-cols-5 gap-9 flex-1 text-center">
-                      <div className="grid grid-rows-2 gap-2">
+                    <div className="flex flex-1 gap-9 text-center">
+                      <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Name</span>
                         <span className="text-gray-dark text-base">
                           {selectedVG?.Name}
                         </span>
                       </div>
-                      <div className="grid grid-rows-2 gap-2">
+                      <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Group Score</span>
                         <span className="text-gray-dark text-base">
                           {selectedVG?.GroupScore
@@ -521,7 +521,7 @@ function Stake() {
                           %
                         </span>
                       </div>
-                      <div className="grid grid-rows-2 gap-2">
+                      <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Performance Score</span>
                         <span className="text-gray-dark text-base">
                           {selectedVG?.PerformanceScore
@@ -530,7 +530,7 @@ function Stake() {
                           %
                         </span>
                       </div>
-                      <div className="grid grid-rows-2 gap-2">
+                      <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Transparency Score</span>
                         <span className="text-gray-dark text-base">
                           {selectedVG?.TransparencyScore
@@ -539,7 +539,7 @@ function Stake() {
                           %
                         </span>
                       </div>
-                      <div className="grid grid-rows-2 gap-2">
+                      <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Estimated APY</span>
                         <span className="text-gray-dark text-base">
                           {selectedVG?.EstimatedAPY
@@ -551,8 +551,8 @@ function Stake() {
                     </div>
                   </div>
                   {expandedVG && (
-                    <div className="pl-6 mt-5 grid grid-cols-7 text-center">
-                      <div className="grid grid-rows-2 gap-2">
+                    <div className="pl-6 mt-5 flex flex-1 gap-9 text-center">
+                      <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">
                           Elected/Total Validators
                         </span>
@@ -577,7 +577,7 @@ function Stake() {
                           ))}
                         </div>
                       </div>
-                      <div className="grid grid-rows-2 gap-2">
+                      <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Recieved Votes</span>
                         <span className="text-gray-dark text-base">
                           {selectedVG?.RecievedVotes
@@ -586,7 +586,7 @@ function Stake() {
                           CELO
                         </span>
                       </div>
-                      <div className="grid grid-rows-2 gap-2">
+                      <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Available Votes</span>
                         <span className="text-gray-dark text-base">
                           {selectedVG?.AvailableVotes
@@ -595,7 +595,7 @@ function Stake() {
                           CELO
                         </span>
                       </div>
-                      <div className="grid grid-rows-2 gap-2">
+                      <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Epochs Served</span>
                         <span className="text-gray-dark text-base">
                           {selectedVG?.EpochsServed
@@ -603,7 +603,7 @@ function Stake() {
                             : "-"}{" "}
                         </span>
                       </div>
-                      <div className="grid grid-rows-2 gap-2">
+                      <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Locked CELO</span>
                         <span className="text-gray-dark text-base">
                           {selectedVG?.LockedCelo
@@ -612,7 +612,7 @@ function Stake() {
                           CELO
                         </span>
                       </div>
-                      <div className="grid grid-rows-2 gap-2">
+                      <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Slashing Penalty</span>
                         <span className="text-gray-dark text-base">
                           {selectedVG?.SlashingPenaltyScore
@@ -620,7 +620,7 @@ function Stake() {
                             : "-"}{" "}
                         </span>
                       </div>
-                      <div className="grid grid-rows-2 gap-2">
+                      <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">
                           Attestation Percentage
                         </span>

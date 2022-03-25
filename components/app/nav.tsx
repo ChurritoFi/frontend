@@ -1,15 +1,21 @@
 import useStore from "../../store/store";
 import Link from "next/link";
 import ChurritoFi from "../icons/churritofi";
+import { Disclosure } from "@headlessui/react";
+import { MenuIcon } from "../MenuIcon";
 
-export default function nav() {
+type Props = {
+  onToggleMenu: () => void;
+};
+
+export default function nav({ onToggleMenu }: Props) {
   const user = useStore((state) => state.user);
   const network = useStore((state) => state.network);
 
   return (
-    <nav className="flex justify-between items-center px-16 py-4 shadow-md flex-shrink-0 relative z-20">
+    <nav className="flex items-center px-5 py-3 lg:px-16 shadow-md flex-shrink-0 relative z-30">
       <Link href="/" passHref>
-        <a className="flex items-center space-x-1.5">
+        <a className="flex items-center space-x-1.5 mr-auto">
           <ChurritoFi />
           <svg
             width="35"
@@ -27,9 +33,9 @@ export default function nav() {
         </a>
       </Link>
       {user.length > 0 && (
-        <div className="flex items-center">
+        <div className="flex items-center shrink truncate ml-4">
           <svg
-            className="mr-2 h-9 w-9"
+            className="mr-2 h-9 w-9 flex-none"
             viewBox="0 0 36 36"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -51,15 +57,20 @@ export default function nav() {
               fill="#D6F5E5"
             />
           </svg>
-          <div className="flex flex-col">
+          <div className="flex flex-col truncate hidden sm:block">
             <div className="flex items-center justify-end">
               <div className="ml-auto h-2 w-2 bg-secondary rounded-full mr-2.5"></div>
               <p className="text-secondary text-sm">{network}</p>
             </div>
-            <p className="text-gray text-sm mt-0.5">{user}</p>
+            <p className="text-gray text-sm mt-0.5 truncate">{user}</p>
           </div>
         </div>
       )}
+      <div className="lg:hidden flex items-center justify-center ml-4">
+        <div onClick={onToggleMenu}>
+          <MenuIcon />
+        </div>
+      </div>
     </nav>
   );
 }

@@ -141,7 +141,7 @@ export default function dashboard() {
           <div>
             <div className="text-gray-dark">
               <h3 className="text-2xl font-medium">Welcome, celo holder!</h3>
-              <p className="mt-2.5 text-gray text-lg w-4/5">
+              <p className="mt-2.5 text-gray text-lg lg:w-4/5">
                 Safest way to put your CELOs to work &amp; earn profits on the
                 go! All you need to get started is a Celo Wallet &amp; some
                 CELOs in it. Staking CELOs has never been this easy. Let’s get
@@ -192,7 +192,7 @@ export default function dashboard() {
                 </Switch.Group>
               </p>
             </div>
-            <div className="mt-10 h-36">
+            <div className="mt-10">
               {loadingAccountData && (
                 <div className="h-full flex justify-center items-center">
                   <Loader type="Oval" color="#35d07f" height={60} width={60} />

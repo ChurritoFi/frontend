@@ -5,7 +5,7 @@ import { Validator, ValidatorGroup } from "../../lib/types";
 import useStore from "../../store/vg-store";
 import PerformanceMetricsPanel from "./PerformanceMetricPanel";
 import TransparencyScoreBar from "./transparency-score-bar";
-import ValidatorsPanel from "./ValidatorPanel";
+import ValidatorsPanel from "./ValidatorsPanel";
 import WelcomeHeading from "./welcome-heading";
 
 const formatter = new Intl.NumberFormat("en-US");

@@ -340,7 +340,7 @@ function vote() {
               style={{ width: calculateBarWidth(activeCELO, totalLockedCELO) }}
             ></div>
           </div>
-          <ul className="mt-5 grid grid-cols-3 gap-10">
+          <ul className="mt-5 grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             <li className="px-10 py-7 flex flex-col border border-gray-light rounded-md space-y-2.5">
               <div className="flex justify-between items-center">
                 <div className={`flex items-center text-secondary-dark`}>
@@ -413,7 +413,7 @@ function vote() {
             <h3 className="text-2xl text-gray-dark font-medium">
               Vote/Revoke for Validator Group
             </h3>
-            <div className="grid grid-cols-3 gap-10 mt-8">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10 mt-8">
               <div>
                 <Select
                   options={options}

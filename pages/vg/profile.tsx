@@ -8,7 +8,7 @@ import useVG from "../../hooks/useVG";
 
 import Loading from "../../components/Loading";
 import PerformanceMetricsPanel from "../../components/vg/PerformanceMetricPanel";
-import ValidatorsPanel from "../../components/vg/ValidatorPanel";
+import ValidatorsPanel from "../../components/vg/ValidatorsPanel";
 import ProfileHeader from "../../components/vg/ProfileHeader";
 
 export default function Profile() {

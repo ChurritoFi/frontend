@@ -56,6 +56,7 @@ export default function layout({ children }: layoutProps) {
       icon: "/assets/nav/nav-how-it-works",
     },
   ];
+  const [isMenuOpen, setMenuOpen] = useState(false);
   const { address, network, updateNetwork, destroy, kit } = useContractKit();
 
   const router = useRouter();
@@ -88,16 +89,20 @@ export default function layout({ children }: layoutProps) {
 
   return (
     <>
-      <div className="h-screen overflow-hidden hidden flex-col lg:flex">
+      <div className="h-screen overflow-hidden flex-col flex">
         <ToastContainer
           className="space-y-2"
           toastClassName={({ type }) =>
             `${toastClasses[type]} relative flex p-3 rounded justify-between overflow-hidden cursor-pointer`
           }
         />
-        <Nav />
-        <div className="flex-1 flex overflow-hidden">
-          <div className="bg-primary-light-light w-64 flex flex-col flex-shrink-0">
+        <Nav onToggleMenu={() => setMenuOpen((value) => !value)} />
+        <div className="flex-1 flex overflow-hidden relative">
+          <div
+            className={`bg-primary-light-light w-64 flex flex-col flex-shrink-0 absolute left-0 top-0 bottom-0 transform ${
+              isMenuOpen ? "" : "-translate-x-full"
+            } lg:relative lg:translate-x-0 transition duration-200 ease-in-out z-20`}
+          >
             <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
               <nav className="mt-7 flex-1 px-2.5 space-y-4">
                 {navigation.map((item) => {
@@ -159,7 +164,6 @@ export default function layout({ children }: layoutProps) {
           <main className="flex-1 p-16 overflow-y-auto">{children}</main>
         </div>
       </div>
-      <Mobile />
     </>
   );
 }

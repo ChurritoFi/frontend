@@ -153,7 +153,7 @@ export default EpochRewardGraph;
 
 const RewardsGraph = ({ rewards }: { rewards: any[] }) => (
   <div className="flex items-center justify-center mt-10">
-    <ResponsiveContainer width={"100%"} aspect={4}>
+    <ResponsiveContainer width="100%" height={300}>
       <LineChart
         data={rewards}
         margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
