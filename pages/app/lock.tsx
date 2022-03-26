@@ -181,7 +181,7 @@ function vote() {
             </span>
           </h3>
         </header>
-        <main className="mt-10">
+        <main className="mt-5 lg:mt-10">
           <div className="border border-white rounded-full h-3 flex overflow-hidden">
             <div
               className="bg-primary h-full"
@@ -222,8 +222,8 @@ function vote() {
               }}
             ></div>
           </div>
-          <ul className="mt-5 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-            <li className="px-10 py-7 flex flex-col border border-gray-light rounded-md space-y-2.5">
+          <ul className="mt-5 grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-10">
+            <li className="p-5 lg:p-10 flex flex-col border border-gray-light rounded-md space-y-2.5">
               <div className="flex justify-between items-center">
                 <div className={`flex items-center text-primary`}>
                   <CeloCoin />
@@ -246,7 +246,7 @@ function vote() {
                   .toFormat(2)}
               </p>
             </li>
-            <li className="px-10 py-7 flex flex-col border border-gray-light rounded-md space-y-2.5">
+            <li className="p-5 lg:p-10 flex flex-col border border-gray-light rounded-md space-y-2.5">
               <div className="flex justify-between items-center">
                 <div className={`flex items-center text-secondary`}>
                   <CeloCoin />
@@ -273,7 +273,7 @@ function vote() {
                   .toFormat(2)}
               </p>
             </li>
-            <li className="px-10 py-7 flex flex-col border border-gray-light rounded-md space-y-2.5">
+            <li className="p-5 lg:p-10 flex flex-col border border-gray-light rounded-md space-y-2.5">
               <div className="flex justify-between items-center">
                 <div className={`flex items-center text-primary-light`}>
                   <CeloCoin />
@@ -298,7 +298,7 @@ function vote() {
                   .toFormat(2)}
               </p>
             </li>
-            <li className="px-10 py-7 flex flex-col border border-gray-light rounded-md space-y-2.5">
+            <li className="p-5 lg:p-10 flex flex-col border border-gray-light rounded-md space-y-2.5">
               <div className="flex justify-between items-center">
                 <div className={`flex items-center text-accent-dark`}>
                   <CeloCoin />
@@ -322,11 +322,11 @@ function vote() {
               </p>
             </li>
           </ul>
-          <div className="mt-10 px-10 py-8 border border-gray-light rounded-md">
+          <div className="mt-5 lg:mt-10 p-5 lg:p-10 border border-gray-light rounded-md">
             <h3 className="text-2xl text-gray-dark font-medium">
               Lock/Unlock CELO
             </h3>
-            <div className="grid md:grid-cols-2 gap-10 mt-8">
+            <div className="grid md:grid-cols-2 gap-5 lg:gap-10 mt-4 lg:mt-8">
               <div>
                 <Select
                   options={options}

@@ -292,9 +292,9 @@ function Withdraw() {
           Withdraw staked CELO
         </h3>
         <div>
-          <div className="mt-10 pt-8">
+          <div className="mt-5 lg:mt-10 pt-4 lg:pt-8">
             <h3 className="text-xl font-medium">Current Withdrawals</h3>
-            <div className="overflow-hidden border border-gray-light rounded-lg shadow-sm mt-5">
+            <div className="overflow-x-auto border border-gray-light rounded-lg shadow-sm mt-5">
               <table className="min-w-full divide-y divide-gray-light">
                 <thead className="border-b border-gray-light text-gray">
                   <tr>
@@ -380,9 +380,9 @@ function Withdraw() {
               })()}
             </div>
           </div>
-          <div className="mt-10 pt-8">
+          <div className="mt-5 lg:mt-10 pt-4 lg:pt-8">
             <h3 className="text-xl font-medium">Current Staking Summary</h3>
-            <div className="overflow-hidden border border-gray-light rounded-lg shadow-sm mt-5">
+            <div className="overflow-x-auto border border-gray-light rounded-lg shadow-sm mt-5">
               <table className="min-w-full divide-y divide-gray-light">
                 <thead className="border-b border-gray-light text-gray">
                   <tr>
@@ -407,7 +407,7 @@ function Withdraw() {
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-4 text-center font-normal text-sm  tracking-wider"
+                      className="px-6 py-4 text-center font-normal text-sm  tracking-wider bg-white sticky right-0"
                     >
                       Withdraw staked CELO
                     </th>
@@ -426,7 +426,7 @@ function Withdraw() {
                       <td className="px-6 py-4 whitespace-nowrap text-center text-gray-dark">
                         {group.active.plus(group.pending).div(1e18).toFormat(2)}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-center text-gray-dark">
+                      <td className="px-6 py-4 whitespace-nowrap text-center text-gray-dark bg-white sticky right-0">
                         <button
                           disabled={!group.active.gt(0)}
                           className="border-2 rounded-md  text-alert font-medium shadow-sm text-base px-4 py-2 disabled:opacity-50 hover:border-alert-dark hover:text-alert-dark focus:border-alert-dark focus:text-alert-dark focus:outline-none active:bg-alert-light-light active:border-alert-dark-dark active:text-alert-dark-dark"

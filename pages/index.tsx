@@ -44,12 +44,12 @@ export default function Home() {
   return (
     <div>
       <Nav />
-      <main className="md:mb-32 md:mt-52 mt-32 mb-16 px-10 lg:px-36">
+      <main className="mb-16 md:mb-32 mt-32 md:mt-52 px-10 lg:px-36">
         <div className="lg:grid lg:grid-cols-2">
           <div className="text-gray-dark text-center lg:text-left">
             <div className="text-secondary text-sm">Stake • Earn • Grow</div>
             <h2 className="mt-3 font-serif font-medium text-4xl">
-              Earn Profits by staking CELO
+              Earn Profits by Staking CELO
             </h2>
             <p className="mt-5 leading-relaxed">
               Simple & smart way to put CELOs to work & earn profits on the go!

@@ -243,14 +243,14 @@ function Stake() {
         />
 
         <h1 className="text-2xl font-medium text-gray-dark">Stake CELO</h1>
-        <main className="space-y-10 mt-10">
+        <main className="space-y-5 lg:space-y-10 mt-5 lg:mt-10">
           {/* Amount Panel */}
           <div
             className={`border ${
               current.matches("idle")
                 ? "border-gray-light"
                 : "border-primary bg-primary-light-light"
-            } rounded-md py-8 px-10`}
+            } rounded-md p-5 lg:p-10`}
           >
             <div className="flex justify-between items-center">
               <div className="flex items-center justify-start  space-x-3">
@@ -392,7 +392,7 @@ function Stake() {
               current.matches("idle") || current.matches("voting")
                 ? "border-gray-light"
                 : "border-primary bg-primary-light-light"
-            } rounded-md py-8 px-10`}
+            } rounded-md p-5 lg:p-10`}
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center justify-start space-x-3">
@@ -647,7 +647,7 @@ function Stake() {
           </div>
 
           {/* Activate Votes Panel */}
-          <div className="border border-gray-light rounded-md py-8 px-10">
+          <div className="border border-gray-light rounded-md p-5 lg:p-10">
             <div className="flex items-center justify-start space-x-3">
               <h3 className="text-gray-dark text-xl">
                 Step 3: Activate Staking

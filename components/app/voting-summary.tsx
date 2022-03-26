@@ -13,7 +13,7 @@ export default function VotingSummary({
   showWithdraw?: boolean;
 }) {
   return (
-    <div className="mt-10 pt-8 text-gray-dark">
+    <div className="mt-5 lg:mt-10 text-gray-dark">
       <ReactTooltip place="top" type="dark" effect="solid" />
       <div className="flex justify-start space-x-3 items-center">
         <h3 className="text-xl font-medium">
@@ -28,7 +28,7 @@ export default function VotingSummary({
           <InfoIcon />
         </button>
       </div>
-      <div className="overflow-hidden border border-gray-light rounded-lg shadow-sm mt-5">
+      <div className="overflow-x-auto border border-gray-light rounded-lg shadow-sm mt-5">
         <table className="min-w-full divide-y divide-gray-light">
           <thead className="border-b border-gray-light">
             <tr>

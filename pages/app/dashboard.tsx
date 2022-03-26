@@ -148,7 +148,7 @@ export default function dashboard() {
                 started by connecting your Celo Wallet...
               </p>
             </div>
-            <div className="mt-24 flex flex-col justify-center items-center">
+            <div className="mt-12 lg:mt-24 flex flex-col justify-center items-center">
               <img src="/assets/wallet.svg" />
               <button
                 className="text-white bg-primary rounded-md px-10 py-3 mt-14 space-x-3 flex items-center"
@@ -192,7 +192,7 @@ export default function dashboard() {
                 </Switch.Group>
               </p>
             </div>
-            <div className="mt-10">
+            <div className="mt-5 lg:mt-10">
               {loadingAccountData && (
                 <div className="h-full flex justify-center items-center">
                   <Loader type="Oval" color="#35d07f" height={60} width={60} />

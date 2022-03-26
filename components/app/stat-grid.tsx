@@ -21,7 +21,7 @@ export default function StatGrid({
 
   return (
     <>
-      <ul className={`text-gray-dark grid gap-10 md:grid-cols-2 lg:grid-cols-4`}>
+      <ul className={`text-gray-dark grid gap-5 lg:gap-10 sm:grid-cols-2 lg:grid-cols-4`}>
         {advanced ? (
           <>
             <StatCard

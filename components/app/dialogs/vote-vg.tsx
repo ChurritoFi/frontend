@@ -76,7 +76,7 @@ function VoteVg({
                       <RadioGroup value={selectedVG} onChange={setSelectedVG}>
                         <div className="relative bg-white rounded-md -space-y-px">
                           <div
-                            className="grid gap-12 p-4 text-sm text-gray"
+                            className="grid gap-5 lg:gap-12 p-4 text-sm text-gray"
                             style={{
                               gridTemplateColumns: "0.5fr 2fr 1fr 1fr 1fr 1fr",
                             }}
@@ -113,7 +113,7 @@ function VoteVg({
                               {({ active, checked }) => (
                                 <>
                                   <div
-                                    className="grid gap-12 text-gray-dark text-lg"
+                                    className="grid gap-5 lg:gap-12 text-gray-dark text-lg"
                                     style={{
                                       gridTemplateColumns:
                                         "0.5fr 2fr 1fr 1fr 1fr 1fr",

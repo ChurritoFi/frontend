@@ -90,7 +90,7 @@ function EpochRewardGraph({
   }, [rewards, selected]);
 
   return (
-    <div className="mt-10 px-10 py-8 border border-gray-light rounded-md relative overflow-hidden">
+    <div className="mt-5 lg:mt-10 px-5 lg:px-10 py-4 lg:py-8 border border-gray-light rounded-md relative overflow-hidden">
       <Transition
         show={status !== STATES.hasRewards}
         enter="transition-opacity duration-100"
@@ -138,7 +138,7 @@ const Header = ({
     <h3 className="text-gray-dark text-xl font-medium">
       Profits earned on staked CELO
     </h3>
-    <div className="w-1/4">
+    <div className="w-1/2 lg:w-1/4">
       <Select
         options={OPTIONS}
         selected={selected}
@@ -152,7 +152,7 @@ const Header = ({
 export default EpochRewardGraph;
 
 const RewardsGraph = ({ rewards }: { rewards: any[] }) => (
-  <div className="flex items-center justify-center mt-10">
+  <div className="flex items-center justify-center mt-5 lg:mt-10">
     <ResponsiveContainer width="100%" height={300}>
       <LineChart
         data={rewards}

@@ -170,7 +170,7 @@ export default function layout({ children }: layoutProps) {
               )}
             </div>
           </div>
-          <main className="flex-1 p-16 overflow-hidden">{children}</main>
+          <main className="flex-1 p-5 lg:p-16 overflow-hidden">{children}</main>
         </div>
       </div>
     </>

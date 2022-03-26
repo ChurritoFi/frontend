@@ -39,7 +39,7 @@ function How() {
   ];
 
   return (
-    <div className="px-10 lg:px-36">
+    <div>
       <div className="w-full flex justify-center">
         <div className="text-center">
           <div>
@@ -55,7 +55,7 @@ function How() {
               and some CELOs in it.
             </p>
           </div>
-          <section className="mt-32 mb-20 space-y-28">
+          <section className="mt-16 lg:mt-32 mb-10 lg:mb-20 space-y-14 lg:space-y-28">
             <div>
               <p className="text-gray font-medium">STEP 1</p>
               <h3 className="font-serif font-medium text-3xl text-gray-dark mt-2">

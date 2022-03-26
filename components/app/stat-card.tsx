@@ -27,7 +27,7 @@ export default function StatCard({
   return (
     <>
       <ReactTooltip place="top" type="dark" effect="solid" />
-      <li className="px-10 py-7 flex flex-col border border-gray-light rounded-md space-y-2.5">
+      <li className="p-5 lg:p-10 flex flex-col border border-gray-light rounded-md space-y-2.5">
         <div className="flex justify-between items-center">
           <div className={`flex items-center ${labelColor}`}>
             <CeloCoin />
