@@ -487,7 +487,7 @@ function Stake() {
                   <div className="flex">
                     <div className="flex items-center justify-center">
                       <button
-                        className="text-gray-dark mx-auto flex items-center justify-center rounded-full p-2 relative z-20 hover:bg-primary-light-light focus:outline-none"
+                        className="text-gray-dark mx-auto flex items-center justify-center rounded-full p-2 relative z-10 hover:bg-primary-light-light focus:outline-none"
                         onClick={() => setExpandedVG((curr) => !curr)}
                       >
                         <svg
