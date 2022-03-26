@@ -13,7 +13,7 @@ export default function nav({ onToggleMenu }: Props) {
   const network = useStore((state) => state.network);
 
   return (
-    <nav className="flex items-center px-5 py-3 lg:px-16 shadow-md flex-shrink-0 relative z-30">
+    <nav className="flex flex-shrink-0 items-center bg-white sticky inset-x-0 top-0 px-5 py-3 lg:px-16 shadow-md z-30">
       <Link href="/" passHref>
         <a className="flex items-center space-x-1.5 mr-auto">
           <ChurritoFi />
