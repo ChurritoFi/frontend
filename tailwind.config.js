@@ -1,5 +1,10 @@
 module.exports = {
-  purge: [],
+  mode: "jit", // can be removed with tailwind 3
+  purge: [
+    './public/**/*.html',
+    './pages/**/*.{js,jsx,ts,tsx}',
+    './components/**/*.{js,jsx,ts,tsx}',
+  ],
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {

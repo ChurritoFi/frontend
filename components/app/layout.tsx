@@ -87,9 +87,6 @@ export default function layout({ children }: layoutProps) {
     }
   }, [userConnected]);
 
-  // TODO: measure it
-  const headerHeight = 66;
-
   return (
     <>
       <div className="flex-col flex">
@@ -107,11 +104,8 @@ export default function layout({ children }: layoutProps) {
             } lg:relative lg:translate-x-0 transition duration-200 ease-in-out z-20`}
           >
             <div
-              className="flex flex-col pt-5 pb-4 sticky bottom-0"
-              style={{
-                top: `${headerHeight}px`,
-                height: `calc(100vh - ${headerHeight}px)`,
-              }}
+              // 14 is the header height
+              className="flex flex-col pt-5 pb-4 sticky top-14 bottom-0 h-[calc(100vh-theme(space.14))]"
             >
               <nav className="mt-7 flex-1 px-2.5 space-y-4">
                 {navigation.map((item) => {
