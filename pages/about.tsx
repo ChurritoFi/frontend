@@ -59,8 +59,8 @@ function About() {
                 </p>
                 <p className="text-sm text-gray mt-1">Project Lead</p>
                 <div className="mt-2 text-secondary-light-light">
-                  <a href="https://jeanregisser.com/" target="_blank">
-                    <FaGlobe />
+                  <a href="https://twitter.com/jeanregisser" target="_blank">
+                    <FaTwitter />
                   </a>
                 </div>
               </div>
@@ -105,7 +105,7 @@ function About() {
                 </p>
                 <p className="text-sm text-gray mt-1">Product Manager</p>
                 <div className="mt-2 text-secondary-light-light">
-                  <a href="https://twitter.com/prasang_7" target="_blank">
+                  <a href="https://twitter.com/prasang7_" target="_blank">
                     <FaTwitter />
                   </a>
                 </div>

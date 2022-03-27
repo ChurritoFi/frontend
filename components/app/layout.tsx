@@ -89,7 +89,7 @@ export default function layout({ children }: layoutProps) {
 
   return (
     <>
-      <div className="flex-col flex">
+      <div className="flex-col flex min-h-screen">
         <ToastContainer
           className="space-y-2"
           toastClassName={({ type }) =>
