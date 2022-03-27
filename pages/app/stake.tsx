@@ -675,7 +675,7 @@ function Stake() {
                 </span>{" "}
                 to activate your stake and start earning rewards.
               </p>
-              <div className="mt-5 grid grid-cols-2 gap-5">
+              <div className="mt-5 grid lg:grid-cols-2 gap-5">
                 <button
                   className="text-primary flex items-center justify-center border-2 border-primary bg-white font-medium py-2 w-full text-lg rounded-md"
                   onClick={() => setReminderModalOpen(true)}
