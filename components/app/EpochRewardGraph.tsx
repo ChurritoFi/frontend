@@ -77,7 +77,7 @@ function EpochRewardGraph({
       let epochDate = subDays(currentDate, offset);
       rewardsDisplay.push({
         epoch: `${epochDate.getUTCDate()}/${epochDate.getUTCMonth() + 1}`,
-        reward: currentReward.div(1e18).toNumber().toFixed(4),
+        reward: new BigNumber(currentReward.div(1e18).toFixed(4)).toNumber(),
       });
       offset--;
     }
@@ -152,7 +152,7 @@ const Header = ({
 export default EpochRewardGraph;
 
 const RewardsGraph = ({ rewards }: { rewards: any[] }) => (
-  <div className="flex items-center justify-center mt-5 lg:mt-10">
+  <div className="flex items-center justify-center mt-5 lg:mt-10 -ml-5">
     <ResponsiveContainer width="100%" height={300}>
       <LineChart
         data={rewards}
