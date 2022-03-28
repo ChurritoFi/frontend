@@ -78,7 +78,7 @@ export default function PerformanceMetricsPanel({
             className="text-sm text-gray"
             data-tip="Votes received by the Validator Group"
           >
-            Recieved Votes
+            Received Votes
           </p>
           <p className="text-base font-medium">
             {formatter.format(VG.RecievedVotes)} CELO

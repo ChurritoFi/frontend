@@ -33,7 +33,7 @@ export default function dashboard() {
   const [votingSummary, setVotingSummary] = useState<GroupVoting[]>([]);
   const [loadingVotingSummary, setLoadingVotingSummary] =
     useState<boolean>(false);
-  const [advanceEnabled, setAdvanceEnabled] = useState<boolean>(false);
+  const [advancedEnabled, setAdvancedEnabled] = useState<boolean>(false);
   const [loadingAccountData, setLoadingAccountData] = useState<boolean>(false);
   const [pendingVotes, setPendingVotes] = useState<BigNumber>(new BigNumber(0));
 
@@ -168,24 +168,24 @@ export default function dashboard() {
                   <Switch.Label as="span" className="mr-3">
                     <span
                       className={`${
-                        advanceEnabled ? "text-primary" : "text-gray"
+                        advancedEnabled ? "text-primary" : "text-gray"
                       } text-medium`}
                     >
-                      Advance View
+                      Advanced View
                     </span>
                   </Switch.Label>
                   <Switch
-                    checked={advanceEnabled}
-                    onChange={setAdvanceEnabled}
+                    checked={advancedEnabled}
+                    onChange={setAdvancedEnabled}
                     className={`${
-                      advanceEnabled ? "bg-primary" : "bg-gray-light"
+                      advancedEnabled ? "bg-primary" : "bg-gray-light"
                     }
                       relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-gray-light rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary`}
                   >
                     <span
                       aria-hidden="true"
                       className={`${
-                        advanceEnabled ? "translate-x-5" : "translate-x-0"
+                        advancedEnabled ? "translate-x-5" : "translate-x-0"
                       } pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200`}
                     />
                   </Switch>
@@ -209,7 +209,7 @@ export default function dashboard() {
                 leaveTo="opacity-0"
               >
                 <StatGrid
-                  advanced={advanceEnabled}
+                  advanced={advancedEnabled}
                   pendingVotes={pendingVotes}
                 />
               </Transition>
@@ -220,7 +220,7 @@ export default function dashboard() {
             <VotingSummary
               votingSummary={votingSummary}
               loading={loadingVotingSummary}
-              showWithdraw={!advanceEnabled}
+              showWithdraw={!advancedEnabled}
             />
           </div>
         )}

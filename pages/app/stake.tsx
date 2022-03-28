@@ -578,7 +578,7 @@ function Stake() {
                         </div>
                       </div>
                       <div className="flex-1 grid grid-rows-2 gap-2">
-                        <span className="text-gray">Recieved Votes</span>
+                        <span className="text-gray">Received Votes</span>
                         <span className="text-gray-dark text-base">
                           {selectedVG?.RecievedVotes
                             ? formatter.format(selectedVG.RecievedVotes)
