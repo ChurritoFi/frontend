@@ -11,7 +11,7 @@ function ActivateVG({ open, activate }: { open: boolean; activate(): void }) {
       enterFrom="translate-y-32"
       enterTo="translate-y-0"
     >
-      <div className="bg-white shadow-lg sm:rounded-lg fixed bottom-12 right-12 border border-primary-light-light max-w-md z-30">
+      <div className="bg-white shadow-lg sm:rounded-lg fixed bottom-0 left-0 right-0 sm:bottom-12 sm:left-auto sm:right-12 border border-primary-light-light sm:max-w-md z-30">
         <div className="p-6">
           <h3 className="text-xl leading-6 font-medium text-gray-dark">
             Activate your votes
