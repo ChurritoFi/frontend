@@ -11,7 +11,7 @@ function validateEmail(email) {
 
 async function addReminder(action, email) {
   const resp = await axios.post(
-    "https://churrofi-reminders.onrender.com/reminder",
+    `${process.env.NEXT_PUBLIC_REMINDER_BASE_URL}/addReminder`,
     {
       action,
       email,
