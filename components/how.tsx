@@ -25,11 +25,11 @@ function How() {
     {
       question: "What is Activating of CELO?",
       answer:
-        "Once your CELO is locked, and you've voted it with it. It needs to be activated the next day to start earning with it.",
+        "Once your CELO is locked, and you've voted it with it. It needs to be activated the next day to start earning rewards.",
     },
     {
       question: "Am I eligible to stake CELO?",
-      answer: "If you've CELO, you can stake with it.",
+      answer: "If you've CELO, you can stake it.",
     },
     {
       question: "How do we suggest which group to vote on?",
@@ -50,9 +50,9 @@ function How() {
               Staking CELO is Easy, as it should be.
             </h2>
             <p className="text-gray text-lg mt-5 lg:w-2/3 mx-auto">
-              ChurritoFi is a simple & smart way to put CELOs to work & earn
-              profits on the go! All you need to get started is a Celo Wallet
-              and some CELOs in it.
+              ChurritoFi is a simple & smart way to put CELO to work & earn
+              rewards on the go! All you need to get started is a Celo Wallet
+              and some CELO in it.
             </p>
           </div>
           <section className="mt-16 lg:mt-32 mb-10 lg:mb-20 space-y-14 lg:space-y-28">
@@ -65,7 +65,7 @@ function How() {
                 <FeatureIllustrationOne />
               </div>
               <p className="text-gray mt-6 max-w-sm mx-auto text-lg">
-                Start earning profits with as low as 1 CELO in your wallet. The
+                Start earning rewards with as low as 1 CELO in your wallet. The
                 more you hold & stake, the more you earn.
               </p>
             </div>
@@ -99,13 +99,13 @@ function How() {
             <div>
               <p className="text-gray font-medium">All set!</p>
               <h3 className="font-serif font-medium text-3xl text-gray-dark mt-2">
-                Earn Profits & Monitor Growth
+                Earn Rewards & Monitor Growth
               </h3>
               <div className="mt-10 flex justify-center">
                 <Report />
               </div>
               <p className="text-gray mt-6 text-lg max-w-sm mx-auto">
-                Monitor growth as the CELOs earned in profit automatically gets
+                Monitor growth as the CELO rewards automatically get
                 added to your staked CELO for compounding.
               </p>
             </div>

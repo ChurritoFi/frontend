@@ -21,7 +21,9 @@ export default function StatGrid({
 
   return (
     <>
-      <ul className={`text-gray-dark grid gap-5 lg:gap-10 sm:grid-cols-2 lg:grid-cols-4`}>
+      <ul
+        className={`text-gray-dark grid gap-5 lg:gap-10 sm:grid-cols-2 lg:grid-cols-4`}
+      >
         {advanced ? (
           <>
             <StatCard
@@ -29,7 +31,7 @@ export default function StatGrid({
               labelColor="text-gray-dark"
               value={balances.totalCelo}
               tipText={
-                "Total CELOs present in your account, including Unlocked, Locked & Activated CELOs"
+                "Total CELO present in your account, including Unlocked, Locked & Activated CELO"
               }
               exchangeRate={exchangeRate}
             />
@@ -63,7 +65,7 @@ export default function StatGrid({
               value={balances.totalCelo}
               exchangeRate={exchangeRate}
               tipText={
-                "Total CELO present in your account, including Staked & Waiting for Activation CELOs."
+                "Total CELO present in your account, including Staked & Waiting for Activation CELO."
               }
             />
             <StatCard

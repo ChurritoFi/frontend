@@ -124,8 +124,8 @@ export default function Footer() {
             </a>
           </Link>
           <div className="mt-4">
-            Simple & smart way to put CELOs to work & earn profits on the go!
-            Staking CELOs has never been this easy. Let’s get started...
+            Simple & smart way to put CELO to work & earn rewards on the go!
+            Staking CELO has never been this easy. Let’s get started...
           </div>
           <div className="mt-10 flex flex-wrap">
             <Link href="/app/dashboard" passHref>
@@ -356,8 +356,8 @@ export default function Footer() {
             </a>
           </Link>
           <div className="mt-4">
-            Simple & smart way to put CELOs to work & earn profits on the go!
-            Staking CELOs has never been this easy. Let’s get started...
+            Simple & smart way to put CELO to work & earn rewards on the go!
+            Staking CELO has never been this easy. Let’s get started...
           </div>
           <div className="mt-10 flex flex-col flex-wrap">
             <Link href="/app/dashboard" passHref>

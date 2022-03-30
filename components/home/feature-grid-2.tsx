@@ -12,7 +12,7 @@ export default function SecondFeatureGrid() {
     {
       asset: <Bag />,
       heading: "Earn Voter-Rewards",
-      subtext: "Put your CELOs to work and earn Voter-Rewards.",
+      subtext: "Put your CELO to work and earn Voter-Rewards.",
     },
     {
       asset: <Document />,

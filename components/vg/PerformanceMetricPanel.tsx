@@ -109,7 +109,7 @@ export default function PerformanceMetricsPanel({
         <div className="grid grid-rows-2 gap-1 text-center">
           <p
             className="text-sm text-gray"
-            data-tip="Amount of CELOs locked by the Validator Group."
+            data-tip="Amount of CELO locked by the Validator Group."
           >
             Locked CELO
           </p>

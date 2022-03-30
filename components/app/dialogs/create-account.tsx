@@ -93,7 +93,7 @@ function CreateAccount() {
                     </Dialog.Title>
                     <Dialog.Description as="p" className="mt-5 text-gray">
                       It seems there is no Account created for this Wallet
-                      Address yet. Create an Account & start staking your CELOs.
+                      Address yet. Create an Account & start staking your CELO.
                     </Dialog.Description>
                     <div className="mt-8">
                       <CreateAccountAsset />

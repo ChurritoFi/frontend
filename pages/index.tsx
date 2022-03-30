@@ -49,14 +49,14 @@ export default function Home() {
           <div className="text-gray-dark text-center lg:text-left">
             <div className="text-secondary text-sm">Stake • Earn • Grow</div>
             <h2 className="mt-3 font-serif font-medium text-4xl">
-              Earn Profits by Staking CELO
+              Earn Rewards by Staking CELO
             </h2>
             <p className="mt-5 leading-relaxed">
-              Simple & smart way to put CELOs to work & earn profits on the go!
+              Simple & smart way to put CELO to work & earn rewards on the go!
               <br />
-              All you need to get started is a Celo Wallet and some CELOs in it.
+              All you need to get started is a Celo Wallet and some CELO in it.
               <br />
-              Staking CELOs has never been this easy. Let’s get started.
+              Staking CELO has never been this easy. Let’s get started.
             </p>
             <div className="mt-10">
               <HeroIllustration />
@@ -114,7 +114,7 @@ export default function Home() {
           </div> */}
           <div className="text-center">
             <p className="text-gray text-sm">A simple and smart way of</p>
-            <p className="mt-3 text-3xl font-serif">Putting CELOs to Work</p>
+            <p className="mt-3 text-3xl font-serif">Putting CELO to Work</p>
             <FeatureGrid />
           </div>
         </div>
@@ -214,10 +214,10 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row items-center lg:justify-between p-8 lg:p-16">
             <div>
               <h4 className="text-xl text-gray-dark font-medium">
-                Ready to Earn Profits?
+                Ready to Earn Rewards?
               </h4>
               <p className="mt-3 text-gray-dark max-w-md">
-                Start earning maximum Profits by staking your CELOs based on our
+                Start earning maximum rewards by staking your CELO based on our
                 Recommendations-Algorithm.
               </p>
             </div>

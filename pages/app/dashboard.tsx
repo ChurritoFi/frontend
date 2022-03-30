@@ -142,10 +142,10 @@ export default function dashboard() {
             <div className="text-gray-dark">
               <h3 className="text-2xl font-medium">Welcome, celo holder!</h3>
               <p className="mt-2.5 text-gray text-lg lg:w-4/5">
-                Safest way to put your CELOs to work &amp; earn profits on the
-                go! All you need to get started is a Celo Wallet &amp; some
-                CELOs in it. Staking CELOs has never been this easy. Let’s get
-                started by connecting your Celo Wallet...
+                Safest way to put your CELO to work &amp; earn rewards on the
+                go! All you need to get started is a Celo Wallet &amp; some CELO
+                in it. Staking CELO has never been this easy. Let’s get started
+                by connecting your Celo Wallet...
               </p>
             </div>
             <div className="mt-12 lg:mt-24 flex flex-col justify-center items-center">

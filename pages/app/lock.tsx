@@ -252,7 +252,7 @@ function vote() {
                   <CeloCoin />
                   <h4 className="text-sm font-medium ml-2.5">Locked CELO</h4>
                 </div>
-                <button data-tip="CELOs held in escrow at the Locked Gold contract.">
+                <button data-tip="CELO held in escrow at the Locked Gold contract.">
                   <InfoIcon />
                 </button>
               </div>

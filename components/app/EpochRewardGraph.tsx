@@ -136,7 +136,7 @@ const Header = ({
 }) => (
   <div className="flex justify-between items-center">
     <h3 className="text-gray-dark text-xl font-medium">
-      Profits earned on staked CELO
+      Rewards earned on staked CELO
     </h3>
     <div className="w-1/2 lg:w-1/4">
       <Select

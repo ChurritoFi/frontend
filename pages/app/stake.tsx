@@ -266,7 +266,7 @@ function Stake() {
                 {current.matches("idle") ? (
                   <div
                     className="-mb-1"
-                    data-tip="This is the amount of CELOs you want to stake to gain profits."
+                    data-tip="This is the amount of CELO you want to stake to gain rewards."
                   >
                     <InfoIcon />
                   </div>
@@ -419,7 +419,7 @@ function Stake() {
                 ) : (
                   <button
                     className="-mb-1"
-                    data-tip="In order to stake CELOs, you need to cast vote towards electing Validator Groups on the network."
+                    data-tip="In order to stake CELO, you need to cast vote towards electing Validator Groups on the network."
                   >
                     <InfoIcon />
                   </button>
@@ -446,7 +446,7 @@ function Stake() {
                     </li>
                     <li>
                       When the Validator Groups you vote for performs well - you
-                      earn CELOs. It's that simple!
+                      earn CELO. It's that simple!
                     </li>
                   </ul>
                   You don't have to go through the hustle of deciding which
@@ -666,7 +666,7 @@ function Stake() {
             >
               <p className="text-gray text-lg mt-5">Almost there!</p>
               <p className="text-gray mt-3">
-                To finish staking & start earning profits - please return back
+                To finish staking & start earning rewards - please return back
                 in{" "}
                 <span className="text-primary text-lg">
                   {`${hoursToNextEpoch} ${
@@ -710,7 +710,7 @@ function Stake() {
                 </button>
                 <a
                   className="text-primary flex items-center justify-center border-2 border-primary bg-white font-medium py-2 w-full text-lg rounded-md"
-                  href={`https://twitter.com/intent/tweet?text=I just staked some $CELO via @ChurritoFi. Earn profits on the go with one of the simplest staking experiences on @CeloOrg protocol. Give it a try: https://churrito.fi`}
+                  href={`https://twitter.com/intent/tweet?text=I just staked some $CELO via @ChurritoFi. Earn rewards on the go with one of the simplest staking experiences on @CeloOrg protocol. Give it a try: https://churrito.fi`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
