@@ -12,6 +12,7 @@
     "@celo/contractkit": "^1.5.2",
     "@headlessui/react": "^1.2.0",
     "@hookform/resolvers": "^2.6.0",
+    "@sentry/nextjs": "^6.19.6",
     "@supabase/supabase-js": "^1.21.0",
     "@tailwindcss/forms": "^0.3.3",
     "@tailwindcss/typography": "^0.4.1",
