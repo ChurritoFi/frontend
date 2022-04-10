@@ -1,5 +1,10 @@
 import { gql } from "graphql-tag";
 import { useMutation } from "urql";
+import {
+  UpdateValidatorGroupSocialInfoDocument,
+  UpdateValidatorGroupSocialInfoMutation,
+  UpdateValidatorGroupSocialInfoMutationVariables,
+} from "../lib/generated/graphql";
 
 const UpdateVGSocial = gql`
   mutation (
@@ -26,6 +31,9 @@ const UpdateVGSocial = gql`
 `;
 
 export default function useVGMutation() {
-  const [updateVGResult, updateVG] = useMutation(UpdateVGSocial);
+  const [updateVGResult, updateVG] = useMutation<
+    UpdateValidatorGroupSocialInfoMutation,
+    UpdateValidatorGroupSocialInfoMutationVariables
+  >(UpdateValidatorGroupSocialInfoDocument);
   return { updateVGResult, updateVG };
 }

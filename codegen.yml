@@ -1,0 +1,12 @@
+overwrite: true
+schema: "https://backend-iuni.onrender.com/query"
+documents: "hooks/**/*.graphql"
+generates:
+  lib/generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typed-document-node"
+hooks:
+  afterAllFileWrite:
+    - prettier --write

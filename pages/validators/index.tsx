@@ -30,7 +30,7 @@ function hasProfile(VG) {
 }
 
 function ValidatorExplorer() {
-  const [validatorGroups, setValidatorGroups] = useState([]);
+  const [validatorGroups, setValidatorGroups] = useState<ValidatorGroup[]>([]);
   const [sortStatus, setSortStatus] = useState<SortStatus>({
     key: "score",
     order: Order.DESC,

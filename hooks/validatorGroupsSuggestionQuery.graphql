@@ -1,0 +1,10 @@
+query ValidatorGroupsSuggestion($sort_by_score: Boolean, $limit: Int) {
+  ValidatorGroups(sort_by_score: $sort_by_score, limit: $limit) {
+    Address
+    Name
+    GroupScore
+    TransparencyScore
+    PerformanceScore
+    EstimatedAPY
+  }
+}

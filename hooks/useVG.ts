@@ -1,40 +1,13 @@
 import { useQuery } from "urql";
-import gql from "graphql-tag";
-
-const VG_Query = gql`
-  query ($address: String!) {
-    ValidatorGroup(address: $address) {
-      ID
-      Address
-      Name
-      Email
-      WebsiteUrl
-      DiscordTag
-      TwitterUsername
-      GeographicLocation
-      VerifiedDns
-      TransparencyScore
-      PerformanceScore
-      EstimatedAPY
-      RecievedVotes
-      AvailableVotes
-      EpochsServed
-      LockedCelo
-      SlashingPenaltyScore
-      GroupScore
-      GroupShare
-      Validators {
-        address
-        name
-        currently_elected
-      }
-    }
-  }
-`;
+import {
+  ValidatorGroupQuery,
+  ValidatorGroupQueryVariables,
+  ValidatorGroupDocument,
+} from "../lib/generated/graphql";
 
 export default function useVG(address: string) {
-  const [result, _] = useQuery({
-    query: VG_Query,
+  const [result] = useQuery<ValidatorGroupQuery, ValidatorGroupQueryVariables>({
+    query: ValidatorGroupDocument,
     variables: { address },
     pause: !address,
   });

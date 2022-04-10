@@ -2,7 +2,7 @@ import { BigNumber } from "bignumber.js";
 
 export type VGSuggestion = {
   Address: string;
-  Name: string;
+  Name?: string | null;
   GroupScore: number;
   TransparencyScore: number;
   PerformanceScore: number;
@@ -30,11 +30,11 @@ export enum WithdrawalStatus {
 export interface ValidatorGroup {
   ID: string;
   Address: string;
-  Name: string;
-  Email: string;
-  WebsiteUrl: string;
-  DiscordTag: string;
-  TwitterUsername: string;
+  Name?: string | null;
+  Email?: string | null;
+  WebsiteUrl?: string | null;
+  DiscordTag?: string | null;
+  TwitterUsername?: string | null;
   GeographicLocation: string;
   VerifiedDns: boolean;
   TransparencyScore: number;
@@ -53,7 +53,7 @@ export interface ValidatorGroup {
 
 export interface Validator {
   address: string;
-  name: string;
+  name?: string | null;
   currently_elected: boolean;
 }
 

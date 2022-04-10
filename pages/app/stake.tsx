@@ -30,6 +30,7 @@ import { useRouter } from "next/router";
 import { intervalToDuration, add } from "date-fns";
 
 import { FaTwitter } from "react-icons/fa";
+import { ValidatorGroup } from "../../lib/types";
 
 const InvestMachine = createMachine({
   id: "InvestFlow",
@@ -70,7 +71,7 @@ function Stake() {
   const [nonVotingLockedCelo, setNonVotingLockedCelo] = useState<BigNumber>();
   const [exchangeRate, setExchangeRate] = useState(0);
   const [estimatedAPY, setEstimatedAPY] = useState<BigNumber>(new BigNumber(0));
-  const [validatorGroups, setValidatorGroups] = useState<any[]>([]);
+  const [validatorGroups, setValidatorGroups] = useState<ValidatorGroup[]>([]);
   const [selectedVGAddress, setSelectedVGAddress] = useState<string>("");
   const [vgDialogOpen, setVGDialogOpen] = useState<boolean>(false);
   const [hoursToNextEpoch, setHoursToNextEpoch] = useState(0);

@@ -1,0 +1,29 @@
+query ValidatorGroup($address: String!) {
+  ValidatorGroup(address: $address) {
+    ID
+    Address
+    Name
+    Email
+    WebsiteUrl
+    DiscordTag
+    TwitterUsername
+    GeographicLocation
+    VerifiedDns
+    TransparencyScore
+    PerformanceScore
+    AttestationScore
+    EstimatedAPY
+    RecievedVotes
+    AvailableVotes
+    EpochsServed
+    LockedCelo
+    SlashingPenaltyScore
+    GroupScore
+    GroupShare
+    Validators {
+      address
+      name
+      currently_elected
+    }
+  }
+}

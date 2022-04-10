@@ -1,0 +1,28 @@
+query ValidatorGroups($sort_by_score: Boolean, $limit: Int) {
+  ValidatorGroups(sort_by_score: $sort_by_score, limit: $limit) {
+    ID
+    Address
+    Name
+    VerifiedDns
+    TwitterUsername
+    DiscordTag
+    GeographicLocation
+    Email
+    TransparencyScore
+    PerformanceScore
+    EstimatedAPY
+    RecievedVotes
+    AvailableVotes
+    GroupShare
+    GroupScore
+    EpochsServed
+    LockedCelo
+    SlashingPenaltyScore
+    AttestationScore
+    Validators {
+      address
+      name
+      currently_elected
+    }
+  }
+}

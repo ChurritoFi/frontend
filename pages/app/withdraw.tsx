@@ -414,7 +414,7 @@ function Withdraw() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-light">
-                  {votingSummary.map((group: any) => (
+                  {votingSummary.map((group) => (
                     <tr key={group.vg} className="mt-2.5 text-base">
                       <td className="px-6 py-4 whitespace-nowrap text-center font-medium text-gray-dark">
                         {group.name}
