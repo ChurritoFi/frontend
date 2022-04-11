@@ -8,7 +8,10 @@ function CreateAccount() {
   const { address, performActions, kit } = useContractKit();
 
   const findIfAccountExists = useCallback(async () => {
-    if (!address) return;
+    if (!address) {
+      setOpen(false);
+      return;
+    }
     try {
       const accounts = await kit.contracts.getAccounts();
       const isAccount = await accounts.isAccount(address);
@@ -39,9 +42,9 @@ function CreateAccount() {
   }, [address]);
 
   useEffect(() => {
-    console.log(address);
+    console.log(`Current address: ${address}`);
     findIfAccountExists();
-  }, []);
+  }, [address]);
 
   return (
     <Transition.Root show={open} as={Fragment}>
