@@ -3,13 +3,15 @@ import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-function validateEmail(email) {
+type ReminderAction = "activate" | "withdraw";
+
+function validateEmail(email: string) {
   const re =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
 
-async function addReminder(action, email) {
+async function addReminder(action: ReminderAction, email: string) {
   const resp = await axios.post(
     `${process.env.NEXT_PUBLIC_REMINDER_BASE_URL}/addReminder`,
     {
@@ -21,7 +23,13 @@ async function addReminder(action, email) {
   return resp;
 }
 
-function Reminder({ open, setOpen, action }) {
+interface Props {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  action: ReminderAction;
+}
+
+function Reminder({ open, setOpen, action }: Props) {
   const [email, setEmail] = useState("");
   const [addingReminder, setAddingReminder] = useState(false);
   return (

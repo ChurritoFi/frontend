@@ -101,7 +101,7 @@ function vote() {
         "lock"
       );
     } catch (e) {
-      console.error(e.message);
+      console.error("Failed to lock", e);
     } finally {
       fetchAllAccountData(address);
     }
@@ -125,7 +125,7 @@ function vote() {
       );
       console.log("CELO unlocked");
     } catch (e) {
-      console.error(e.message);
+      console.error("Failed to unlock", e);
     } finally {
       fetchAllAccountData(address);
     }
@@ -147,7 +147,7 @@ function vote() {
         "withdraw"
       );
     } catch (e) {
-      console.log(e.message);
+      console.log("Failed to withdraw", e);
     } finally {
       fetchAllAccountData(address);
     }

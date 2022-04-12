@@ -3,7 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+const supabase = createClient(supabaseUrl ?? "", supabaseAnonKey ?? "");
 
 export const fetchIdaddWalletIfDoesntExist = async (
   address: string
@@ -13,7 +13,7 @@ export const fetchIdaddWalletIfDoesntExist = async (
     .select("id")
     .eq("address", address);
 
-  if (!error) {
+  if (!error && wallets != null) {
     if (wallets.length == 0) {
       const { data, error } = await supabase
         .from("wallets")
@@ -36,7 +36,7 @@ export const fetchIdAddVGIfDoesntExist = async (
     .select("id")
     .eq("address", address);
 
-  if (!error) {
+  if (!error && groups != null) {
     if (groups.length == 0) {
       const { data, error } = await supabase
         .from("validator_groups")

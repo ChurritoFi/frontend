@@ -39,7 +39,7 @@ export default function Widgets() {
 
   useEffect(() => {
     if (!fetching && !error && validatorGroup) {
-      setVG(validatorGroup["ValidatorGroup"]);
+      setVG(validatorGroup["ValidatorGroup"] ?? undefined);
     }
   }, [fetching, validatorGroup]);
 

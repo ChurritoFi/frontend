@@ -7,7 +7,7 @@ import DiscordIcon from "../icons/discord";
 import CopyIcon from "../icons/copy";
 import ProfileBadge from "../icons/profile-claimed";
 
-function hasProfile(VG) {
+function hasProfile(VG: ValidatorGroup) {
   console.log(VG);
   return (
     VG.Email !== "" ||

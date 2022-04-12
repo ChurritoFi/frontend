@@ -42,6 +42,9 @@ function EpochRewardGraph({
   const [status, setStatus] = useState<number>(STATES.idle);
 
   useEffect(() => {
+    if (!address) {
+      return;
+    }
     setStatus(STATES.loading);
 
     fetchEpochRewards(kit, address).then((r) => {
@@ -52,7 +55,7 @@ function EpochRewardGraph({
       setRewards(rewardMap);
       setStatus(rewardMap.size > 0 ? STATES.hasRewards : STATES.noRewards);
     });
-  }, []);
+  }, [address]);
 
   async function setDataForGraph() {
     const blockN = await kit.web3.eth.getBlockNumber();

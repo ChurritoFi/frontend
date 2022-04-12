@@ -16,7 +16,7 @@ export default function VGDash() {
 
   useEffect(() => {
     if (validatorGroup) {
-      setVG(validatorGroup["ValidatorGroup"]);
+      setVG(validatorGroup["ValidatorGroup"] ?? undefined);
     }
   }, [fetching, validatorGroup]);
 

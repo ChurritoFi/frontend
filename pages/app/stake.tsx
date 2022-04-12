@@ -77,9 +77,9 @@ function Stake() {
   const [hoursToNextEpoch, setHoursToNextEpoch] = useState(0);
   const [reminderModalOpen, setReminderModalOpen] = useState(false);
 
-  const selectedVG = useMemo<any>(() => {
+  const selectedVG = useMemo<ValidatorGroup | undefined>(() => {
     return validatorGroups.find((vg) => vg.Address === selectedVGAddress);
-  }, [selectedVGAddress]);
+  }, [validatorGroups, selectedVGAddress]);
   const [expandedVG, setExpandedVG] = useState(false);
 
   const { fetching: fetchingVG, error: errorFetchingVG, data } = useVG(true);
@@ -96,9 +96,9 @@ function Stake() {
       end: add(new Date(), { seconds: secondsToNextEpoch }),
     });
     setHoursToNextEpoch(
-      timeToNextEpoch.minutes > 0
-        ? timeToNextEpoch.hours + 1
-        : timeToNextEpoch.hours
+      (timeToNextEpoch.minutes ?? 0) > 0
+        ? (timeToNextEpoch.hours ?? 0) + 1
+        : timeToNextEpoch.hours ?? 0
     );
   }
   useEffect(() => {
@@ -120,10 +120,10 @@ function Stake() {
 
   useEffect(() => {
     if (fetchingVG == false && errorFetchingVG == undefined) {
-      setValidatorGroups(data["ValidatorGroups"]);
+      setValidatorGroups(data?.["ValidatorGroups"] ?? []);
       const isVGInQuery = Object.keys(router.query).includes("vg");
       if (isVGInQuery) {
-        const vgInQuery = data["ValidatorGroups"].find(
+        const vgInQuery = data?.["ValidatorGroups"].find(
           (vg) => vg.Address == router.query["vg"]
         );
         if (vgInQuery) {
@@ -131,7 +131,7 @@ function Stake() {
           return;
         }
       }
-      setSelectedVGAddress(data["ValidatorGroups"][0].Address);
+      setSelectedVGAddress(data?.["ValidatorGroups"][0].Address ?? "");
     }
   }, [fetchingVG, errorFetchingVG, data]);
 
@@ -188,13 +188,13 @@ function Stake() {
       console.log("CELO locked");
       trackCELOLockedOrUnlockedOrWithdraw(
         amount.div(1e18).toNumber(),
-        address,
+        address!,
         "lock"
       );
       send("NEXT");
     } catch (e) {
       console.log("Couldn't lock");
-      console.error(e.message);
+      console.error("Failed to lock", e);
     }
   };
 
@@ -216,13 +216,13 @@ function Stake() {
 
       trackVoteOrRevoke(
         parseFloat(celoToInvest),
-        address,
+        address!,
         selectedVGAddress,
         "vote"
       );
       send("NEXT");
     } catch (e) {
-      console.log("unable to vote", e.message);
+      console.log("unable to vote", e);
     }
   };
 
@@ -429,7 +429,7 @@ function Stake() {
               {(current.matches("activating") ||
                 current.matches("completed")) && (
                 <p className="text-primary-light text-lg font-medium">
-                  You are voting for: {selectedVG.Name}
+                  You are voting for: {selectedVG?.Name}
                 </p>
               )}
             </div>
@@ -558,7 +558,7 @@ function Stake() {
                           Elected/Total Validators
                         </span>
                         <div className="flex flex-wrap justify-center items-center">
-                          {selectedVG.Validators.map((v) => (
+                          {selectedVG?.Validators.map((v) => (
                             <svg
                               key={v.address}
                               className={`h-4 w-4 ml-2 shadow-lg  ${

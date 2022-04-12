@@ -52,7 +52,7 @@ export default function Edit() {
         send("NEXT");
       }
 
-      setVG(validatorGroup["ValidatorGroup"]);
+      setVG(validatorGroup["ValidatorGroup"] ?? undefined);
     }
   }, [fetching, validatorGroup]);
 

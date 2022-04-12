@@ -140,7 +140,7 @@ function vote() {
 
   useEffect(() => {
     if (fetchingVG == false && errorFetchingVG == undefined) {
-      setValidatorGroups(data["ValidatorGroups"]);
+      setValidatorGroups(data?.["ValidatorGroups"] ?? []);
     }
   }, [fetchingVG, errorFetchingVG, data]);
 
@@ -209,7 +209,7 @@ function vote() {
         "vote"
       );
     } catch (e) {
-      console.log("unable to vote", e.message);
+      console.log("unable to vote", e);
     } finally {
       fetchAllAccountData(address);
       fetchVotingSummary();
@@ -240,12 +240,12 @@ function vote() {
       trackVoteOrRevoke(
         parseFloat(celoAmountToInvest),
         address,
-        selectedVG,
+        selectedVG!,
         "revoke"
       );
       console.log("Vote cast");
     } catch (e) {
-      console.log(`Unable to vote ${e.message}`);
+      console.log(`Unable to vote ${e}`);
     } finally {
       fetchAllAccountData(address);
       fetchVotingSummary();
@@ -268,7 +268,7 @@ function vote() {
       trackActivate(address);
       console.log("Votes activated");
     } catch (e) {
-      console.log(`Unable to activate votes ${e.message}`);
+      console.log(`Unable to activate votes ${e}`);
     } finally {
       fetchAllAccountData(address);
       fetchVotingSummary();

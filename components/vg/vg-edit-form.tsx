@@ -39,10 +39,10 @@ export default function VGEditForm({
   } = useForm<VGEditFormType>({
     resolver: yupResolver(FormSchema),
     defaultValues: {
-      email: VG.Email,
+      email: VG.Email ?? undefined,
       geoURL: VG.GeographicLocation,
-      discord: VG.DiscordTag,
-      twitter: VG.TwitterUsername,
+      discord: VG.DiscordTag ?? undefined,
+      twitter: VG.TwitterUsername ?? undefined,
     },
   });
 
@@ -65,14 +65,14 @@ export default function VGEditForm({
           send("ERROR");
           return;
         }
-        const vgData = res.data.UpdateVGSocialInfo;
+        const vgData = res.data?.UpdateVGSocialInfo;
         console.log(vgData);
         setVG({
           ...VG,
-          DiscordTag: vgData.DiscordTag,
-          Email: vgData.Email,
-          TwitterUsername: vgData.TwitterUsername,
-          GeographicLocation: vgData.GeographicLocation,
+          DiscordTag: vgData?.DiscordTag,
+          Email: vgData?.Email,
+          TwitterUsername: vgData?.TwitterUsername,
+          GeographicLocation: vgData?.GeographicLocation ?? "",
         });
 
         console.log("VG UPDATED");

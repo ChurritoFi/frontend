@@ -143,12 +143,12 @@ function Withdraw() {
       });
       trackCELOLockedOrUnlockedOrWithdraw(
         pendingWithdrawals[idx].value.div(1e18).toNumber(),
-        address,
+        address!,
         "withdraw"
       );
       send("WITHDRAW");
     } catch (e) {
-      console.log(e.message);
+      console.log("Failed to withdraw", e);
     } finally {
       getPendingWithdrawals();
     }
@@ -188,7 +188,7 @@ function Withdraw() {
         )
       );
     } catch (e) {
-      console.log(`Unable to vote ${e.message}`);
+      console.log(`Unable to vote ${e}`);
     } finally {
       fetchVotingSummary();
       getPendingWithdrawals();

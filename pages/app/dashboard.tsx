@@ -125,7 +125,7 @@ export default function dashboard() {
       console.log("Votes activated");
       state.setHasActivatableVotes(false);
     } catch (e) {
-      console.log(`Unable to activate votes ${e.message}`);
+      console.log(`Unable to activate votes ${e}`);
     } finally {
       fetchAllAccountData(address);
       fetchVotingSummary();

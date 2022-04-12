@@ -2,7 +2,7 @@ export default function WelcomeHeading({
   name,
   address,
 }: {
-  name: string;
+  name: string | null | undefined;
   address: string;
 }) {
   return (

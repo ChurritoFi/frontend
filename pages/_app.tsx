@@ -30,7 +30,7 @@ function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   useEffect(() => {
-    Fathom.load(process.env.NEXT_PUBLIC_FATHOM_ID, {
+    Fathom.load(process.env.NEXT_PUBLIC_FATHOM_ID ?? "", {
       includedDomains: ["churrito.fi"],
       url: "https://wildcat.churrito.fi/script.js",
     });

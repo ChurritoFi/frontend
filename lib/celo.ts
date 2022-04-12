@@ -116,7 +116,7 @@ export const fetchEpochRewards = async (
   const epochNow = getEpochFromBlock(blockN, epochSize);
 
   const unitsPerEpoch = await fetchUnitsPerEpoch(kit, [address], epochNow);
-  const groupSet = new Set();
+  const groupSet = new Set<string>();
   unitsPerEpoch.forEach((v) => v.forEach((units, k) => groupSet.add(k)));
   const groups = Array.from(groupSet.values());
   if (groups.length == 0) return []; // no rewards
@@ -149,7 +149,7 @@ export const fetchEpochRewards = async (
   }));
 };
 
-export function getEpochFromBlock(block, epochSize) {
+export function getEpochFromBlock(block: number, epochSize: number) {
   if (block == 0) return 0;
 
   let epochNumber = Math.floor(block / epochSize);
@@ -160,7 +160,11 @@ export function getEpochFromBlock(block, epochSize) {
   }
 }
 
-async function fetchUnitsPerEpoch(kit, addresses, epochNow) {
+async function fetchUnitsPerEpoch(
+  kit: ContractKit,
+  addresses: string[],
+  epochNow: number
+) {
   const validators = await kit.contracts.getValidators();
   const epochSize = (await validators.getEpochSize()).toNumber();
   const electionDirect = await kit._web3Contracts.getElection();
@@ -174,7 +178,7 @@ async function fetchUnitsPerEpoch(kit, addresses, epochNow) {
     { fromBlock: 0, filter: { account: addresses } }
   );
 
-  const unitsPerEpoch = new Map();
+  const unitsPerEpoch = new Map<number, Map<string, BigNumber>>();
   for (const event of activateEvents) {
     const group = event.returnValues.group;
     const epochFirst = getEpochFromBlock(event.blockNumber, epochSize);
@@ -183,7 +187,7 @@ async function fetchUnitsPerEpoch(kit, addresses, epochNow) {
     for (let epoch = epochFirst; epoch < epochNow; epoch += 1) {
       let unitsPerG = unitsPerEpoch.get(epoch);
       if (!unitsPerG) {
-        unitsPerG = new Map();
+        unitsPerG = new Map<string, BigNumber>();
         unitsPerEpoch.set(epoch, unitsPerG);
       }
       unitsPerG.set(group, units.plus(unitsPerG.get(group) || 0));
@@ -197,10 +201,13 @@ async function fetchUnitsPerEpoch(kit, addresses, epochNow) {
     for (let epoch = epochFirst; epoch < epochNow; epoch += 1) {
       let unitsPerG = unitsPerEpoch.get(epoch);
       if (!unitsPerG) {
-        unitsPerG = new Map();
+        unitsPerG = new Map<string, BigNumber>();
         unitsPerEpoch.set(epoch, unitsPerG);
       }
       const unitsNew = unitsPerG.get(group)?.minus(units);
+      if (!unitsNew) {
+        continue;
+      }
       if (unitsNew.lt(0)) {
         throw new Error(`units must never be negative: ${group} ${epoch}`);
       } else if (unitsNew.eq(0)) {
@@ -216,7 +223,11 @@ async function fetchUnitsPerEpoch(kit, addresses, epochNow) {
   return unitsPerEpoch;
 }
 
-async function fetchGroupUnitsPerEpoch(kit, groups, epochNow) {
+async function fetchGroupUnitsPerEpoch(
+  kit: ContractKit,
+  groups: string[],
+  epochNow: number
+) {
   const validators = await kit.contracts.getValidators();
   const epochSize = (await validators.getEpochSize()).toNumber();
   const electionDirect = await kit._web3Contracts.getElection();
@@ -229,7 +240,7 @@ async function fetchGroupUnitsPerEpoch(kit, groups, epochNow) {
     "ValidatorGroupActiveVoteRevoked",
     { fromBlock: 0, filter: { group: groups } }
   );
-  const unitsByGroup = new Map();
+  const unitsByGroup = new Map<string, Map<number, BigNumber>>();
 
   for (const event of activateEvents) {
     const group = event.returnValues.group;
@@ -238,7 +249,7 @@ async function fetchGroupUnitsPerEpoch(kit, groups, epochNow) {
 
     let unitsPerEpoch = unitsByGroup.get(group);
     if (!unitsPerEpoch) {
-      unitsPerEpoch = new Map();
+      unitsPerEpoch = new Map<number, BigNumber>();
       unitsByGroup.set(group, unitsPerEpoch);
     }
     for (let epoch = epochFirst; epoch < epochNow; epoch += 1) {
@@ -252,8 +263,14 @@ async function fetchGroupUnitsPerEpoch(kit, groups, epochNow) {
     const units = new BigNumber(event.returnValues.units);
 
     const unitsPerEpoch = unitsByGroup.get(group);
+    if (!unitsPerEpoch) {
+      continue;
+    }
     for (let epoch = epochFirst; epoch < epochNow; epoch += 1) {
       const unitsNew = unitsPerEpoch.get(epoch)?.minus(units);
+      if (!unitsNew) {
+        continue;
+      }
       if (unitsNew.lt(0)) {
         throw new Error(`units must never be negative: ${group} ${epoch}`);
       } else if (unitsNew.eq(0)) {
@@ -269,7 +286,7 @@ async function fetchGroupUnitsPerEpoch(kit, groups, epochNow) {
   return unitsByGroup;
 }
 
-async function fetchGroupRewardsPerEpoch(kit, groups) {
+async function fetchGroupRewardsPerEpoch(kit: ContractKit, groups: string[]) {
   const validators = await kit.contracts.getValidators();
   const epochSize = (await validators.getEpochSize()).toNumber();
   const electionDirect = await kit._web3Contracts.getElection();
@@ -295,7 +312,7 @@ async function fetchGroupRewardsPerEpoch(kit, groups) {
   return r;
 }
 
-export async function getTargetVotingYield(kit) {
+export async function getTargetVotingYield(kit: ContractKit) {
   const epochReward = await kit._web3Contracts.getEpochRewards();
 
   const [rewardMultiplierResp, targetVotingYieldResp] = await Promise.all([

@@ -18,7 +18,7 @@ function CreateAccount() {
       setOpen(!isAccount);
       console.log("isAccount", isAccount);
     } catch (err) {
-      console.log(err.message);
+      console.log("Failed to determine account", err);
     }
   }, [address]);
 

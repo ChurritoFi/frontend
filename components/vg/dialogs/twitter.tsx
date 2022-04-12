@@ -3,7 +3,12 @@ import { Dialog, Transition } from "@headlessui/react";
 import { FaTwitter } from "react-icons/fa";
 import { GoKebabHorizontal } from "react-icons/go";
 
-function TwitterDialog({ open, setOpen }) {
+interface Props {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+
+function TwitterDialog({ open, setOpen }: Props) {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog

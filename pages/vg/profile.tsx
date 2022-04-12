@@ -20,7 +20,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (!fetching && !error && validatorGroup) {
-      setVG(validatorGroup["ValidatorGroup"]);
+      setVG(validatorGroup["ValidatorGroup"] ?? undefined);
     }
   }, [fetching, validatorGroup]);
 

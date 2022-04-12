@@ -1,7 +1,7 @@
 const buildCode = (
   size: string,
   address: string,
-  name: string,
+  name: string | null | undefined,
   green: boolean
 ) => `
 <!–– Paste this script in the head tag of your website -->

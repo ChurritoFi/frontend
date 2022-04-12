@@ -15,11 +15,11 @@ import { ValidatorsBlock } from "../../components/vg/ValidatorsBlock";
 
 const formatter = new Intl.NumberFormat("en-US");
 
-function calculateScore(VG) {
+function calculateScore(VG: ValidatorGroup) {
   return VG.TransparencyScore * 0.1 + VG.PerformanceScore * 0.9;
 }
 
-function hasProfile(VG) {
+function hasProfile(VG: ValidatorGroup) {
   console.log(VG);
   return (
     VG.Email !== "" ||
@@ -47,14 +47,14 @@ function ValidatorExplorer() {
   useEffect(() => {
     if (fetching || error) return;
 
-    if (validatorGroupsFromAPI?.ValidatorGroups.length > 0) {
+    if (validatorGroupsFromAPI?.ValidatorGroups?.length) {
       setValidatorGroups(validatorGroupsFromAPI.ValidatorGroups);
     }
   }, [fetching, validatorGroupsFromAPI]);
 
   const handleSort = (key: string) => {
     // set new sort status
-    let newSortStatus;
+    let newSortStatus: { key: string; order: Order };
     if (sortStatus.key == key) {
       newSortStatus = {
         key,
@@ -67,19 +67,14 @@ function ValidatorExplorer() {
     }
 
     // handle sorting logic
-    let sortFn;
-    if (newSortStatus.key == "score") {
+    let sortFn: (a: ValidatorGroup, b: ValidatorGroup) => number;
+    if (newSortStatus.key == "name") {
       sortFn = (a, b) =>
         newSortStatus.order == Order.ASC
-          ? calculateScore(a) - calculateScore(b)
-          : calculateScore(b) - calculateScore(a);
-    } else if (newSortStatus.key == "name") {
-      sortFn = (a, b) =>
-        newSortStatus.order == Order.ASC
-          ? a.Name.toLowerCase() > b.Name.toLowerCase()
+          ? (a.Name?.toLowerCase() ?? "") > (b.Name?.toLowerCase() ?? "")
             ? 1
             : -1
-          : a.Name.toLowerCase() < b.Name.toLowerCase()
+          : (a.Name?.toLowerCase() ?? "") < (b.Name?.toLowerCase() ?? "")
           ? 1
           : -1;
     } else if (newSortStatus.key == "available") {
@@ -107,6 +102,11 @@ function ValidatorExplorer() {
         newSortStatus.order == Order.ASC
           ? a.Validators.length - b.Validators.length
           : b.Validators.length - a.Validators.length;
+    } else {
+      sortFn = (a, b) =>
+        newSortStatus.order == Order.ASC
+          ? calculateScore(a) - calculateScore(b)
+          : calculateScore(b) - calculateScore(a);
     }
 
     setValidatorGroups(validatorGroups.sort(sortFn));
