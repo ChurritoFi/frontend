@@ -1,5 +1,6 @@
 import { useQuery } from "urql";
 import {
+  Order_By,
   ValidatorGroupsDocument,
   ValidatorGroupsQuery,
   ValidatorGroupsQueryVariables,
@@ -11,7 +12,10 @@ export default function useVG(sort?: boolean, limit?: number) {
     ValidatorGroupsQueryVariables
   >({
     query: ValidatorGroupsDocument,
-    variables: { sort_by_score: sort, limit: limit },
+    variables: {
+      order_by: sort ? { overall_score: Order_By.Desc } : undefined,
+      limit: limit,
+    },
   });
   return result;
 }

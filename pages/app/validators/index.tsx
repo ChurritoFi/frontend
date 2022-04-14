@@ -13,17 +13,13 @@ import { ValidatorsBlock } from "../../../components/vg/ValidatorsBlock";
 
 const formatter = new Intl.NumberFormat("en-US");
 
-function calculateScore(VG: ValidatorGroup) {
-  return VG.TransparencyScore * 0.1 + VG.PerformanceScore * 0.9;
+function calculateScore(vg: ValidatorGroup) {
+  return vg.transparency_score * 0.1 + vg.performance_score * 0.9;
 }
 
-function hasProfile(VG: ValidatorGroup) {
-  console.log(VG);
+function hasProfile(vg: ValidatorGroup) {
   return (
-    VG.Email !== "" ||
-    VG.GeographicLocation !== "" ||
-    VG.TwitterUsername !== "" ||
-    VG.DiscordTag !== ""
+    vg.email || vg.geographic_location || vg.twitter_username || vg.discord_tag
   );
 }
 
@@ -45,8 +41,8 @@ function ValidatorExplorer() {
   useEffect(() => {
     if (fetching || error) return;
 
-    if (validatorGroupsFromAPI?.ValidatorGroups?.length) {
-      setValidatorGroups(validatorGroupsFromAPI.ValidatorGroups);
+    if (validatorGroupsFromAPI?.validator_groups?.length) {
+      setValidatorGroups(validatorGroupsFromAPI.validator_groups);
     }
   }, [fetching, validatorGroupsFromAPI]);
 
@@ -69,37 +65,37 @@ function ValidatorExplorer() {
     if (newSortStatus.key == "name") {
       sortFn = (a, b) =>
         newSortStatus.order == Order.ASC
-          ? (a.Name?.toLowerCase() ?? "") > (b.Name?.toLowerCase() ?? "")
+          ? (a.name?.toLowerCase() ?? "") > (b.name?.toLowerCase() ?? "")
             ? 1
             : -1
-          : (a.Name?.toLowerCase() ?? "") < (b.Name?.toLowerCase() ?? "")
+          : (a.name?.toLowerCase() ?? "") < (b.name?.toLowerCase() ?? "")
           ? 1
           : -1;
     } else if (newSortStatus.key == "available") {
       sortFn = (a, b) =>
         newSortStatus.order == Order.ASC
-          ? a.AvailableVotes - b.AvailableVotes
-          : b.AvailableVotes - a.AvailableVotes;
+          ? a.available_votes - b.available_votes
+          : b.available_votes - a.available_votes;
     } else if (newSortStatus.key == "received") {
       sortFn = (a, b) =>
         newSortStatus.order == Order.ASC
-          ? a.RecievedVotes - b.RecievedVotes
-          : b.RecievedVotes - a.RecievedVotes;
+          ? a.recieved_votes - b.recieved_votes
+          : b.recieved_votes - a.recieved_votes;
     } else if (newSortStatus.key == "attestation") {
       sortFn = (a, b) =>
         newSortStatus.order == Order.ASC
-          ? a.AttestationScore - b.AttestationScore
-          : b.AttestationScore - a.AttestationScore;
+          ? a.attestation_score - b.attestation_score
+          : b.attestation_score - a.attestation_score;
     } else if (newSortStatus.key == "apy") {
       sortFn = (a, b) =>
         newSortStatus.order == Order.ASC
-          ? a.EstimatedAPY - b.EstimatedAPY
-          : b.EstimatedAPY - a.EstimatedAPY;
+          ? a.estimated_apy - b.estimated_apy
+          : b.estimated_apy - a.estimated_apy;
     } else if (newSortStatus.key == "validators") {
       sortFn = (a, b) =>
         newSortStatus.order == Order.ASC
-          ? a.Validators.length - b.Validators.length
-          : b.Validators.length - a.Validators.length;
+          ? a.validators.length - b.validators.length
+          : b.validators.length - a.validators.length;
     } else {
       sortFn = (a, b) =>
         newSortStatus.order == Order.ASC
@@ -182,9 +178,9 @@ function ValidatorExplorer() {
             </div>
           </Transition>
           <ul className="py-5 space-y-3">
-            {validatorGroups?.map((VG: ValidatorGroup) => (
+            {validatorGroups?.map((vg: ValidatorGroup) => (
               <li className="font-medium px-9 py-6 border border-gray-light rounded-md cursor-pointer hover:border-primary-light-light hover:shadow-lg transform transition-all duration-100">
-                <Link href={`/app/validators/${VG.Address}`} passHref>
+                <Link href={`/app/validators/${vg.address}`} passHref>
                   <a className="absolute inset-0 z-10" />
                 </Link>
                 <div
@@ -198,14 +194,14 @@ function ValidatorExplorer() {
                       className="mx-auto flex items-center justify-center rounded-full p-2 relative z-20 hover:bg-primary-light-light"
                       onClick={() =>
                         setExpandedVG((curr) =>
-                          curr == VG.Address ? "" : VG.Address
+                          curr == vg.address ? "" : vg.address
                         )
                       }
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className={`${
-                          expandedVG == VG.Address ? "rotate-180" : "rotate-0"
+                          expandedVG == vg.address ? "rotate-180" : "rotate-0"
                         }
                               h-6 w-6 transform transition-all duration-200`}
                         viewBox="0 0 20 20"
@@ -221,12 +217,12 @@ function ValidatorExplorer() {
                   </div>
                   <div className="flex items-center justify-center space-x-2">
                     <span className="">
-                      {VG.Name ? VG.Name : "Unkown Group"}
+                      {vg.name ? vg.name : "Unkown Group"}
                     </span>
-                    {hasProfile(VG) && <ProfileBadge />}
+                    {hasProfile(vg) && <ProfileBadge />}
                   </div>
                   <div className="flex flex-wrap justify-center">
-                    {VG.Validators.map((v: Validator) => (
+                    {vg.validators.map((v: Validator) => (
                       <svg
                         className={`h-4 w-4 ml-2 shadow-lg  ${
                           v.currently_elected ? "text-gray-dark" : "text-gray"
@@ -243,20 +239,20 @@ function ValidatorExplorer() {
                     ))}
                   </div>
                   <div className="">
-                    {formatter.format(VG.RecievedVotes)} CELO
+                    {formatter.format(vg.recieved_votes)} CELO
                   </div>
                   <div className="">
-                    {formatter.format(VG.AvailableVotes)} CELO
+                    {formatter.format(vg.available_votes)} CELO
                   </div>
                   <div className="">
-                    {(VG.AttestationScore * 100).toFixed(2)} %
+                    {(vg.attestation_score * 100).toFixed(2)} %
                   </div>
                   <div className="">
-                    {(calculateScore(VG) * 100).toFixed(2)} %
+                    {(calculateScore(vg) * 100).toFixed(2)} %
                   </div>
-                  <div className="">{VG.EstimatedAPY.toFixed(2)} %</div>
+                  <div className="">{vg.estimated_apy.toFixed(2)} %</div>
                 </div>
-                {expandedVG == VG.Address && (
+                {expandedVG == vg.address && (
                   <div
                     className="mt-3 mb-10 grid"
                     style={{ gridTemplateColumns: "1fr 7fr" }}
@@ -264,17 +260,17 @@ function ValidatorExplorer() {
                     <div />
                     <div>
                       <p className="inline-flex items-center text-gray space-x-1">
-                        <span className="text-sm">{VG.Address}</span>
+                        <span className="text-sm">{vg.address}</span>
                         <button
                           className="relative z-20 p-2"
                           onClick={() =>
-                            navigator.clipboard.writeText(VG.Address)
+                            navigator.clipboard.writeText(vg.address)
                           }
                         >
                           <CopyIcon size="sm" />
                         </button>
                       </p>
-                      <ValidatorsBlock VG={VG} />
+                      <ValidatorsBlock vg={vg} />
                     </div>
                   </div>
                 )}

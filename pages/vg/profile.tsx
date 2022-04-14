@@ -14,13 +14,13 @@ import ProfileHeader from "../../components/vg/ProfileHeader";
 export default function Profile() {
   const { address, network } = useContractKit();
   const state = useStore();
-  const [VG, setVG] = useState<ValidatorGroup>();
+  const [vg, setVg] = useState<ValidatorGroup>();
 
   const { fetching, error, data: validatorGroup } = useVG(state.user);
 
   useEffect(() => {
     if (!fetching && !error && validatorGroup) {
-      setVG(validatorGroup["ValidatorGroup"] ?? undefined);
+      setVg(validatorGroup.validator_groups[0] ?? undefined);
     }
   }, [fetching, validatorGroup]);
 
@@ -40,7 +40,7 @@ export default function Profile() {
   return (
     <Layout>
       <>
-        {VG && (
+        {vg && (
           <div className="text-gray-dark">
             <h1 className="text-2xl text-gray-dark font-medium">
               View Profile
@@ -50,10 +50,10 @@ export default function Profile() {
             </p>
             <hr className="text-gray-light mt-5" />
             <div className="mt-10">
-              <ProfileHeader VG={VG} />
+              <ProfileHeader vg={vg} />
             </div>
-            <PerformanceMetricsPanel VG={VG} />
-            <ValidatorsPanel VG={VG} />
+            <PerformanceMetricsPanel vg={vg} />
+            <ValidatorsPanel vg={vg} />
           </div>
         )}
       </>

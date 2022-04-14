@@ -33,13 +33,13 @@ const CodeBlock = ({ snippet }: { snippet: string }) => {
 export default function Widgets() {
   const { address, network } = useContractKit();
   const state = useStore();
-  const [VG, setVG] = useState<ValidatorGroup>();
+  const [vg, setVg] = useState<ValidatorGroup>();
 
   const { fetching, error, data: validatorGroup } = useVG(state.user);
 
   useEffect(() => {
     if (!fetching && !error && validatorGroup) {
-      setVG(validatorGroup["ValidatorGroup"] ?? undefined);
+      setVg(validatorGroup.validator_groups[0] ?? undefined);
     }
   }, [fetching, validatorGroup]);
 
@@ -83,7 +83,7 @@ export default function Widgets() {
 
       <Layout>
         <div className="text-gray-dark">
-          {VG ? (
+          {vg ? (
             <>
               <header>
                 <h1 className="text-2xl text-gray-dark font-medium">Widgets</h1>
@@ -100,23 +100,23 @@ export default function Widgets() {
                   <div className="mt-5 space-y-10">
                     <div className="grid grid-cols-2">
                       <churrofi-widgets-xl
-                        address={VG.Address}
-                        name={VG.Name}
+                        address={vg.address}
+                        name={vg.name}
                       />
 
                       <CodeBlock
-                        snippet={CODE("xl", VG.Address, VG.Name, false)}
+                        snippet={CODE("xl", vg.address, vg.name, false)}
                       />
                     </div>
                     <div className="grid grid-cols-2">
                       <churrofi-widgets-xl
-                        address={VG.Address}
-                        name={VG.Name}
+                        address={vg.address}
+                        name={vg.name}
                         theme="green"
                       />
 
                       <CodeBlock
-                        snippet={CODE("xl", VG.Address, VG.Name, true)}
+                        snippet={CODE("xl", vg.address, vg.name, true)}
                       />
                     </div>
                   </div>
@@ -126,23 +126,23 @@ export default function Widgets() {
                   <div className="mt-5 space-y-10">
                     <div className="grid grid-cols-2">
                       <churrofi-widgets-lg
-                        address={VG.Address}
-                        name={VG.Name}
+                        address={vg.address}
+                        name={vg.name}
                       />
 
                       <CodeBlock
-                        snippet={CODE("lg", VG.Address, VG.Name, false)}
+                        snippet={CODE("lg", vg.address, vg.name, false)}
                       />
                     </div>
                     <div className="grid grid-cols-2">
                       <churrofi-widgets-lg
-                        address={VG.Address}
-                        name={VG.Name}
+                        address={vg.address}
+                        name={vg.name}
                         theme="green"
                       />
 
                       <CodeBlock
-                        snippet={CODE("lg", VG.Address, VG.Name, true)}
+                        snippet={CODE("lg", vg.address, vg.name, true)}
                       />
                     </div>
                   </div>
@@ -152,23 +152,23 @@ export default function Widgets() {
                   <div className="mt-5 space-y-10">
                     <div className="grid grid-cols-2">
                       <churrofi-widgets-md
-                        address={VG.Address}
-                        name={VG.Name}
+                        address={vg.address}
+                        name={vg.name}
                       />
 
                       <CodeBlock
-                        snippet={CODE("md", VG.Address, VG.Name, false)}
+                        snippet={CODE("md", vg.address, vg.name, false)}
                       />
                     </div>
                     <div className="grid grid-cols-2">
                       <churrofi-widgets-md
-                        address={VG.Address}
-                        name={VG.Name}
+                        address={vg.address}
+                        name={vg.name}
                         theme="green"
                       />
 
                       <CodeBlock
-                        snippet={CODE("md", VG.Address, VG.Name, true)}
+                        snippet={CODE("md", vg.address, vg.name, true)}
                       />
                     </div>
                   </div>
@@ -178,23 +178,23 @@ export default function Widgets() {
                   <div className="mt-5 space-y-10">
                     <div className="grid grid-cols-2">
                       <churrofi-widgets-sm
-                        address={VG.Address}
-                        name={VG.Name}
+                        address={vg.address}
+                        name={vg.name}
                       />
 
                       <CodeBlock
-                        snippet={CODE("sm", VG.Address, VG.Name, false)}
+                        snippet={CODE("sm", vg.address, vg.name, false)}
                       />
                     </div>
                     <div className="grid grid-cols-2">
                       <churrofi-widgets-sm
-                        address={VG.Address}
-                        name={VG.Name}
+                        address={vg.address}
+                        name={vg.name}
                         theme="green"
                       />
 
                       <CodeBlock
-                        snippet={CODE("sm", VG.Address, VG.Name, true)}
+                        snippet={CODE("sm", vg.address, vg.name, true)}
                       />
                     </div>
                   </div>
@@ -204,22 +204,22 @@ export default function Widgets() {
                   <div className="mt-5 space-y-10">
                     <div className="grid grid-cols-2">
                       <churrofi-widgets-xs
-                        address={VG.Address}
-                        name={VG.Name}
+                        address={vg.address}
+                        name={vg.name}
                       />
 
                       <CodeBlock
-                        snippet={CODE("xs", VG.Address, VG.Name, false)}
+                        snippet={CODE("xs", vg.address, vg.name, false)}
                       />
                     </div>
                     <div className="grid grid-cols-2">
                       <churrofi-widgets-xs
-                        address={VG.Address}
-                        name={VG.Name}
+                        address={vg.address}
+                        name={vg.name}
                         theme="green"
                       />
                       <CodeBlock
-                        snippet={CODE("xs", VG.Address, VG.Name, false)}
+                        snippet={CODE("xs", vg.address, vg.name, false)}
                       />
                     </div>
                   </div>
@@ -227,7 +227,7 @@ export default function Widgets() {
               </main>
             </>
           ) : (
-            <Loading open={!VG} />
+            <Loading open={!vg} />
           )}
         </div>
       </Layout>

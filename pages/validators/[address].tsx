@@ -10,30 +10,30 @@ import Link from "next/link";
 
 function ValidatorGroupPage() {
   const address = useRouter().query.address;
-  const [VG, setVG] = useState<ValidatorGroup>();
+  const [vg, setVg] = useState<ValidatorGroup>();
 
   const { fetching, error, data: validatorGroup } = useVG(String(address));
 
   useEffect(() => {
     if (!fetching && !error && validatorGroup) {
-      setVG(validatorGroup["ValidatorGroup"] ?? undefined);
+      setVg(validatorGroup.validator_groups[0] ?? undefined);
     }
   }, [fetching, validatorGroup]);
 
   return (
     <>
       <Nav />
-      {VG && (
+      {vg && (
         <div className="relative px-40 mt-48 mb-24">
-          <ProfileHeader VG={VG} />
-          <PerformanceMetricsPanel VG={VG} />
-          <ValidatorsPanel VG={VG} />
-          <Link href={`/app/stake?vg=${VG.Address}`} passHref>
+          <ProfileHeader vg={vg} />
+          <PerformanceMetricsPanel vg={vg} />
+          <ValidatorsPanel vg={vg} />
+          <Link href={`/app/stake?vg=${vg.address}`} passHref>
             <a
               target="_blank"
               className="fixed bottom-20 right-40 bg-primary hover:bg-primary-dark focus:bg-primary-dark active:bg-primary-dark-dark focus:outline-none px-14 py-3 rounded-md text-white text-lg font-medium shadow-sm transition-all"
             >
-              Stake on {VG.Name ? VG.Name : `${VG.Address.slice(0, 8)}...`}
+              Stake on {vg.name ? vg.name : `${vg.address.slice(0, 8)}...`}
             </a>
           </Link>
         </div>

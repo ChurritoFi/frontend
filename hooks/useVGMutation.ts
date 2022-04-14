@@ -1,39 +1,21 @@
 import { gql } from "graphql-tag";
 import { useMutation } from "urql";
-import {
-  UpdateValidatorGroupSocialInfoDocument,
-  UpdateValidatorGroupSocialInfoMutation,
-  UpdateValidatorGroupSocialInfoMutationVariables,
-} from "../lib/generated/graphql";
-
-const UpdateVGSocial = gql`
-  mutation (
-    $id: ID!
-    $email: String
-    $twitter: String
-    $discord: String
-    $geoURL: String
-  ) {
-    UpdateVGSocialInfo(
-      vg_id: $id
-      email: $email
-      twitter_username: $twitter
-      discord_tag: $discord
-      geographic_location: $geoURL
-    ) {
-      ID
-      Email
-      TwitterUsername
-      DiscordTag
-      GeographicLocation
-    }
-  }
-`;
+// import {
+//   UpdateValidatorGroupSocialInfoDocument,
+//   UpdateValidatorGroupSocialInfoMutation,
+//   UpdateValidatorGroupSocialInfoMutationVariables,
+// } from "../lib/generated/graphql";
 
 export default function useVGMutation() {
-  const [updateVGResult, updateVG] = useMutation<
-    UpdateValidatorGroupSocialInfoMutation,
-    UpdateValidatorGroupSocialInfoMutationVariables
-  >(UpdateValidatorGroupSocialInfoDocument);
-  return { updateVGResult, updateVG };
+  // TODO:
+  // const [updateVGResult, updateVG] = useMutation<
+  //   UpdateValidatorGroupSocialInfoMutation,
+  //   UpdateValidatorGroupSocialInfoMutationVariables
+  // >(UpdateValidatorGroupSocialInfoDocument);
+  // return { updateVGResult, updateVG };
+  return {
+    updateVG: async (variables: any): Promise<any> => {
+      throw new Error("Not implemented");
+    },
+  };
 }

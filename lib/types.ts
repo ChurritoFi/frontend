@@ -1,12 +1,12 @@
 import { BigNumber } from "bignumber.js";
 
 export type VGSuggestion = {
-  Address: string;
-  Name?: string | null;
-  GroupScore: number;
-  TransparencyScore: number;
-  PerformanceScore: number;
-  EstimatedAPY: number;
+  address: string;
+  name?: string | null;
+  group_score: number;
+  transparency_score: number;
+  performance_score: number;
+  estimated_apy: number;
 };
 
 export type GroupVoting = {
@@ -28,27 +28,27 @@ export enum WithdrawalStatus {
 }
 
 export interface ValidatorGroup {
-  ID: string;
-  Address: string;
-  Name?: string | null;
-  Email?: string | null;
-  WebsiteUrl?: string | null;
-  DiscordTag?: string | null;
-  TwitterUsername?: string | null;
-  GeographicLocation: string;
-  VerifiedDns: boolean;
-  TransparencyScore: number;
-  PerformanceScore: number;
-  AttestationScore: number;
-  EstimatedAPY: number;
-  RecievedVotes: number;
-  AvailableVotes: number;
-  EpochsServed: number;
-  LockedCelo: number;
-  SlashingPenaltyScore: number;
-  GroupScore: number;
-  GroupShare: number;
-  Validators: Validator[];
+  id: string;
+  address: string;
+  name?: string | null;
+  email?: string | null;
+  website_url?: string | null;
+  discord_tag?: string | null;
+  twitter_username?: string | null;
+  geographic_location?: string | null;
+  verified_dns: boolean;
+  transparency_score: number;
+  performance_score: number;
+  attestation_score: number;
+  estimated_apy: number;
+  recieved_votes: number;
+  available_votes: number;
+  epochs_served: number;
+  locked_celo: number;
+  slashing_penalty_score: number;
+  group_score: number;
+  group_share: number;
+  validators: Validator[];
 }
 
 export interface Validator {

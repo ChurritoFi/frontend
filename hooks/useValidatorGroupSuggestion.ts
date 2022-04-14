@@ -3,6 +3,7 @@ import {
   ValidatorGroupsSuggestionQuery,
   ValidatorGroupsSuggestionQueryVariables,
   ValidatorGroupsSuggestionDocument,
+  Order_By,
 } from "../lib/generated/graphql";
 
 export default function useValidatorGroups(sort?: boolean, limit?: number) {
@@ -11,7 +12,10 @@ export default function useValidatorGroups(sort?: boolean, limit?: number) {
     ValidatorGroupsSuggestionQueryVariables
   >({
     query: ValidatorGroupsSuggestionDocument,
-    variables: { sort_by_score: sort, limit: limit },
+    variables: {
+      order_by: sort ? { overall_score: Order_By.Desc } : undefined,
+      limit: limit,
+    },
   });
   return result;
 }

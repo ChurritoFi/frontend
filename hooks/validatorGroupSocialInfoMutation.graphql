@@ -1,21 +1,21 @@
-mutation UpdateValidatorGroupSocialInfo(
-  $id: ID!
-  $email: String
-  $twitter: String
-  $discord: String
-  $geoURL: String
-) {
-  UpdateVGSocialInfo(
-    vg_id: $id
-    email: $email
-    twitter_username: $twitter
-    discord_tag: $discord
-    geographic_location: $geoURL
-  ) {
-    ID
-    Email
-    TwitterUsername
-    DiscordTag
-    GeographicLocation
-  }
-}
+# mutation UpdateValidatorGroupSocialInfo(
+#   $id: String!
+#   $email: String
+#   $twitter: String
+#   $discord: String
+#   $geoURL: String
+# ) {
+#   UpdateVGSocialInfo(
+#     vg_id: $id
+#     email: $email
+#     twitter_username: $twitter
+#     discord_tag: $discord
+#     geographic_location: $geoURL
+#   ) {
+#     id
+#     email
+#     twitter_username
+#     discord_tag
+#     geographic_location
+#   }
+# }

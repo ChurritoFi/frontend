@@ -10,13 +10,13 @@ import WelcomeHeading from "./welcome-heading";
 
 const formatter = new Intl.NumberFormat("en-US");
 export default function VGDash() {
-  const [VG, setVG] = useState<ValidatorGroup>();
+  const [vg, setVg] = useState<ValidatorGroup>();
   const user = useStore((state) => state.user);
   const { fetching, error, data: validatorGroup } = useVG(user);
 
   useEffect(() => {
     if (validatorGroup) {
-      setVG(validatorGroup["ValidatorGroup"] ?? undefined);
+      setVg(validatorGroup.validator_groups[0] ?? undefined);
     }
   }, [fetching, validatorGroup]);
 
@@ -25,14 +25,14 @@ export default function VGDash() {
       {(() => {
         if (error) {
           console.log(error);
-        } else if (!fetching && VG) {
+        } else if (!fetching && vg) {
           return (
             <>
-              <WelcomeHeading name={VG.Name} address={VG.Address} />
-              <TransparencyScoreBar score={Number(VG.TransparencyScore)} />
+              <WelcomeHeading name={vg.name} address={vg.address} />
+              <TransparencyScoreBar score={Number(vg.transparency_score)} />
               <NavButtons />
-              <PerformanceMetricsPanel VG={VG} />
-              <ValidatorsPanel VG={VG} />
+              <PerformanceMetricsPanel vg={vg} />
+              <ValidatorsPanel vg={vg} />
             </>
           );
         }

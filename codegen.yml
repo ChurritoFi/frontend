@@ -1,5 +1,5 @@
 overwrite: true
-schema: "https://backend-iuni.onrender.com/query"
+schema: "https://churritofi.hasura.app/v1/graphql"
 documents: "hooks/**/*.graphql"
 generates:
   lib/generated/graphql.ts:
@@ -7,6 +7,11 @@ generates:
       - "typescript"
       - "typescript-operations"
       - "typed-document-node"
+    config:
+      scalars:
+        bigint: number
+        float8: number
+        timestamptz: string
 hooks:
   afterAllFileWrite:
     - prettier --write

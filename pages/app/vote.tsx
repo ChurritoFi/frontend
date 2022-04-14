@@ -38,7 +38,7 @@ import { trackActivate, trackVoteOrRevoke } from "../../lib/supabase";
 const options = ["Vote", "Revoke"];
 function vote() {
   const [selected, setSelected] = useState<string>(options[0]);
-  const [vgDialogOpen, setVGDialogOpen] = useState<boolean>(false);
+  const [vgDialogOpen, setVgDialogOpen] = useState<boolean>(false);
   const [reminderModalOpen, setReminderModalOpen] = useState(false);
 
   const [votingSummary, setVotingSummary] = useState<GroupVoting[]>([]);
@@ -140,7 +140,7 @@ function vote() {
 
   useEffect(() => {
     if (fetchingVG == false && errorFetchingVG == undefined) {
-      setValidatorGroups(data?.["ValidatorGroups"] ?? []);
+      setValidatorGroups(data?.validator_groups ?? []);
     }
   }, [fetchingVG, errorFetchingVG, data]);
 
@@ -156,15 +156,15 @@ function vote() {
       setValidatorGroupsForDialog(
         validatorsToRevoke.map((vg) => {
           const vgData = validatorGroups.find(
-            (group) => group.Address === vg.vg.toLowerCase()
+            (group) => group.address === vg.vg.toLowerCase()
           );
           return {
             address: vg.vg,
             name: vg.name,
             active: vg.active,
-            performanceScore: vgData?.PerformanceScore,
-            transparencyScore: vgData?.TransparencyScore,
-            estimatedAPY: vgData?.EstimatedAPY,
+            performanceScore: vgData?.performance_score,
+            transparencyScore: vgData?.transparency_score,
+            estimatedAPY: vgData?.estimated_apy,
           };
         })
       );
@@ -291,7 +291,7 @@ function vote() {
           selected === options[0] ? (
             <VoteVGDialog
               open={vgDialogOpen}
-              setOpen={setVGDialogOpen}
+              setOpen={setVgDialogOpen}
               selectedVG={selectedVG}
               setSelectedVG={setSelectedVG}
               validatorGroups={validatorGroupsForDialog}
@@ -299,7 +299,7 @@ function vote() {
           ) : (
             <RevokeVGDialog
               open={vgDialogOpen}
-              setOpen={setVGDialogOpen}
+              setOpen={setVgDialogOpen}
               selectedVG={selectedVG}
               setSelectedVG={setSelectedVG}
               validatorGroups={validatorGroupsForDialog}
@@ -429,7 +429,7 @@ function vote() {
                 <button
                   type="button"
                   className="whitespace-nowrap truncate bg-gray-light-light relative mt-2.5 w-full border border-gray-light rounded-md shadow-sm px-5 py-2.5 text-left cursor-default focus:outline-none focus:bg-primary-light-light focus:border-primary text-lg text-gray-dark"
-                  onClick={() => setVGDialogOpen(true)}
+                  onClick={() => setVgDialogOpen(true)}
                 >
                   {selectedVG
                     ? `${selectedVG.slice(0, 5)}...${selectedVG.slice(-5)}`

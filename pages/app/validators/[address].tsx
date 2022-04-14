@@ -10,24 +10,24 @@ import Layout from "../../../components/app/layout";
 
 function ValidatorGroupPage() {
   const address = useRouter().query.address;
-  const [VG, setVG] = useState<ValidatorGroup>();
+  const [vg, setVg] = useState<ValidatorGroup>();
 
   const { fetching, error, data: validatorGroup } = useVG(String(address));
 
   useEffect(() => {
     if (!fetching && !error && validatorGroup) {
-      setVG(validatorGroup["ValidatorGroup"] ?? undefined);
+      setVg(validatorGroup.validator_groups[0] ?? undefined);
     }
   }, [fetching, validatorGroup]);
 
   return (
     <Layout>
       <>
-        {VG && (
+        {vg && (
           <div>
-            <ProfileHeader VG={VG} />
-            <PerformanceMetricsPanel VG={VG} />
-            <ValidatorsPanel VG={VG} />
+            <ProfileHeader vg={vg} />
+            <PerformanceMetricsPanel vg={vg} />
+            <ValidatorsPanel vg={vg} />
           </div>
         )}
       </>

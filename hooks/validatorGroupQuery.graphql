@@ -1,26 +1,26 @@
 query ValidatorGroup($address: String!) {
-  ValidatorGroup(address: $address) {
-    ID
-    Address
-    Name
-    Email
-    WebsiteUrl
-    DiscordTag
-    TwitterUsername
-    GeographicLocation
-    VerifiedDns
-    TransparencyScore
-    PerformanceScore
-    AttestationScore
-    EstimatedAPY
-    RecievedVotes
-    AvailableVotes
-    EpochsServed
-    LockedCelo
-    SlashingPenaltyScore
-    GroupScore
-    GroupShare
-    Validators {
+  validator_groups(where: { address: { _eq: $address } }) {
+    id
+    address
+    name
+    email
+    website_url
+    discord_tag
+    twitter_username
+    geographic_location
+    verified_dns
+    transparency_score
+    performance_score
+    attestation_score
+    estimated_apy
+    recieved_votes
+    available_votes
+    epochs_served
+    locked_celo
+    slashing_penalty_score
+    group_score
+    group_share
+    validators {
       address
       name
       currently_elected

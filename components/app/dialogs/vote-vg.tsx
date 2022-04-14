@@ -92,8 +92,8 @@ function VoteVg({
                           </div>
                           {validatorGroups.slice(0, 5).map((vg, vgIdx) => (
                             <RadioGroup.Option
-                              key={vg.Address}
-                              value={vg.Address}
+                              key={vg.address}
+                              value={vg.address}
                               className={({ checked }) =>
                                 `${
                                   vgIdx === 0
@@ -138,21 +138,21 @@ function VoteVg({
                                       as="span"
                                       className="text-left"
                                     >
-                                      {vg.Name == ""
-                                        ? `...${vg.Address.slice(-7)}`
-                                        : vg.Name}
+                                      {vg.name == ""
+                                        ? `...${vg.address.slice(-7)}`
+                                        : vg.name}
                                     </RadioGroup.Label>
                                     <RadioGroup.Description className="text-center">
-                                      {floatToPercentage(vg.GroupScore)}%
+                                      {floatToPercentage(vg.group_score)}%
                                     </RadioGroup.Description>
                                     <RadioGroup.Description className="text-center">
-                                      {floatToPercentage(vg.PerformanceScore)}%
+                                      {floatToPercentage(vg.performance_score)}%
                                     </RadioGroup.Description>
                                     <RadioGroup.Description className="text-center">
-                                      {floatToPercentage(vg.TransparencyScore)}%
+                                      {floatToPercentage(vg.transparency_score)}%
                                     </RadioGroup.Description>
                                     <RadioGroup.Description className="text-center">
-                                      {vg.EstimatedAPY.toFixed(2)}%
+                                      {vg.estimated_apy.toFixed(2)}%
                                     </RadioGroup.Description>
                                   </div>
                                 </>

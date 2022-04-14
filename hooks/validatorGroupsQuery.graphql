@@ -1,25 +1,25 @@
-query ValidatorGroups($sort_by_score: Boolean, $limit: Int) {
-  ValidatorGroups(sort_by_score: $sort_by_score, limit: $limit) {
-    ID
-    Address
-    Name
-    VerifiedDns
-    TwitterUsername
-    DiscordTag
-    GeographicLocation
-    Email
-    TransparencyScore
-    PerformanceScore
-    EstimatedAPY
-    RecievedVotes
-    AvailableVotes
-    GroupShare
-    GroupScore
-    EpochsServed
-    LockedCelo
-    SlashingPenaltyScore
-    AttestationScore
-    Validators {
+query ValidatorGroups($order_by: [validator_groups_order_by!], $limit: Int) {
+  validator_groups(order_by: $order_by, limit: $limit) {
+    id
+    address
+    name
+    verified_dns
+    twitter_username
+    discord_tag
+    geographic_location
+    email
+    transparency_score
+    performance_score
+    estimated_apy
+    recieved_votes
+    available_votes
+    group_share
+    group_score
+    epochs_served
+    locked_celo
+    slashing_penalty_score
+    attestation_score
+    validators {
       address
       name
       currently_elected

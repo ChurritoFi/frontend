@@ -23,7 +23,7 @@ declare global {
 }
 
 const client = createClient({
-  url: `https://${process.env.NEXT_PUBLIC_BACKEND_HOST}.onrender.com/query`,
+  url: process.env.NEXT_PUBLIC_GRAPHQL_API_URL!,
 });
 
 function App({ Component, pageProps }: AppProps) {

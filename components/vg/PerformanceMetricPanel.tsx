@@ -4,9 +4,9 @@ import { ValidatorGroup } from "../../lib/types";
 
 const formatter = new Intl.NumberFormat("en-US");
 export default function PerformanceMetricsPanel({
-  VG,
+  vg,
 }: {
-  VG: ValidatorGroup;
+  vg: ValidatorGroup;
 }) {
   return (
     <div className="mt-10 border border-gray-light rounded-md p-10 text-gray-dark">
@@ -22,7 +22,7 @@ export default function PerformanceMetricsPanel({
             Elected/Total Validators
           </p>
           <div className="text-2xl font-medium flex flex-wrap">
-            {VG.Validators.map((v) => (
+            {vg.validators.map((v) => (
               <svg
                 className={`h-5 w-5 ml-2 mt-0.5 ${
                   v.currently_elected ? "text-gray-dark" : "text-gray"
@@ -47,7 +47,7 @@ export default function PerformanceMetricsPanel({
             Transparency Score
           </p>
           <p className="text-2xl font-medium">
-            {(VG.TransparencyScore * 100).toFixed(2)}/100
+            {(vg.transparency_score * 100).toFixed(2)}/100
           </p>
         </div>
         <div className="grid grid-rows-2 gap-1 text-center">
@@ -58,7 +58,7 @@ export default function PerformanceMetricsPanel({
             Performance Score
           </p>
           <p className="text-2xl font-medium">
-            {(VG.PerformanceScore * 100).toFixed(2)}/100
+            {(vg.performance_score * 100).toFixed(2)}/100
           </p>
         </div>
         <div className="grid grid-rows-2 gap-1 text-center">
@@ -68,7 +68,7 @@ export default function PerformanceMetricsPanel({
           >
             Estimated APY
           </p>
-          <p className="text-2xl font-medium">{VG.EstimatedAPY.toFixed(2)}%</p>
+          <p className="text-2xl font-medium">{vg.estimated_apy.toFixed(2)}%</p>
         </div>
       </div>
       {/* second row in performance metrics panel */}
@@ -81,7 +81,7 @@ export default function PerformanceMetricsPanel({
             Received Votes
           </p>
           <p className="text-base font-medium">
-            {formatter.format(VG.RecievedVotes)} CELO
+            {formatter.format(vg.recieved_votes)} CELO
           </p>
         </div>
         <div className="grid grid-rows-2 gap-1 text-center">
@@ -92,7 +92,7 @@ export default function PerformanceMetricsPanel({
             Available Votes
           </p>
           <p className="text-base font-medium">
-            {formatter.format(VG.AvailableVotes)} CELO
+            {formatter.format(vg.available_votes)} CELO
           </p>
         </div>
         <div className="grid grid-rows-2 gap-1 text-center">
@@ -103,7 +103,7 @@ export default function PerformanceMetricsPanel({
             Epochs Served
           </p>
           <p className="text-base font-medium">
-            {formatter.format(VG.EpochsServed)}
+            {formatter.format(vg.epochs_served)}
           </p>
         </div>
         <div className="grid grid-rows-2 gap-1 text-center">
@@ -114,7 +114,7 @@ export default function PerformanceMetricsPanel({
             Locked CELO
           </p>
           <p className="text-base font-medium">
-            {formatter.format(VG.LockedCelo)} CELO
+            {formatter.format(vg.locked_celo)} CELO
           </p>
         </div>
         <div className="grid grid-rows-2 gap-1 text-center">
@@ -125,7 +125,7 @@ export default function PerformanceMetricsPanel({
             Slashing Score
           </p>
           <p className="text-base font-medium">
-            {VG.SlashingPenaltyScore.toFixed(2)}
+            {vg.slashing_penalty_score.toFixed(2)}
           </p>
         </div>
         <div className="grid grid-rows-2 gap-1 text-center">
@@ -136,7 +136,7 @@ export default function PerformanceMetricsPanel({
             Group Score
           </p>
           <p className="text-base font-medium">
-            {(VG.GroupScore * 100).toFixed(2)}%
+            {(vg.group_score * 100).toFixed(2)}%
           </p>
         </div>
       </div>

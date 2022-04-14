@@ -38,7 +38,7 @@ export default function Edit() {
   console.log(current.value);
   const { address, network } = useContractKit();
   const state = useStore();
-  const [VG, setVG] = useState<ValidatorGroup>();
+  const [vg, setVg] = useState<ValidatorGroup>();
   const [twitterOpen, setTwitterOpen] = useState(false);
 
   const { fetching, error, data: validatorGroup } = useVG(state.user);
@@ -52,7 +52,7 @@ export default function Edit() {
         send("NEXT");
       }
 
-      setVG(validatorGroup["ValidatorGroup"] ?? undefined);
+      setVg(validatorGroup.validator_groups[0] ?? undefined);
     }
   }, [fetching, validatorGroup]);
 
@@ -80,13 +80,13 @@ export default function Edit() {
           open={current.matches("updating") || current.matches("loading")}
         />
         <TwitterDialog open={twitterOpen} setOpen={setTwitterOpen} />
-        {VG && (
+        {vg && (
           <div>
-            <WelcomeHeading name={VG.Name} address={VG.Address} />
-            <TransparencyScoreBar score={Number(VG.TransparencyScore)} />
+            <WelcomeHeading name={vg.name} address={vg.address} />
+            <TransparencyScoreBar score={Number(vg.transparency_score)} />
             <VGEditForm
-              VG={VG}
-              setVG={setVG}
+              vg={vg}
+              setVg={setVg}
               send={send}
               setTwitterOpen={() => setTwitterOpen(true)}
             />

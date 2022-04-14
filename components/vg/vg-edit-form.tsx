@@ -18,13 +18,13 @@ const FormSchema = yup.object().shape({
 });
 
 export default function VGEditForm({
-  VG,
-  setVG,
+  vg,
+  setVg,
   send,
   setTwitterOpen,
 }: {
-  VG: ValidatorGroup;
-  setVG: React.Dispatch<React.SetStateAction<ValidatorGroup | undefined>>;
+  vg: ValidatorGroup;
+  setVg: React.Dispatch<React.SetStateAction<ValidatorGroup | undefined>>;
   send: any;
   setTwitterOpen: any;
 }) {
@@ -39,10 +39,10 @@ export default function VGEditForm({
   } = useForm<VGEditFormType>({
     resolver: yupResolver(FormSchema),
     defaultValues: {
-      email: VG.Email ?? undefined,
-      geoURL: VG.GeographicLocation,
-      discord: VG.DiscordTag ?? undefined,
-      twitter: VG.TwitterUsername ?? undefined,
+      email: vg.email ?? undefined,
+      geoURL: vg.geographic_location ?? undefined,
+      discord: vg.discord_tag ?? undefined,
+      twitter: vg.twitter_username ?? undefined,
     },
   });
 
@@ -51,7 +51,7 @@ export default function VGEditForm({
       Object.entries(data).filter((entry) => entry[1].length > 0)
     );
 
-    const variables = { id: VG.ID, ...formData };
+    const variables = { id: vg.id, ...formData };
     console.log(variables);
 
     console.log("starting update");
@@ -67,15 +67,15 @@ export default function VGEditForm({
         }
         const vgData = res.data?.UpdateVGSocialInfo;
         console.log(vgData);
-        setVG({
-          ...VG,
-          DiscordTag: vgData?.DiscordTag,
-          Email: vgData?.Email,
-          TwitterUsername: vgData?.TwitterUsername,
-          GeographicLocation: vgData?.GeographicLocation ?? "",
+        setVg({
+          ...vg,
+          discord_tag: vgData?.DiscordTag,
+          email: vgData?.Email,
+          twitter_username: vgData?.TwitterUsername,
+          geographic_location: vgData?.GeographicLocation ?? "",
         });
 
-        console.log("VG UPDATED");
+        console.log("vg UPDATED");
 
         send("NEXT");
         toast.success("Group details updated.");
