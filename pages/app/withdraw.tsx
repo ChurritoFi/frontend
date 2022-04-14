@@ -4,7 +4,7 @@ import React, { Fragment, useCallback, useEffect, useState } from "react";
 
 import {
   fetchPendingWithdrawals,
-  getVGName,
+  getVgName,
   getVotingSummary,
 } from "../../lib/celo";
 import { useContractKit } from "@celo-tools/use-contractkit";
@@ -93,7 +93,7 @@ function Withdraw() {
         Promise.all(
           groupVotes.map(async (group) => ({
             vg: group.group,
-            name: await getVGName(kit, group.group),
+            name: await getVgName(kit, group.group),
             active: group.active,
             pending: group.pending,
           }))
@@ -154,7 +154,7 @@ function Withdraw() {
     }
   };
 
-  const unvoteVG = async (vg: GroupVoting) => {
+  const unvoteVg = async (vg: GroupVoting) => {
     if (address == null) return;
     try {
       await performActions(async (k) => {
@@ -431,7 +431,7 @@ function Withdraw() {
                           disabled={!group.active.gt(0)}
                           className="border-2 rounded-md  text-alert font-medium shadow-sm text-base px-4 py-2 disabled:opacity-50 hover:border-alert-dark hover:text-alert-dark focus:border-alert-dark focus:text-alert-dark focus:outline-none active:bg-alert-light-light active:border-alert-dark-dark active:text-alert-dark-dark"
                           onClick={() => {
-                            unvoteVG(group);
+                            unvoteVg(group);
                           }}
                         >
                           Unvote & Unlock

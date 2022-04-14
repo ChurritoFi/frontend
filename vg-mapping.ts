@@ -1,5 +1,5 @@
 // 0x6f80f637896e7068ad28cc45d6810b1dc8b08cf5
-const VGMapping = [
+const vgMapping = [
   {
     Beneficiary: "0x6bd60aa42b900f7a5608d4dff5b406e503924c24",
     ContractAddress: "0x81AE1C73A326325216E25ff1af9EA3871195036E",
@@ -534,8 +534,8 @@ const VGMapping = [
   },
   {
     Beneficiary: "0x66501a0A13B9B77ADB332A3aeF4F6eBe4F8Fd12E",
-    ContractAddress: "0x21FB4411FA5828344c2788aB07D4cc12a12571b9"
-  }
+    ContractAddress: "0x21FB4411FA5828344c2788aB07D4cc12a12571b9",
+  },
 ];
 
-export default VGMapping;
+export default vgMapping;

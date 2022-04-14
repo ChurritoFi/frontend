@@ -5,7 +5,7 @@
 #   $discord: String
 #   $geoURL: String
 # ) {
-#   UpdateVGSocialInfo(
+#   UpdateVgSocialInfo(
 #     vg_id: $id
 #     email: $email
 #     twitter_username: $twitter

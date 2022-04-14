@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Transition } from "@headlessui/react";
 
-function CheckingVG({ dialogOpen }: { dialogOpen: boolean }) {
+function CheckingVg({ dialogOpen }: { dialogOpen: boolean }) {
   return (
     <Transition.Root show={dialogOpen} as={Fragment}>
       <div className="fixed z-10 inset-0 overflow-y-auto">
@@ -56,4 +56,4 @@ function CheckingVG({ dialogOpen }: { dialogOpen: boolean }) {
   );
 }
 
-export default CheckingVG;
+export default CheckingVg;

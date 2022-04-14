@@ -10,25 +10,25 @@ import Layout from "../../components/app/layout";
 import VotingSummary from "../../components/app/voting-summary";
 import Select from "../../components/app/select";
 import CeloInput from "../../components/app/celo-input";
-import VoteVGDialog from "../../components/app/dialogs/vote-vg";
-import RevokeVGDialog from "../../components/app/dialogs/revoke-vg";
-import ActivateVGDialog from "../../components/app/dialogs/activate-vg";
+import VoteVgDialog from "../../components/app/dialogs/vote-vg";
+import RevokeVgDialog from "../../components/app/dialogs/revoke-vg";
+import ActivateVgDialog from "../../components/app/dialogs/activate-vg";
 
 import {
   fetchPendingWithdrawals,
   getCELOBalance,
   getNonVotingLockedGold,
-  getVGName,
+  getVgName,
   getVotingCelo,
   getVotingSummary,
   hasActivatablePendingVotes,
 } from "../../lib/celo";
 
-import useVG from "../../hooks/useValidatorGroupSuggestion";
+import useVg from "../../hooks/useValidatorGroupSuggestion";
 
 import { calculateBarWidth, fetchExchangeRate } from "../../lib/utils";
 
-import { VGSuggestion, GroupVoting } from "../../lib/types";
+import { VgSuggestion, GroupVoting } from "../../lib/types";
 
 import CeloCoin from "../../components/icons/celo-coin";
 import InfoIcon from "../../components/icons/info";
@@ -55,18 +55,18 @@ function vote() {
     new BigNumber(0)
   );
 
-  const [validatorGroups, setValidatorGroups] = useState<VGSuggestion[]>([]);
+  const [validatorGroups, setValidatorGroups] = useState<VgSuggestion[]>([]);
   const [validatorGroupsForDialog, setValidatorGroupsForDialog] = useState<
     any[]
   >([]);
-  const [selectedVG, setSelectedVG] = useState<string | null>();
+  const [selectedVg, setSelectedVg] = useState<string | null>();
   const [celoAmountToInvest, setCeloAmountToInvest] = useState<string>("");
   const [hasActivatableVotes, setHasActivatableVotes] =
     useState<boolean>(false);
 
   const { address, network, kit, performActions } = useContractKit();
   const state = useStore();
-  const { fetching: fetchingVG, error: errorFetchingVG, data } = useVG(true);
+  const { fetching: fetchingVg, error: errorFetchingVg, data } = useVg(true);
 
   const fetchVotingSummary = useCallback(() => {
     if (address == null) return;
@@ -76,7 +76,7 @@ function vote() {
         Promise.all(
           groupVotes.map(async (group) => ({
             vg: group.group,
-            name: await getVGName(kit, group.group),
+            name: await getVgName(kit, group.group),
             active: group.active,
             pending: group.pending,
           }))
@@ -139,15 +139,15 @@ function vote() {
   }, []);
 
   useEffect(() => {
-    if (fetchingVG == false && errorFetchingVG == undefined) {
+    if (fetchingVg == false && errorFetchingVg == undefined) {
       setValidatorGroups(data?.validator_groups ?? []);
     }
-  }, [fetchingVG, errorFetchingVG, data]);
+  }, [fetchingVg, errorFetchingVg, data]);
 
   useEffect(() => {
     // validatorGroupsForDialog
     if (validatorGroups.length == 0) return;
-    setSelectedVG("");
+    setSelectedVg("");
 
     if (selected === options[0]) {
       setValidatorGroupsForDialog(validatorGroups.slice(0, 5));
@@ -186,9 +186,9 @@ function vote() {
     calculateActiveAndPendingCelo();
   }, [votingSummary]);
 
-  const voteOnVG = async () => {
+  const voteOnVg = async () => {
     if (address == null) return;
-    if (selectedVG == undefined || selectedVG == null) return;
+    if (selectedVg == undefined || selectedVg == null) return;
     if (!celoAmountToInvest) return;
 
     try {
@@ -196,7 +196,7 @@ function vote() {
         const election = await k.contracts.getElection();
         await (
           await election.vote(
-            selectedVG,
+            selectedVg,
             new BigNumber(parseFloat(celoAmountToInvest)).times(1e18)
           )
         ).sendAndWaitForReceipt({ from: k.defaultAccount });
@@ -205,7 +205,7 @@ function vote() {
       trackVoteOrRevoke(
         parseFloat(celoAmountToInvest),
         address,
-        selectedVG,
+        selectedVg,
         "vote"
       );
     } catch (e) {
@@ -218,20 +218,20 @@ function vote() {
     }
   };
 
-  const revokeVG = async () => {
+  const revokeVg = async () => {
     if (address == null) return;
     try {
       await performActions(async (k) => {
         console.log(k.defaultAccount);
 
         const election = await k.contracts.getElection();
-        if (!selectedVG) return;
-        console.log(selectedVG);
+        if (!selectedVg) return;
+        console.log(selectedVg);
         await Promise.all(
           (
             await election.revoke(
               address,
-              selectedVG,
+              selectedVg,
               new BigNumber(parseFloat(celoAmountToInvest)).times(1e18)
             )
           ).map((tx) => tx.sendAndWaitForReceipt({ from: k.defaultAccount }))
@@ -240,7 +240,7 @@ function vote() {
       trackVoteOrRevoke(
         parseFloat(celoAmountToInvest),
         address,
-        selectedVG!,
+        selectedVg!,
         "revoke"
       );
       console.log("Vote cast");
@@ -254,7 +254,7 @@ function vote() {
     }
   };
 
-  const activateVG = async () => {
+  const activateVg = async () => {
     if (address == null) return;
     try {
       await performActions(async (k) => {
@@ -281,7 +281,7 @@ function vote() {
     <Layout>
       <>
         <ReactTooltip place="top" type="dark" effect="solid" />
-        <ActivateVGDialog open={hasActivatableVotes} activate={activateVG} />
+        <ActivateVgDialog open={hasActivatableVotes} activate={activateVg} />
         <ReminderModal
           open={reminderModalOpen}
           setOpen={setReminderModalOpen}
@@ -289,19 +289,19 @@ function vote() {
         />
         {vgDialogOpen ? (
           selected === options[0] ? (
-            <VoteVGDialog
+            <VoteVgDialog
               open={vgDialogOpen}
               setOpen={setVgDialogOpen}
-              selectedVG={selectedVG}
-              setSelectedVG={setSelectedVG}
+              selectedVg={selectedVg}
+              setSelectedVg={setSelectedVg}
               validatorGroups={validatorGroupsForDialog}
             />
           ) : (
-            <RevokeVGDialog
+            <RevokeVgDialog
               open={vgDialogOpen}
               setOpen={setVgDialogOpen}
-              selectedVG={selectedVG}
-              setSelectedVG={setSelectedVG}
+              selectedVg={selectedVg}
+              setSelectedVg={setSelectedVg}
               validatorGroups={validatorGroupsForDialog}
             />
           )
@@ -431,8 +431,8 @@ function vote() {
                   className="whitespace-nowrap truncate bg-gray-light-light relative mt-2.5 w-full border border-gray-light rounded-md shadow-sm px-5 py-2.5 text-left cursor-default focus:outline-none focus:bg-primary-light-light focus:border-primary text-lg text-gray-dark"
                   onClick={() => setVgDialogOpen(true)}
                 >
-                  {selectedVG
-                    ? `${selectedVG.slice(0, 5)}...${selectedVG.slice(-5)}`
+                  {selectedVg
+                    ? `${selectedVg.slice(0, 5)}...${selectedVg.slice(-5)}`
                     : "Select Validator Group"}
 
                   <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
@@ -463,9 +463,9 @@ function vote() {
             <button
               className="mt-5 w-full text-xl py-3 rounded-md bg-primary  text-white hover:bg-primary-dark focus:bg-primary-dark focus:outline-none active:bg-primary-dark-dark"
               onClick={() => {
-                if (selectedVG == undefined) return;
-                if (selected === options[0]) voteOnVG();
-                if (selected === options[1]) revokeVG();
+                if (selectedVg == undefined) return;
+                if (selected === options[0]) voteOnVg();
+                if (selected === options[1]) revokeVg();
               }}
             >
               {selected}

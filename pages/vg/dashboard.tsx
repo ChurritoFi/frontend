@@ -2,11 +2,11 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useContractKit } from "@celo-tools/use-contractkit";
 import Layout from "../../components/vg/layout";
 import useStore from "../../store/vg-store";
-import useVGList from "../../hooks/useVGAddressList";
-import CheckingVG from "../../components/vg/dialogs/checking-vg";
+import useVgList from "../../hooks/useVgAddressList";
+import CheckingVg from "../../components/vg/dialogs/checking-vg";
 import Link from "next/link";
-import VGDash from "../../components/vg/dash";
-import VGMapping from "../../vg-mapping";
+import VgDash from "../../components/vg/dash";
+import vgMapping from "../../vg-mapping";
 
 import { FaVolumeUp } from "react-icons/fa";
 
@@ -17,9 +17,9 @@ function Dashboard() {
   const {
     validatorGroups,
     loading: vgListLoading,
-  }: { validatorGroups: string[]; loading: boolean } = useVGList();
+  }: { validatorGroups: string[]; loading: boolean } = useVgList();
 
-  const [isVG, setIsVG] = useState(false);
+  const [isVg, setIsVg] = useState(false);
   useEffect(() => {
     if (address == null) return;
     state.setUser(address);
@@ -27,7 +27,7 @@ function Dashboard() {
   }, [address]);
 
   useEffect(() => {
-    console.log(VGMapping.map((vg) => vg.Beneficiary));
+    console.log(vgMapping.map((vg) => vg.Beneficiary));
 
     const GROUP = "0x614b7654ba0cc6000abe526779911b70c1f7125a";
     const TESTING_ADDRESS = [
@@ -38,19 +38,19 @@ function Dashboard() {
     ];
     if (address == null || vgListLoading) return;
     if (TESTING_ADDRESS.includes(address)) {
-      setIsVG(true);
+      setIsVg(true);
       state.setUser(GROUP);
     } else {
       if (validatorGroups.map((a) => a.toLowerCase()).includes(address)) {
-        setIsVG(true);
+        setIsVg(true);
         state.setUser(address);
       } else {
-        const VGAccount = VGMapping.find(
+        const vgAccount = vgMapping.find(
           (vg) => vg.Beneficiary.toLowerCase() === address
         );
-        if (VGAccount) {
-          setIsVG(true);
-          state.setUser(VGAccount.ContractAddress.toLowerCase());
+        if (vgAccount) {
+          setIsVg(true);
+          state.setUser(vgAccount.ContractAddress.toLowerCase());
         }
       }
     }
@@ -59,7 +59,7 @@ function Dashboard() {
   return (
     <Layout>
       <>
-        <CheckingVG dialogOpen={userConnected && !isVG && vgListLoading} />
+        <CheckingVg dialogOpen={userConnected && !isVg && vgListLoading} />
         {!userConnected ? (
           <div>
             <div>
@@ -88,10 +88,10 @@ function Dashboard() {
           <div id="app-div">
             {(() => {
               if (!vgListLoading) {
-                if (isVG) {
+                if (isVg) {
                   return (
                     <div>
-                      <VGDash />
+                      <VgDash />
                     </div>
                   );
                 } else {

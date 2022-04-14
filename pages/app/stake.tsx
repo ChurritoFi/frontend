@@ -10,7 +10,7 @@ import { BigNumber } from "bignumber.js";
 import useStore from "../../store/store";
 
 import Layout from "../../components/app/layout";
-import VoteVGDialog from "../../components/app/dialogs/vote-vg";
+import VoteVgDialog from "../../components/app/dialogs/vote-vg";
 import ReminderModal from "../../components/app/dialogs/reminder";
 import CeloInput from "../../components/app/celo-input";
 import { fetchExchangeRate } from "../../lib/utils";
@@ -19,7 +19,7 @@ import {
   getNonVotingLockedGold,
   getTargetVotingYield,
 } from "../../lib/celo";
-import useVG from "../../hooks/useValidatorGroups";
+import useVg from "../../hooks/useValidatorGroups";
 import InfoIcon from "../../components/icons/info";
 import ReactTooltip from "react-tooltip";
 import {
@@ -72,17 +72,17 @@ function Stake() {
   const [exchangeRate, setExchangeRate] = useState(0);
   const [estimatedAPY, setEstimatedAPY] = useState<BigNumber>(new BigNumber(0));
   const [validatorGroups, setValidatorGroups] = useState<ValidatorGroup[]>([]);
-  const [selectedVGAddress, setSelectedVGAddress] = useState<string>("");
+  const [selectedVgAddress, setSelectedVgAddress] = useState<string>("");
   const [vgDialogOpen, setVgDialogOpen] = useState<boolean>(false);
   const [hoursToNextEpoch, setHoursToNextEpoch] = useState(0);
   const [reminderModalOpen, setReminderModalOpen] = useState(false);
 
-  const selectedVG = useMemo<ValidatorGroup | undefined>(() => {
-    return validatorGroups.find((vg) => vg.address === selectedVGAddress);
-  }, [validatorGroups, selectedVGAddress]);
-  const [expandedVG, setExpandedVG] = useState(false);
+  const selectedVg = useMemo<ValidatorGroup | undefined>(() => {
+    return validatorGroups.find((vg) => vg.address === selectedVgAddress);
+  }, [validatorGroups, selectedVgAddress]);
+  const [expandedVg, setExpandedVg] = useState(false);
 
-  const { fetching: fetchingVG, error: errorFetchingVG, data } = useVG(true);
+  const { fetching: fetchingVg, error: errorFetchingVg, data } = useVg(true);
 
   const state = useStore();
 
@@ -119,21 +119,21 @@ function Stake() {
   }, [router.query]);
 
   useEffect(() => {
-    if (fetchingVG == false && errorFetchingVG == undefined) {
+    if (fetchingVg == false && errorFetchingVg == undefined) {
       setValidatorGroups(data?.validator_groups ?? []);
-      const isVGInQuery = Object.keys(router.query).includes("vg");
-      if (isVGInQuery) {
+      const isVgInQuery = Object.keys(router.query).includes("vg");
+      if (isVgInQuery) {
         const vgInQuery = data?.validator_groups.find(
           (vg) => vg.address == router.query["vg"]
         );
         if (vgInQuery) {
-          setSelectedVGAddress(vgInQuery.address);
+          setSelectedVgAddress(vgInQuery.address);
           return;
         }
       }
-      setSelectedVGAddress(data?.validator_groups[0].address ?? "");
+      setSelectedVgAddress(data?.validator_groups[0].address ?? "");
     }
-  }, [fetchingVG, errorFetchingVG, data]);
+  }, [fetchingVg, errorFetchingVg, data]);
 
   const fetchAccountData = useCallback(
     async (address: string) => {
@@ -198,8 +198,8 @@ function Stake() {
     }
   };
 
-  const voteOnVG = async () => {
-    if (selectedVGAddress == undefined || selectedVGAddress == null) return;
+  const voteOnVg = async () => {
+    if (selectedVgAddress == undefined || selectedVgAddress == null) return;
 
     if (!celoToInvest) return;
 
@@ -208,7 +208,7 @@ function Stake() {
         const election = await k.contracts.getElection();
         await (
           await election.vote(
-            selectedVGAddress,
+            selectedVgAddress,
             new BigNumber(parseFloat(celoToInvest)).times(1e18)
           )
         ).sendAndWaitForReceipt({ from: k.defaultAccount });
@@ -217,7 +217,7 @@ function Stake() {
       trackVoteOrRevoke(
         parseFloat(celoToInvest),
         address!,
-        selectedVGAddress,
+        selectedVgAddress,
         "vote"
       );
       send("NEXT");
@@ -230,11 +230,11 @@ function Stake() {
     <Layout>
       <>
         <ReactTooltip place="top" type="dark" effect="solid" />
-        <VoteVGDialog
+        <VoteVgDialog
           open={vgDialogOpen}
           setOpen={setVgDialogOpen}
-          selectedVG={selectedVGAddress}
-          setSelectedVG={setSelectedVGAddress}
+          selectedVg={selectedVgAddress}
+          setSelectedVg={setSelectedVgAddress}
           validatorGroups={validatorGroups}
         />
         <ReminderModal
@@ -429,7 +429,7 @@ function Stake() {
               {(current.matches("activating") ||
                 current.matches("completed")) && (
                 <p className="text-primary-light text-lg font-medium">
-                  You are voting for: {selectedVG?.name}
+                  You are voting for: {selectedVg?.name}
                 </p>
               )}
             </div>
@@ -489,11 +489,11 @@ function Stake() {
                     <div className="flex items-center justify-center">
                       <button
                         className="text-gray-dark mx-auto flex items-center justify-center rounded-full p-2 relative z-10 hover:bg-primary-light-light focus:outline-none"
-                        onClick={() => setExpandedVG((curr) => !curr)}
+                        onClick={() => setExpandedVg((curr) => !curr)}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className={`${expandedVG ? "rotate-180" : "rotate-0"}
+                          className={`${expandedVg ? "rotate-180" : "rotate-0"}
                               h-6 w-6 transform transition-all duration-200`}
                           viewBox="0 0 20 20"
                           fill="currentColor"
@@ -510,14 +510,14 @@ function Stake() {
                       <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Name</span>
                         <span className="text-gray-dark text-base">
-                          {selectedVG?.name}
+                          {selectedVg?.name}
                         </span>
                       </div>
                       <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Group Score</span>
                         <span className="text-gray-dark text-base">
-                          {selectedVG?.group_score
-                            ? (selectedVG.group_score * 100).toFixed(2)
+                          {selectedVg?.group_score
+                            ? (selectedVg.group_score * 100).toFixed(2)
                             : "-"}{" "}
                           %
                         </span>
@@ -525,8 +525,8 @@ function Stake() {
                       <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Performance Score</span>
                         <span className="text-gray-dark text-base">
-                          {selectedVG?.performance_score
-                            ? (selectedVG.performance_score * 100).toFixed(2)
+                          {selectedVg?.performance_score
+                            ? (selectedVg.performance_score * 100).toFixed(2)
                             : "-"}{" "}
                           %
                         </span>
@@ -534,8 +534,8 @@ function Stake() {
                       <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Transparency Score</span>
                         <span className="text-gray-dark text-base">
-                          {selectedVG?.transparency_score
-                            ? (selectedVG.transparency_score * 100).toFixed(2)
+                          {selectedVg?.transparency_score
+                            ? (selectedVg.transparency_score * 100).toFixed(2)
                             : "-"}{" "}
                           %
                         </span>
@@ -543,22 +543,22 @@ function Stake() {
                       <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Estimated APY</span>
                         <span className="text-gray-dark text-base">
-                          {selectedVG?.estimated_apy
-                            ? selectedVG.estimated_apy.toFixed(2)
+                          {selectedVg?.estimated_apy
+                            ? selectedVg.estimated_apy.toFixed(2)
                             : "-"}{" "}
                           %
                         </span>
                       </div>
                     </div>
                   </div>
-                  {expandedVG && (
+                  {expandedVg && (
                     <div className="pl-6 mt-5 flex flex-1 gap-9 text-center">
                       <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">
                           Elected/Total Validators
                         </span>
                         <div className="flex flex-wrap justify-center items-center">
-                          {selectedVG?.validators.map((v) => (
+                          {selectedVg?.validators.map((v) => (
                             <svg
                               key={v.address}
                               className={`h-4 w-4 ml-2 shadow-lg  ${
@@ -581,8 +581,8 @@ function Stake() {
                       <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Received Votes</span>
                         <span className="text-gray-dark text-base">
-                          {selectedVG?.recieved_votes
-                            ? formatter.format(selectedVG.recieved_votes)
+                          {selectedVg?.recieved_votes
+                            ? formatter.format(selectedVg.recieved_votes)
                             : "-"}{" "}
                           CELO
                         </span>
@@ -590,8 +590,8 @@ function Stake() {
                       <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Available Votes</span>
                         <span className="text-gray-dark text-base">
-                          {selectedVG?.available_votes
-                            ? formatter.format(selectedVG.available_votes)
+                          {selectedVg?.available_votes
+                            ? formatter.format(selectedVg.available_votes)
                             : "-"}{" "}
                           CELO
                         </span>
@@ -599,16 +599,16 @@ function Stake() {
                       <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Epochs Served</span>
                         <span className="text-gray-dark text-base">
-                          {selectedVG?.epochs_served
-                            ? formatter.format(selectedVG.epochs_served)
+                          {selectedVg?.epochs_served
+                            ? formatter.format(selectedVg.epochs_served)
                             : "-"}{" "}
                         </span>
                       </div>
                       <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Locked CELO</span>
                         <span className="text-gray-dark text-base">
-                          {selectedVG?.locked_celo
-                            ? formatter.format(selectedVG.locked_celo)
+                          {selectedVg?.locked_celo
+                            ? formatter.format(selectedVg.locked_celo)
                             : "-"}{" "}
                           CELO
                         </span>
@@ -616,8 +616,8 @@ function Stake() {
                       <div className="flex-1 grid grid-rows-2 gap-2">
                         <span className="text-gray">Slashing Penalty</span>
                         <span className="text-gray-dark text-base">
-                          {selectedVG?.slashing_penalty_score
-                            ? selectedVG.slashing_penalty_score.toFixed(2)
+                          {selectedVg?.slashing_penalty_score
+                            ? selectedVg.slashing_penalty_score.toFixed(2)
                             : "-"}{" "}
                         </span>
                       </div>
@@ -626,8 +626,8 @@ function Stake() {
                           Attestation Percentage
                         </span>
                         <span className="text-gray-dark text-base">
-                          {selectedVG?.attestation_score
-                            ? (selectedVG.attestation_score * 100).toFixed(2)
+                          {selectedVg?.attestation_score
+                            ? (selectedVg.attestation_score * 100).toFixed(2)
                             : "-"}{" "}
                           %
                         </span>
@@ -639,7 +639,7 @@ function Stake() {
               <button
                 className="font-medium text-lg block w-full rounded-md mt-5 py-3 transition-all bg-primary text-white hover:bg-primary-dark focus:bg-primary-dark focus:outline-none active:bg-primary-dark-dark"
                 onClick={() => {
-                  voteOnVG();
+                  voteOnVg();
                 }}
               >
                 Confirm & Continue

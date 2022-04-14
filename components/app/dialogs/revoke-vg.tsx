@@ -2,17 +2,17 @@ import { Dialog, RadioGroup, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import { floatToPercentage } from "../../../lib/utils";
 
-function RevokeVG({
+function RevokeVg({
   open,
   setOpen,
-  selectedVG,
-  setSelectedVG,
+  selectedVg,
+  setSelectedVg,
   validatorGroups,
 }: {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedVG: string | null | undefined;
-  setSelectedVG: React.Dispatch<
+  selectedVg: string | null | undefined;
+  setSelectedVg: React.Dispatch<
     React.SetStateAction<string | null | undefined>
   >;
   validatorGroups: any[];
@@ -74,7 +74,7 @@ function RevokeVG({
                   </div>
                   <div className="mt-5">
                     <div className="flex overflow-x-auto">
-                      <RadioGroup value={selectedVG} onChange={setSelectedVG}>
+                      <RadioGroup value={selectedVg} onChange={setSelectedVg}>
                         <div className="relative bg-white rounded-md -space-y-px">
                           <div
                             className="grid gap-5 lg:gap-12 p-4 text-sm text-gray"
@@ -174,4 +174,4 @@ function RevokeVG({
   );
 }
 
-export default RevokeVG;
+export default RevokeVg;

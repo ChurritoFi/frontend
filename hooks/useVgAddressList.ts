@@ -7,7 +7,7 @@ export default function useValidatorGroups() {
   const [validatorGroups, setValidatorGroups] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const getVGs = useCallback(async () => {
+  const getVgs = useCallback(async () => {
     const validators = await kit.contracts.getValidators();
     const registeredGroups: ValidatorGroup[] =
       await validators.getRegisteredValidatorGroups();
@@ -15,7 +15,7 @@ export default function useValidatorGroups() {
   }, []);
 
   useEffect(() => {
-    getVGs().then((vgs) => {
+    getVgs().then((vgs) => {
       setValidatorGroups(vgs.map((vg) => vg.address));
       setLoading(false);
     });

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Nav from "../../components/home/nav";
-import useVG from "../../hooks/useVG";
+import useVg from "../../hooks/useVg";
 import { ValidatorGroup } from "../../lib/types";
 import ProfileHeader from "../../components/vg/ProfileHeader";
 import PerformanceMetricsPanel from "../../components/vg/PerformanceMetricPanel";
@@ -12,7 +12,7 @@ function ValidatorGroupPage() {
   const address = useRouter().query.address;
   const [vg, setVg] = useState<ValidatorGroup>();
 
-  const { fetching, error, data: validatorGroup } = useVG(String(address));
+  const { fetching, error, data: validatorGroup } = useVg(String(address));
 
   useEffect(() => {
     if (!fetching && !error && validatorGroup) {

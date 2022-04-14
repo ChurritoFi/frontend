@@ -28,7 +28,7 @@ export const fetchIdaddWalletIfDoesntExist = async (
   return -1;
 };
 
-export const fetchIdAddVGIfDoesntExist = async (
+export const fetchIdAddVgIfDoesntExist = async (
   address: string
 ): Promise<number> => {
   let { data: groups, error } = await supabase
@@ -77,7 +77,7 @@ export const trackVoteOrRevoke = async (
   if (wallet_id == -1) {
     return false;
   }
-  const group_id = await fetchIdAddVGIfDoesntExist(vg);
+  const group_id = await fetchIdAddVgIfDoesntExist(vg);
   if (group_id == -1) {
     return false;
   }

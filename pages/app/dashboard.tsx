@@ -9,7 +9,7 @@ import * as Fathom from "fathom-client";
 
 import useStore from "../../store/store";
 
-import ActivateVGDialog from "../../components/app/dialogs/activate-vg";
+import ActivateVgDialog from "../../components/app/dialogs/activate-vg";
 import CreateAccountDialog from "../../components/app/dialogs/create-account";
 
 import {
@@ -17,7 +17,7 @@ import {
   getNonVotingLockedGold,
   getVotingCelo,
   fetchPendingWithdrawals,
-  getVGName,
+  getVgName,
   getVotingSummary,
 } from "../../lib/celo";
 import { GroupVoting } from "../../lib/types";
@@ -51,7 +51,7 @@ export default function dashboard() {
         Promise.all(
           groupVotes.map(async (group) => ({
             vg: group.group,
-            name: await getVGName(kit, group.group),
+            name: await getVgName(kit, group.group),
             active: group.active,
             pending: group.pending,
           }))
@@ -97,7 +97,7 @@ export default function dashboard() {
       // fetches and sets the data to global store.
       fetchAllAccountData(address);
 
-      // gets all VGs voted for by the user.
+      // gets all Vgs voted for by the user.
       fetchVotingSummary();
 
       Fathom.trackGoal("H0U4OOXH", 0);
@@ -110,7 +110,7 @@ export default function dashboard() {
     Fathom.trackGoal("Z3PWXCND", 0);
   }
 
-  const activateVG = async () => {
+  const activateVg = async () => {
     if (address == null) return;
     try {
       await performActions(async (k) => {
@@ -135,7 +135,7 @@ export default function dashboard() {
   return (
     <Layout>
       <>
-        <ActivateVGDialog open={hasActivatableVotes} activate={activateVG} />
+        <ActivateVgDialog open={hasActivatableVotes} activate={activateVg} />
         <CreateAccountDialog />
         {!userConnected ? (
           <div>

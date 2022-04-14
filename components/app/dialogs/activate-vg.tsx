@@ -1,7 +1,7 @@
 import { Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 
-function ActivateVG({ open, activate }: { open: boolean; activate(): void }) {
+function ActivateVg({ open, activate }: { open: boolean; activate(): void }) {
   return (
     <Transition
       as={Fragment}
@@ -37,4 +37,4 @@ function ActivateVG({ open, activate }: { open: boolean; activate(): void }) {
   );
 }
 
-export default ActivateVG;
+export default ActivateVg;

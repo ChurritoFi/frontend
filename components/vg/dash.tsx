@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import useVG from "../../hooks/useVG";
+import useVg from "../../hooks/useVg";
 import { Validator, ValidatorGroup } from "../../lib/types";
 import useStore from "../../store/vg-store";
 import PerformanceMetricsPanel from "./PerformanceMetricPanel";
@@ -9,10 +9,10 @@ import ValidatorsPanel from "./ValidatorsPanel";
 import WelcomeHeading from "./welcome-heading";
 
 const formatter = new Intl.NumberFormat("en-US");
-export default function VGDash() {
+export default function VgDash() {
   const [vg, setVg] = useState<ValidatorGroup>();
   const user = useStore((state) => state.user);
-  const { fetching, error, data: validatorGroup } = useVG(user);
+  const { fetching, error, data: validatorGroup } = useVg(user);
 
   useEffect(() => {
     if (validatorGroup) {

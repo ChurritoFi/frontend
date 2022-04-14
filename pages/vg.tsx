@@ -2,7 +2,7 @@ import Link from "next/link";
 import Head from "next/head";
 import React from "react";
 import FAQ from "../components/FAQ";
-import FeatureGridVG from "../components/home/feature-grid-vg";
+import FeatureGridVg from "../components/home/feature-grid-vg";
 import Footer from "../components/home/footer";
 import Nav from "../components/home/nav";
 
@@ -14,7 +14,7 @@ const ChurrofiWidget = () => (
   />
 );
 
-export default function VGLanding() {
+export default function VgLanding() {
   const faqs = [
     {
       question: "How do I sign in to my group's account?",
@@ -83,7 +83,7 @@ export default function VGLanding() {
               <p className="mt-3 text-3xl font-serif">
                 Boost Your Validator Group’s Performance
               </p>
-              <FeatureGridVG />
+              <FeatureGridVg />
             </div>
           </section>
           <section className="lg:grid lg:grid-cols-2 lg:gap-x-12 text-center lg:text-right lg:pr-36 mt-32 hidden">

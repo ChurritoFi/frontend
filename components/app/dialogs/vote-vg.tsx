@@ -1,20 +1,20 @@
 import { Dialog, RadioGroup, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import { floatToPercentage } from "../../../lib/utils";
-import { VGSuggestion } from "../../../lib/types";
+import { VgSuggestion } from "../../../lib/types";
 
 function VoteVg({
   open,
   setOpen,
-  selectedVG,
-  setSelectedVG,
+  selectedVg,
+  setSelectedVg,
   validatorGroups,
 }: {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedVG: string | null | undefined;
-  setSelectedVG: React.Dispatch<React.SetStateAction<string | any>>;
-  validatorGroups: VGSuggestion[];
+  selectedVg: string | null | undefined;
+  setSelectedVg: React.Dispatch<React.SetStateAction<string | any>>;
+  validatorGroups: VgSuggestion[];
 }) {
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -73,7 +73,7 @@ function VoteVg({
                   </div>
                   <div className="mt-5">
                     <div className="flex overflow-x-auto">
-                      <RadioGroup value={selectedVG} onChange={setSelectedVG}>
+                      <RadioGroup value={selectedVg} onChange={setSelectedVg}>
                         <div className="relative bg-white rounded-md -space-y-px">
                           <div
                             className="grid gap-5 lg:gap-12 p-4 text-sm text-gray"
@@ -149,7 +149,8 @@ function VoteVg({
                                       {floatToPercentage(vg.performance_score)}%
                                     </RadioGroup.Description>
                                     <RadioGroup.Description className="text-center">
-                                      {floatToPercentage(vg.transparency_score)}%
+                                      {floatToPercentage(vg.transparency_score)}
+                                      %
                                     </RadioGroup.Description>
                                     <RadioGroup.Description className="text-center">
                                       {vg.estimated_apy.toFixed(2)}%

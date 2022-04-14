@@ -4,10 +4,10 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import useStore from "../../store/vg-store";
 import Layout from "../../components/vg/layout";
 import { ValidatorGroup } from "../../lib/types";
-import useVG from "../../hooks/useVG";
+import useVg from "../../hooks/useVg";
 import WelcomeHeading from "../../components/vg/welcome-heading";
 import TransparencyScoreBar from "../../components/vg/transparency-score-bar";
-import VGEditForm from "../../components/vg/vg-edit-form";
+import VgEditForm from "../../components/vg/vg-edit-form";
 import TwitterDialog from "../../components/vg/dialogs/twitter";
 
 import { createMachine } from "xstate";
@@ -41,7 +41,7 @@ export default function Edit() {
   const [vg, setVg] = useState<ValidatorGroup>();
   const [twitterOpen, setTwitterOpen] = useState(false);
 
-  const { fetching, error, data: validatorGroup } = useVG(state.user);
+  const { fetching, error, data: validatorGroup } = useVg(state.user);
   const effectRunCount = useRef(0);
 
   useEffect(() => {
@@ -84,7 +84,7 @@ export default function Edit() {
           <div>
             <WelcomeHeading name={vg.name} address={vg.address} />
             <TransparencyScoreBar score={Number(vg.transparency_score)} />
-            <VGEditForm
+            <VgEditForm
               vg={vg}
               setVg={setVg}
               send={send}

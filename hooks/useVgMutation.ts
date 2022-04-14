@@ -6,15 +6,15 @@ import { useMutation } from "urql";
 //   UpdateValidatorGroupSocialInfoMutationVariables,
 // } from "../lib/generated/graphql";
 
-export default function useVGMutation() {
+export default function useVgMutation() {
   // TODO:
-  // const [updateVGResult, updateVG] = useMutation<
+  // const [updateVgResult, updateVg] = useMutation<
   //   UpdateValidatorGroupSocialInfoMutation,
   //   UpdateValidatorGroupSocialInfoMutationVariables
   // >(UpdateValidatorGroupSocialInfoDocument);
-  // return { updateVGResult, updateVG };
+  // return { updateVgResult, updateVg };
   return {
-    updateVG: async (variables: any): Promise<any> => {
+    updateVg: async (variables: any): Promise<any> => {
       throw new Error("Not implemented");
     },
   };

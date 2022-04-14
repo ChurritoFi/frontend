@@ -1,6 +1,6 @@
 import { BigNumber } from "bignumber.js";
 
-export type VGSuggestion = {
+export type VgSuggestion = {
   address: string;
   name?: string | null;
   group_score: number;
@@ -57,7 +57,7 @@ export interface Validator {
   currently_elected: boolean;
 }
 
-export type VGEditFormType = {
+export type VgEditFormType = {
   email: string;
   geoURL: string;
   twitter: string;

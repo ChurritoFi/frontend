@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import useStore from "../../store/vg-store";
 import Layout from "../../components/vg/layout";
 import { ValidatorGroup } from "../../lib/types";
-import useVG from "../../hooks/useVG";
+import useVg from "../../hooks/useVg";
 
 import Loading from "../../components/Loading";
 import PerformanceMetricsPanel from "../../components/vg/PerformanceMetricPanel";
@@ -16,7 +16,7 @@ export default function Profile() {
   const state = useStore();
   const [vg, setVg] = useState<ValidatorGroup>();
 
-  const { fetching, error, data: validatorGroup } = useVG(state.user);
+  const { fetching, error, data: validatorGroup } = useVg(state.user);
 
   useEffect(() => {
     if (!fetching && !error && validatorGroup) {

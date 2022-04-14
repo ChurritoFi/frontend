@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 import Head from "next/head";
 
-import useVG from "../../hooks/useVG";
+import useVg from "../../hooks/useVg";
 import useStore from "../../store/vg-store";
 import { ValidatorGroup } from "../../lib/types";
 import CODE from "../../widget-code";
@@ -35,7 +35,7 @@ export default function Widgets() {
   const state = useStore();
   const [vg, setVg] = useState<ValidatorGroup>();
 
-  const { fetching, error, data: validatorGroup } = useVG(state.user);
+  const { fetching, error, data: validatorGroup } = useVg(state.user);
 
   useEffect(() => {
     if (!fetching && !error && validatorGroup) {

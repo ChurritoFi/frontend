@@ -86,7 +86,7 @@ export const getVotingSummary = async (
   return groupVotes;
 };
 
-export const getVGName = async (
+export const getVgName = async (
   kit: ContractKit,
   groupAddress: string
 ): Promise<string> => {

@@ -7,8 +7,8 @@ import * as yup from "yup";
 import * as Fathom from "fathom-client";
 import { toast } from "react-toastify";
 
-import { ValidatorGroup, VGEditFormType } from "../../lib/types";
-import useVGMutation from "../../hooks/useVGMutation";
+import { ValidatorGroup, VgEditFormType } from "../../lib/types";
+import useVgMutation from "../../hooks/useVgMutation";
 
 const FormSchema = yup.object().shape({
   email: yup.string().email(),
@@ -17,7 +17,7 @@ const FormSchema = yup.object().shape({
   discord: yup.string(),
 });
 
-export default function VGEditForm({
+export default function VgEditForm({
   vg,
   setVg,
   send,
@@ -29,14 +29,14 @@ export default function VGEditForm({
   setTwitterOpen: any;
 }) {
   // GraphQL Mutation
-  const { updateVG } = useVGMutation();
+  const { updateVg } = useVgMutation();
 
   // Form handling
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<VGEditFormType>({
+  } = useForm<VgEditFormType>({
     resolver: yupResolver(FormSchema),
     defaultValues: {
       email: vg.email ?? undefined,
@@ -46,7 +46,7 @@ export default function VGEditForm({
     },
   });
 
-  const onFormSubmit = (data: VGEditFormType) => {
+  const onFormSubmit = (data: VgEditFormType) => {
     const formData = Object.fromEntries(
       Object.entries(data).filter((entry) => entry[1].length > 0)
     );
@@ -57,7 +57,7 @@ export default function VGEditForm({
     console.log("starting update");
     send("NEXT");
 
-    updateVG(variables)
+    updateVg(variables)
       .then(async (res) => {
         if (res.error) {
           const e = res.error.message;
@@ -65,7 +65,7 @@ export default function VGEditForm({
           send("ERROR");
           return;
         }
-        const vgData = res.data?.UpdateVGSocialInfo;
+        const vgData = res.data?.UpdateVgSocialInfo;
         console.log(vgData);
         setVg({
           ...vg,

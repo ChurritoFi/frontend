@@ -6,7 +6,7 @@ import {
   ValidatorGroupsQueryVariables,
 } from "../lib/generated/graphql";
 
-export default function useVG(sort?: boolean, limit?: number) {
+export default function useVg(sort?: boolean, limit?: number) {
   const [result] = useQuery<
     ValidatorGroupsQuery,
     ValidatorGroupsQueryVariables

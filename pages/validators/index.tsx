@@ -32,7 +32,7 @@ function ValidatorExplorer() {
     order: Order.DESC,
   });
 
-  const [expandedVG, setExpandedVG] = useState("");
+  const [expandedVg, setExpandedVg] = useState("");
 
   const {
     fetching,
@@ -143,7 +143,7 @@ function ValidatorExplorer() {
                     <button
                       className="mx-auto flex items-center justify-center rounded-full p-2 relative z-20 hover:bg-primary-light-light"
                       onClick={() =>
-                        setExpandedVG((curr) =>
+                        setExpandedVg((curr) =>
                           curr == vg.address ? "" : vg.address
                         )
                       }
@@ -151,7 +151,7 @@ function ValidatorExplorer() {
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className={`${
-                          expandedVG == vg.address ? "rotate-180" : "rotate-0"
+                          expandedVg == vg.address ? "rotate-180" : "rotate-0"
                         }
                               h-6 w-6 transform transition-all duration-200`}
                         viewBox="0 0 20 20"
@@ -205,7 +205,7 @@ function ValidatorExplorer() {
                     {vg.estimated_apy.toFixed(2)} %
                   </div>
                 </div>
-                {expandedVG == vg.address && (
+                {expandedVg == vg.address && (
                   <div
                     className="mt-3 mb-10 grid"
                     style={{ gridTemplateColumns: "1fr 7fr" }}
