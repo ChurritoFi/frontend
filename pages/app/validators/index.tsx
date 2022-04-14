@@ -13,8 +13,8 @@ import { ValidatorsBlock } from "../../../components/vg/ValidatorsBlock";
 
 const formatter = new Intl.NumberFormat("en-US");
 
-function calculateScore(vg: ValidatorGroup) {
-  return vg.transparency_score * 0.1 + vg.performance_score * 0.9;
+function getOverallScore(vg: ValidatorGroup) {
+  return vg.overall_score ?? 0;
 }
 
 function hasProfile(vg: ValidatorGroup) {
@@ -99,8 +99,8 @@ function ValidatorExplorer() {
     } else {
       sortFn = (a, b) =>
         newSortStatus.order == Order.ASC
-          ? calculateScore(a) - calculateScore(b)
-          : calculateScore(b) - calculateScore(a);
+          ? getOverallScore(a) - getOverallScore(b)
+          : getOverallScore(b) - getOverallScore(a);
     }
 
     setValidatorGroups(validatorGroups.sort(sortFn));
@@ -248,7 +248,7 @@ function ValidatorExplorer() {
                     {(vg.attestation_score * 100).toFixed(2)} %
                   </div>
                   <div className="">
-                    {(calculateScore(vg) * 100).toFixed(2)} %
+                    {(getOverallScore(vg) * 100).toFixed(2)} %
                   </div>
                   <div className="">{vg.estimated_apy.toFixed(2)} %</div>
                 </div>

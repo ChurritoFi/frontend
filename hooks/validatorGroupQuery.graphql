@@ -12,6 +12,7 @@ query ValidatorGroup($address: String!) {
     transparency_score
     performance_score
     attestation_score
+    overall_score
     estimated_apy
     recieved_votes
     available_votes

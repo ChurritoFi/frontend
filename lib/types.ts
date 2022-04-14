@@ -40,6 +40,7 @@ export interface ValidatorGroup {
   transparency_score: number;
   performance_score: number;
   attestation_score: number;
+  overall_score?: number | null;
   estimated_apy: number;
   recieved_votes: number;
   available_votes: number;

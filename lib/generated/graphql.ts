@@ -447,6 +447,7 @@ export type ValidatorGroupQuery = {
     transparency_score: number;
     performance_score: number;
     attestation_score: number;
+    overall_score?: number | null;
     estimated_apy: number;
     recieved_votes: number;
     available_votes: number;
@@ -485,6 +486,7 @@ export type ValidatorGroupsQuery = {
     email?: string | null;
     transparency_score: number;
     performance_score: number;
+    overall_score?: number | null;
     estimated_apy: number;
     recieved_votes: number;
     available_votes: number;
@@ -612,6 +614,10 @@ export const ValidatorGroupDocument = {
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "attestation_score" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "overall_score" },
                 },
                 {
                   kind: "Field",
@@ -747,6 +753,10 @@ export const ValidatorGroupsDocument = {
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "performance_score" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "overall_score" },
                 },
                 {
                   kind: "Field",

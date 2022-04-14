@@ -10,6 +10,7 @@ query ValidatorGroups($order_by: [validator_groups_order_by!], $limit: Int) {
     email
     transparency_score
     performance_score
+    overall_score
     estimated_apy
     recieved_votes
     available_votes
