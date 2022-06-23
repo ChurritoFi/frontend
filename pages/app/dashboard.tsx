@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { useContractKit } from "@celo-tools/use-contractkit";
 
 import { Switch, Transition } from "@headlessui/react";
 import Loader from "react-loader-spinner";
@@ -12,6 +11,7 @@ import useStore from "../../store/store";
 import ActivateVgDialog from "../../components/app/dialogs/activate-vg";
 import CreateAccountDialog from "../../components/app/dialogs/create-account";
 
+import { useCelo } from "../../hooks/useCelo";
 import {
   getCELOBalance,
   getNonVotingLockedGold,
@@ -37,7 +37,7 @@ export default function dashboard() {
   const [loadingAccountData, setLoadingAccountData] = useState<boolean>(false);
   const [pendingVotes, setPendingVotes] = useState<BigNumber>(new BigNumber(0));
 
-  const { kit, address, connect, destroy, performActions } = useContractKit();
+  const { contracts, address, connect, destroy, performActions } = useCelo();
 
   const state = useStore();
   const userConnected = useMemo(() => state.user.length > 0, [state.user]);
@@ -46,12 +46,12 @@ export default function dashboard() {
   const fetchVotingSummary = useCallback(() => {
     if (address == null) return;
     setLoadingVotingSummary(true);
-    getVotingSummary(kit, address)
+    getVotingSummary(contracts, address)
       .then((groupVotes) =>
         Promise.all(
           groupVotes.map(async (group) => ({
             vg: group.group,
-            name: await getVgName(kit, group.group),
+            name: await getVgName(contracts, group.group),
             active: group.active,
             pending: group.pending,
           }))
@@ -72,10 +72,13 @@ export default function dashboard() {
   async function fetchAllAccountData(address: string) {
     setLoadingAccountData(true);
     const { totalCeloUnlocking, totalCeloWithdrawable } =
-      await fetchPendingWithdrawals(kit, address);
-    const celoBalance = await getCELOBalance(kit, address);
-    const nonVotingLockedGold = await getNonVotingLockedGold(kit, address);
-    const votingLockedCelo = await getVotingCelo(kit, address);
+      await fetchPendingWithdrawals(contracts, address);
+    const celoBalance = await getCELOBalance(contracts, address);
+    const nonVotingLockedGold = await getNonVotingLockedGold(
+      contracts,
+      address
+    );
+    const votingLockedCelo = await getVotingCelo(contracts, address);
 
     const totalCelo = celoBalance
       .plus(nonVotingLockedGold)
@@ -114,11 +117,11 @@ export default function dashboard() {
     if (address == null) return;
     try {
       await performActions(async (k) => {
-        const election = await k.contracts.getElection();
+        const election = await contracts.getElection();
         await Promise.all(
           (
             await election.activate(address)
-          ).map((tx) => tx.sendAndWaitForReceipt({ from: k.defaultAccount }))
+          ).map((tx) => tx.sendAndWaitForReceipt({ from: address }))
         );
       });
       trackActivate(address);
@@ -215,7 +218,7 @@ export default function dashboard() {
               </Transition>
             </div>
             <div>
-              <EpochRewardGraph address={address} kit={kit} />
+              <EpochRewardGraph address={address} contracts={contracts} />
             </div>
             <VotingSummary
               votingSummary={votingSummary}

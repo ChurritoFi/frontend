@@ -7,7 +7,6 @@ import {
   getVgName,
   getVotingSummary,
 } from "../../lib/celo";
-import { useContractKit } from "@celo-tools/use-contractkit";
 
 import { createMachine } from "xstate";
 import { useMachine } from "@xstate/react";
@@ -26,6 +25,7 @@ import {
   trackVoteOrRevoke,
 } from "../../lib/supabase";
 import ReminderModal from "../../components/app/dialogs/reminder";
+import { useCelo } from "../../hooks/useCelo";
 
 const StateMachine = createMachine({
   id: "StateMachine",
@@ -82,18 +82,18 @@ function Withdraw() {
   const [reminderModalOpen, setReminderModalOpen] = useState<boolean>(false);
 
   const [current, send] = useMachine(StateMachine);
-  const { address, network, kit, performActions } = useContractKit();
+  const { address, network, kit, contracts, performActions } = useCelo();
   const state = useStore();
 
   const fetchVotingSummary = useCallback(() => {
     if (address == null) return;
     setLoadingVotingSummary(true);
-    getVotingSummary(kit, address)
+    getVotingSummary(contracts, address)
       .then((groupVotes) =>
         Promise.all(
           groupVotes.map(async (group) => ({
             vg: group.group,
-            name: await getVgName(kit, group.group),
+            name: await getVgName(contracts, group.group),
             active: group.active,
             pending: group.pending,
           }))
@@ -109,7 +109,7 @@ function Withdraw() {
     if (address == null) return;
     const now = new Date();
     setLoadingPendingWithdrawals(true);
-    fetchPendingWithdrawals(kit, address).then(({ pendingWithdrawals }) => {
+    fetchPendingWithdrawals(contracts, address).then(({ pendingWithdrawals }) => {
       setPendingWithdrawals(
         pendingWithdrawals.map((w: PendingWithdrawal) => {
           const time = new Date(w.time.times(1000).toNumber());
@@ -136,10 +136,10 @@ function Withdraw() {
     console.log("Withdraw CELO", pendingWithdrawals[idx]);
     try {
       await performActions(async (k) => {
-        const locked = await k.contracts.getLockedGold();
+        const locked = await contracts.getLockedGold();
         await locked
           .withdraw(idx)
-          .sendAndWaitForReceipt({ from: k.defaultAccount });
+          .sendAndWaitForReceipt({ from: address! });
       });
       trackCELOLockedOrUnlockedOrWithdraw(
         pendingWithdrawals[idx].value.div(1e18).toNumber(),
@@ -158,20 +158,20 @@ function Withdraw() {
     if (address == null) return;
     try {
       await performActions(async (k) => {
-        console.log(k.defaultAccount);
+        console.log(address);
 
-        const election = await k.contracts.getElection();
-        const lockedCelo = await k.contracts.getLockedGold();
+        const election = await contracts.getElection();
+        const lockedCelo = await contracts.getLockedGold();
 
         console.log(vg);
         await Promise.all(
           (
             await election.revoke(address, vg.vg, vg.active)
-          ).map((tx) => tx.sendAndWaitForReceipt({ from: k.defaultAccount }))
+          ).map((tx) => tx.sendAndWaitForReceipt({ from: address }))
         );
         await lockedCelo
           .unlock(vg.active)
-          .sendAndWaitForReceipt({ from: k.defaultAccount });
+          .sendAndWaitForReceipt({ from: address });
       });
       console.log("Unvote & Unlock");
       setReminderModalOpen(true);

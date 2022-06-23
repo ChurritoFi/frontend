@@ -1,4 +1,3 @@
-import { useContractKit } from "@celo-tools/use-contractkit";
 import React, { useEffect, useState } from "react";
 
 import useStore from "../../store/vg-store";
@@ -10,9 +9,10 @@ import Loading from "../../components/Loading";
 import PerformanceMetricsPanel from "../../components/vg/PerformanceMetricPanel";
 import ValidatorsPanel from "../../components/vg/ValidatorsPanel";
 import ProfileHeader from "../../components/vg/ProfileHeader";
+import { useCelo } from "../../hooks/useCelo";
 
 export default function Profile() {
-  const { address, network } = useContractKit();
+  const { address, network } = useCelo();
   const state = useStore();
   const [vg, setVg] = useState<ValidatorGroup>();
 

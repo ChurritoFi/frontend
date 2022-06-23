@@ -1,11 +1,11 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { useContractKit } from "@celo-tools/use-contractkit";
 import CreateAccountAsset from "../../icons/create-account-asset";
+import { useCelo } from "../../../hooks/useCelo";
 
 function CreateAccount() {
   const [open, setOpen] = useState(false);
-  const { address, performActions, kit } = useContractKit();
+  const { address, performActions, kit } = useCelo();
 
   const findIfAccountExists = useCallback(async () => {
     if (!address) {

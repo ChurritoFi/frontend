@@ -1,4 +1,3 @@
-import { useContractKit } from "@celo-tools/use-contractkit";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -12,6 +11,7 @@ import CODE from "../../widget-code";
 import Layout from "../../components/vg/layout";
 import Loading from "../../components/Loading";
 import CopyIcon from "../../components/icons/copy";
+import { useCelo } from "../../hooks/useCelo";
 
 const CodeBlock = ({ snippet }: { snippet: string }) => {
   return (
@@ -31,7 +31,7 @@ const CodeBlock = ({ snippet }: { snippet: string }) => {
 };
 
 export default function Widgets() {
-  const { address, network } = useContractKit();
+  const { address, network } = useCelo();
   const state = useStore();
   const [vg, setVg] = useState<ValidatorGroup>();
 

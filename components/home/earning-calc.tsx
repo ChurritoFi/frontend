@@ -2,10 +2,10 @@ import { useEffect, useMemo, useState } from "react";
 import { fetchExchangeRate } from "../../lib/utils";
 import { BigNumber } from "bignumber.js";
 import { getTargetVotingYield } from "../../lib/celo";
-import { useContractKit } from "@celo-tools/use-contractkit";
+import { useCelo } from "../../hooks/useCelo";
 
 export default function EarningCalculator() {
-  const { kit } = useContractKit();
+  const { contracts } = useCelo();
   const [exchangeRate, setExchangeRate] = useState<number | undefined>(
     undefined
   );
@@ -40,7 +40,7 @@ export default function EarningCalculator() {
 
   useEffect(() => {
     fetchExchangeRate().then((resp) => setExchangeRate(resp));
-    getTargetVotingYield(kit).then((value) => setEstimatedAPY(value));
+    getTargetVotingYield(contracts).then((value) => setEstimatedAPY(value));
   }, []);
   return (
     <div className="mt-20 lg:mt-0 lg:p-10 p-8 text-gray-dark border border-gray-light rounded-md">

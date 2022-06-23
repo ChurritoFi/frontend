@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useContractKit } from "@celo-tools/use-contractkit";
 import Layout from "../../components/vg/layout";
 import useStore from "../../store/vg-store";
 import useVgList from "../../hooks/useVgAddressList";
@@ -9,9 +8,10 @@ import VgDash from "../../components/vg/dash";
 import vgMapping from "../../vg-mapping";
 
 import { FaVolumeUp } from "react-icons/fa";
+import { useCelo } from "../../hooks/useCelo";
 
 function Dashboard() {
-  const { connect, address, network } = useContractKit();
+  const { connect, address, network } = useCelo();
   const state = useStore();
   const userConnected: boolean = !(address == null);
   const {

@@ -1,11 +1,15 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { ContractKitProvider } from "@celo-tools/use-contractkit";
+import { Web3ContractCache } from "@celo/contractkit/lib/web3-contract-cache";
+import { WrapperCache } from "@celo/contractkit/lib/contract-cache";
+import { AddressRegistry } from "@celo/contractkit/lib/address-registry";
+import { ContractKit } from "@celo/contractkit";
+import { CeloProvider } from "@celo/react-celo";
 import { createClient, Provider } from "urql";
 import * as Fathom from "fathom-client";
 
 import "tailwindcss/tailwind.css";
-import "@celo-tools/use-contractkit/lib/styles.css";
+import "@celo/react-celo/lib/styles.css";
 import "../style/global.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -20,6 +24,17 @@ declare global {
       "churrofi-widgets-xl": any;
     }
   }
+}
+
+// This creates a contracts cache exactly the same as contractkit.contracts
+// See https://github.com/celo-org/react-celo/blob/master/guides/contract-cache-recipes.md
+// TODO: use only the contracts we need
+function fullContractsCache(
+  connection: ContractKit["connection"],
+  registry: AddressRegistry
+) {
+  const web3Contracts = new Web3ContractCache(registry);
+  return new WrapperCache(connection, web3Contracts, registry);
 }
 
 const client = createClient({
@@ -67,13 +82,14 @@ function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/churritofi-logo.png" />
         <title>ChurritoFi - Staking CELO made easy</title>
       </Head>
-      <ContractKitProvider
+      <CeloProvider
         dapp={{
           name: "ChurritoFi",
           description: "Stake your CELO",
           url: appUrl,
           icon: `${appUrl}/favicon.ico`,
         }}
+        buildContractsCache={fullContractsCache}
       >
         <Provider value={client}>
           <div suppressHydrationWarning className="antialiased">
@@ -84,7 +100,7 @@ function App({ Component, pageProps }: AppProps) {
             )}
           </div>
         </Provider>
-      </ContractKitProvider>
+      </CeloProvider>
     </div>
   );
 }

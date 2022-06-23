@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Mainnet, useContractKit } from "@celo-tools/use-contractkit";
+import { Mainnet } from "@celo/react-celo";
 import { useRouter } from "next/router";
 import Nav from "./nav";
 import useStore from "../../store/store";
@@ -8,6 +8,7 @@ import { hasActivatablePendingVotes } from "../../lib/celo";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Mobile from "../mobile-view";
+import { useCelo } from "../../hooks/useCelo";
 
 interface layoutProps {
   children: React.ReactChild;
@@ -57,7 +58,7 @@ export default function layout({ children }: layoutProps) {
     },
   ];
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const { address, network, updateNetwork, destroy, kit } = useContractKit();
+  const { address, network, updateNetwork, destroy, contracts } = useCelo();
 
   const router = useRouter();
   const state = useStore();
@@ -79,7 +80,7 @@ export default function layout({ children }: layoutProps) {
       updateNetwork(Mainnet);
       state.setNetwork(network.name);
 
-      hasActivatablePendingVotes(kit, address).then((res) => {
+      hasActivatablePendingVotes(contracts, address).then((res) => {
         if (res) {
           state.setHasActivatableVotes(res);
         }

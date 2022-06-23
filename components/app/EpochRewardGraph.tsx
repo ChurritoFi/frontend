@@ -18,6 +18,7 @@ import Loader from "react-loader-spinner";
 import Link from "next/link";
 
 import subDays from "date-fns/subDays";
+import { WrapperCache } from "@celo/contractkit/lib/contract-cache";
 
 enum STATES {
   idle,
@@ -29,10 +30,10 @@ enum STATES {
 const OPTIONS = ["7 days", "30 days", "All time"];
 function EpochRewardGraph({
   address,
-  kit,
+  contracts,
 }: {
-  address: string | null;
-  kit: ContractKit;
+  address: string | null | undefined;
+  contracts: WrapperCache;
 }) {
   const [selected, setSelected] = useState<string>(OPTIONS[0]);
   const [rewards, setRewards] = useState<Map<number, BigNumber>>(
@@ -47,7 +48,7 @@ function EpochRewardGraph({
     }
     setStatus(STATES.loading);
 
-    fetchEpochRewards(kit, address).then((r) => {
+    fetchEpochRewards(contracts, address).then((r) => {
       const rewardMap = r.reduce(
         (acc, val) => acc.set(val["epoch"], val["reward"]),
         new Map<number, BigNumber>()
@@ -58,7 +59,7 @@ function EpochRewardGraph({
   }, [address]);
 
   async function setDataForGraph() {
-    const blockN = await kit.web3.eth.getBlockNumber();
+    const blockN = await contracts.connection.web3.eth.getBlockNumber();
     const epochNow = getEpochFromBlock(blockN, 17280);
     let fromEpoch;
     if (selected == OPTIONS[0]) {

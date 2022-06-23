@@ -4,18 +4,27 @@ import { PendingWithdrawal } from "@celo/contractkit/lib/wrappers/LockedGold";
 import { GroupVote } from "@celo/contractkit/lib/wrappers/Election";
 import { ValidatorGroup } from "@celo/contractkit/lib/wrappers/Validators";
 import { EpochReward } from "./types";
+import { WrapperCache } from "@celo/contractkit/lib/contract-cache";
 
-export const getCELOBalance = async (kit: ContractKit, address: string) => {
-  const goldToken = await kit.contracts.getGoldToken();
+export const getEpochSize = async (contracts: WrapperCache) => {
+  const blockchainParamsWrapper = await contracts.getBlockchainParameters();
+  return blockchainParamsWrapper.getEpochSizeNumber();
+};
+
+export const getCELOBalance = async (
+  contracts: WrapperCache,
+  address: string
+) => {
+  const goldToken = await contracts.getGoldToken();
   const goldTokenBalance = await goldToken.balanceOf(address);
   return goldTokenBalance;
 };
 
 export const getNonVotingLockedGold = async (
-  kit: ContractKit,
+  contracts: WrapperCache,
   address: string
 ) => {
-  const lockedGold = await kit.contracts.getLockedGold();
+  const lockedGold = await contracts.getLockedGold();
   const nonVotingLockedGold = await lockedGold.getAccountNonvotingLockedGold(
     address
   );
@@ -23,8 +32,11 @@ export const getNonVotingLockedGold = async (
   return nonVotingLockedGold;
 };
 
-export const getVotingCelo = async (kit: ContractKit, address: string) => {
-  const lockedGold = await kit.contracts.getLockedGold();
+export const getVotingCelo = async (
+  contracts: WrapperCache,
+  address: string
+) => {
+  const lockedGold = await contracts.getLockedGold();
   const totalLockedGold = await lockedGold.getAccountTotalLockedGold(address);
   const nonVotingLockedGold = await lockedGold.getAccountNonvotingLockedGold(
     address
@@ -40,10 +52,10 @@ type FetchPendingWithdrawalsResult = {
 };
 
 export async function fetchPendingWithdrawals(
-  kit: ContractKit,
+  contracts: WrapperCache,
   address: string
 ): Promise<FetchPendingWithdrawalsResult> {
-  const lockedGold = await kit.contracts.getLockedGold();
+  const lockedGold = await contracts.getLockedGold();
   const pendingWithdrawals: PendingWithdrawal[] =
     await lockedGold.getPendingWithdrawals(address);
 
@@ -67,11 +79,11 @@ export async function fetchPendingWithdrawals(
 }
 
 export const getVotingSummary = async (
-  kit: ContractKit,
+  contracts: WrapperCache,
   address: string
 ): Promise<GroupVote[]> => {
   let groupVotes: GroupVote[] = [];
-  const elections = await kit.contracts.getElection();
+  const elections = await contracts.getElection();
   const groupsVotedByAccount: string[] =
     await elections.getGroupsVotedForByAccount(address);
 
@@ -87,10 +99,10 @@ export const getVotingSummary = async (
 };
 
 export const getVgName = async (
-  kit: ContractKit,
+  contracts: WrapperCache,
   groupAddress: string
 ): Promise<string> => {
-  const validators = await kit.contracts.getValidators();
+  const validators = await contracts.getValidators();
   const group: ValidatorGroup = await validators.getValidatorGroup(
     groupAddress,
     false
@@ -99,31 +111,39 @@ export const getVgName = async (
 };
 
 export const hasActivatablePendingVotes = async (
-  kit: ContractKit,
+  contracts: WrapperCache,
   address: string
 ): Promise<boolean> => {
-  const elections = await kit.contracts.getElection();
+  const elections = await contracts.getElection();
   return await elections.hasActivatablePendingVotes(address);
 };
 
 export const fetchEpochRewards = async (
-  kit: ContractKit,
+  contracts: WrapperCache,
   address: string
 ): Promise<EpochReward[]> => {
-  const validators = await kit.contracts.getValidators();
+  const validators = await contracts.getValidators();
   const epochSize = (await validators.getEpochSize()).toNumber();
-  const blockN = await kit.web3.eth.getBlockNumber();
+  const blockN = await contracts.connection.web3.eth.getBlockNumber();
   const epochNow = getEpochFromBlock(blockN, epochSize);
 
-  const unitsPerEpoch = await fetchUnitsPerEpoch(kit, [address], epochNow);
+  const unitsPerEpoch = await fetchUnitsPerEpoch(
+    contracts,
+    [address],
+    epochNow
+  );
   const groupSet = new Set<string>();
   unitsPerEpoch.forEach((v) => v.forEach((units, k) => groupSet.add(k)));
   const groups = Array.from(groupSet.values());
   if (groups.length == 0) return []; // no rewards
 
-  const unitsByGroup = await fetchGroupUnitsPerEpoch(kit, groups, epochNow);
+  const unitsByGroup = await fetchGroupUnitsPerEpoch(
+    contracts,
+    groups,
+    epochNow
+  );
 
-  const rewardsByGroup = await fetchGroupRewardsPerEpoch(kit, groups);
+  const rewardsByGroup = await fetchGroupRewardsPerEpoch(contracts, groups);
 
   const byEpoch = new Map();
   unitsPerEpoch.forEach((unitsPerG, epoch) => {
@@ -161,13 +181,13 @@ export function getEpochFromBlock(block: number, epochSize: number) {
 }
 
 async function fetchUnitsPerEpoch(
-  kit: ContractKit,
+  contracts: WrapperCache,
   addresses: string[],
   epochNow: number
 ) {
-  const validators = await kit.contracts.getValidators();
+  const validators = await contracts.getValidators();
   const epochSize = (await validators.getEpochSize()).toNumber();
-  const electionDirect = await kit._web3Contracts.getElection();
+  const electionDirect = await contracts._web3Contracts.getElection();
 
   const activateEvents = await electionDirect.getPastEvents(
     "ValidatorGroupVoteActivated",
@@ -224,13 +244,13 @@ async function fetchUnitsPerEpoch(
 }
 
 async function fetchGroupUnitsPerEpoch(
-  kit: ContractKit,
+  contracts: WrapperCache,
   groups: string[],
   epochNow: number
 ) {
-  const validators = await kit.contracts.getValidators();
+  const validators = await contracts.getValidators();
   const epochSize = (await validators.getEpochSize()).toNumber();
-  const electionDirect = await kit._web3Contracts.getElection();
+  const electionDirect = await contracts.getElection();
 
   const activateEvents = await electionDirect.getPastEvents(
     "ValidatorGroupVoteActivated",
@@ -286,10 +306,13 @@ async function fetchGroupUnitsPerEpoch(
   return unitsByGroup;
 }
 
-async function fetchGroupRewardsPerEpoch(kit: ContractKit, groups: string[]) {
-  const validators = await kit.contracts.getValidators();
+async function fetchGroupRewardsPerEpoch(
+  contracts: WrapperCache,
+  groups: string[]
+) {
+  const validators = await contracts.getValidators();
   const epochSize = (await validators.getEpochSize()).toNumber();
-  const electionDirect = await kit._web3Contracts.getElection();
+  const electionDirect = await contracts.getElection();
 
   const events = await electionDirect.getPastEvents(
     "EpochRewardsDistributedToVoters",
@@ -312,8 +335,8 @@ async function fetchGroupRewardsPerEpoch(kit: ContractKit, groups: string[]) {
   return r;
 }
 
-export async function getTargetVotingYield(kit: ContractKit) {
-  const epochReward = await kit._web3Contracts.getEpochRewards();
+export async function getTargetVotingYield(contracts: WrapperCache) {
+  const epochReward = await contracts._web3Contracts.getEpochRewards();
 
   const [rewardMultiplierResp, targetVotingYieldResp] = await Promise.all([
     // fetches the current reward multiplier from the contract.

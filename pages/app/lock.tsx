@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useContractKit } from "@celo-tools/use-contractkit";
 import { PendingWithdrawal } from "@celo/contractkit/lib/wrappers/LockedGold";
 import { BigNumber } from "bignumber.js";
 
@@ -25,6 +24,7 @@ import InfoIcon from "../../components/icons/info";
 import ReactTooltip from "react-tooltip";
 import { trackCELOLockedOrUnlockedOrWithdraw } from "../../lib/supabase";
 import ReminderModal from "../../components/app/dialogs/reminder";
+import { useCelo } from "../../hooks/useCelo";
 
 const options = ["Lock", "Unlock", "Withdraw"];
 function vote() {
@@ -40,7 +40,7 @@ function vote() {
   const [celoAmount, setCeloAmount] = useState("");
   const [reminderModalOpen, setReminderModalOpen] = useState(false);
 
-  const { address, network, kit, performActions } = useContractKit();
+  const { address, network, contracts, performActions } = useCelo();
   const state = useStore();
 
   useEffect(() => {
@@ -53,14 +53,14 @@ function vote() {
 
   async function fetchAllAccountData(address: string) {
     const { totalCeloUnlocking, totalCeloWithdrawable, pendingWithdrawals } =
-      await fetchPendingWithdrawals(kit, address);
+      await fetchPendingWithdrawals(contracts, address);
     const currentTime = Math.round(new Date().getTime() / 1000);
     setWithdrawals(
       pendingWithdrawals.filter((w) => w.time.isLessThan(currentTime))
     );
-    const celoBalance = await getCELOBalance(kit, address);
-    const nonVotingLockedGold = await getNonVotingLockedGold(kit, address);
-    const votingLockedCelo = await getVotingCelo(kit, address);
+    const celoBalance = await getCELOBalance(contracts, address);
+    const nonVotingLockedGold = await getNonVotingLockedGold(contracts, address);
+    const votingLockedCelo = await getVotingCelo(contracts, address);
 
     const totalCelo = celoBalance
       .plus(nonVotingLockedGold)
@@ -87,10 +87,10 @@ function vote() {
     try {
       await performActions(async (k) => {
         // await ensureAccount(k, k.defaultAccount);
-        const lockedCelo = await k.contracts.getLockedGold();
+        const lockedCelo = await contracts.getLockedGold();
         return lockedCelo.lock().sendAndWaitForReceipt({
           value: new BigNumber(parseFloat(celoAmount)).times(1e18).toString(),
-          from: k.defaultAccount,
+          from: address,
         });
       });
 
@@ -111,10 +111,10 @@ function vote() {
     if (address == null) return;
     try {
       await performActions(async (k) => {
-        const lockedCelo = await k.contracts.getLockedGold();
+        const lockedCelo = await contracts.getLockedGold();
         await lockedCelo
           .unlock(new BigNumber(parseFloat(celoAmount)).times(1e18))
-          .sendAndWaitForReceipt({ from: k.defaultAccount });
+          .sendAndWaitForReceipt({ from: address });
       });
 
       setReminderModalOpen(true);
@@ -136,10 +136,10 @@ function vote() {
     console.log("Withdraw CELO", withdrawals[selectedWithdrawal]);
     try {
       await performActions(async (k) => {
-        const locked = await k.contracts.getLockedGold();
+        const locked = await contracts.getLockedGold();
         await locked
           .withdraw(selectedWithdrawal)
-          .sendAndWaitForReceipt({ from: k.defaultAccount });
+          .sendAndWaitForReceipt({ from: address });
       });
       trackCELOLockedOrUnlockedOrWithdraw(
         withdrawals[selectedWithdrawal].value.div(1e18).toNumber(),

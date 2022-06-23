@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useContractKit } from "@celo-tools/use-contractkit";
 import { BigNumber } from "bignumber.js";
 
 import ReminderModal from "../../components/app/dialogs/reminder";
@@ -34,6 +33,7 @@ import CeloCoin from "../../components/icons/celo-coin";
 import InfoIcon from "../../components/icons/info";
 import ReactTooltip from "react-tooltip";
 import { trackActivate, trackVoteOrRevoke } from "../../lib/supabase";
+import { useCelo } from "../../hooks/useCelo";
 
 const options = ["Vote", "Revoke"];
 function vote() {
@@ -64,19 +64,19 @@ function vote() {
   const [hasActivatableVotes, setHasActivatableVotes] =
     useState<boolean>(false);
 
-  const { address, network, kit, performActions } = useContractKit();
+  const { address, network, kit, contracts, performActions } = useCelo();
   const state = useStore();
   const { fetching: fetchingVg, error: errorFetchingVg, data } = useVg(true);
 
   const fetchVotingSummary = useCallback(() => {
     if (address == null) return;
     setLoadingVotingSummary(true);
-    getVotingSummary(kit, address)
+    getVotingSummary(contracts, address)
       .then((groupVotes) =>
         Promise.all(
           groupVotes.map(async (group) => ({
             vg: group.group,
-            name: await getVgName(kit, group.group),
+            name: await getVgName(contracts, group.group),
             active: group.active,
             pending: group.pending,
           }))
@@ -90,7 +90,7 @@ function vote() {
 
   const fetchActivatablePendingVotes = useCallback(() => {
     if (address == null) return;
-    hasActivatablePendingVotes(kit, address).then((hasActivatable) =>
+    hasActivatablePendingVotes(contracts, address).then((hasActivatable) =>
       setHasActivatableVotes(hasActivatable)
     );
   }, []);
@@ -115,10 +115,10 @@ function vote() {
 
   async function fetchAllAccountData(address: string) {
     const { totalCeloUnlocking, totalCeloWithdrawable } =
-      await fetchPendingWithdrawals(kit, address);
-    const celoBalance = await getCELOBalance(kit, address);
-    const nonVotingLockedGold = await getNonVotingLockedGold(kit, address);
-    const votingLockedCelo = await getVotingCelo(kit, address);
+      await fetchPendingWithdrawals(contracts, address);
+    const celoBalance = await getCELOBalance(contracts, address);
+    const nonVotingLockedGold = await getNonVotingLockedGold(contracts, address);
+    const votingLockedCelo = await getVotingCelo(contracts, address);
 
     const totalCelo = celoBalance
       .plus(nonVotingLockedGold)
@@ -193,13 +193,13 @@ function vote() {
 
     try {
       await performActions(async (k) => {
-        const election = await k.contracts.getElection();
+        const election = await contracts.getElection();
         await (
           await election.vote(
             selectedVg,
             new BigNumber(parseFloat(celoAmountToInvest)).times(1e18)
           )
-        ).sendAndWaitForReceipt({ from: k.defaultAccount });
+        ).sendAndWaitForReceipt({ from: address });
       });
       setReminderModalOpen(true);
       trackVoteOrRevoke(
@@ -222,9 +222,9 @@ function vote() {
     if (address == null) return;
     try {
       await performActions(async (k) => {
-        console.log(k.defaultAccount);
+        console.log(address);
 
-        const election = await k.contracts.getElection();
+        const election = await contracts.getElection();
         if (!selectedVg) return;
         console.log(selectedVg);
         await Promise.all(
@@ -234,7 +234,7 @@ function vote() {
               selectedVg,
               new BigNumber(parseFloat(celoAmountToInvest)).times(1e18)
             )
-          ).map((tx) => tx.sendAndWaitForReceipt({ from: k.defaultAccount }))
+          ).map((tx) => tx.sendAndWaitForReceipt({ from: address }))
         );
       });
       trackVoteOrRevoke(
@@ -258,11 +258,11 @@ function vote() {
     if (address == null) return;
     try {
       await performActions(async (k) => {
-        const election = await k.contracts.getElection();
+        const election = await contracts.getElection();
         await Promise.all(
           (
             await election.activate(address)
-          ).map((tx) => tx.sendAndWaitForReceipt({ from: k.defaultAccount }))
+          ).map((tx) => tx.sendAndWaitForReceipt({ from: address }))
         );
       });
       trackActivate(address);

@@ -1,4 +1,3 @@
-import { useContractKit } from "@celo-tools/use-contractkit";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
 import useStore from "../../store/vg-store";
@@ -13,6 +12,7 @@ import TwitterDialog from "../../components/vg/dialogs/twitter";
 import { createMachine } from "xstate";
 import { useMachine } from "@xstate/react";
 import Loading from "../../components/Loading";
+import { useCelo } from "../../hooks/useCelo";
 
 const EditMachine = createMachine({
   id: "EditMachine",
@@ -36,7 +36,7 @@ const EditMachine = createMachine({
 export default function Edit() {
   const [current, send] = useMachine(EditMachine);
   console.log(current.value);
-  const { address, network } = useContractKit();
+  const { address, network } = useCelo();
   const state = useStore();
   const [vg, setVg] = useState<ValidatorGroup>();
   const [twitterOpen, setTwitterOpen] = useState(false);

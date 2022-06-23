@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
-import { useContractKit } from "@celo-tools/use-contractkit";
-
 import { createMachine } from "xstate";
 import { useMachine } from "@xstate/react";
 
@@ -16,6 +14,7 @@ import CeloInput from "../../components/app/celo-input";
 import { fetchExchangeRate } from "../../lib/utils";
 import {
   getCELOBalance,
+  getEpochSize,
   getNonVotingLockedGold,
   getTargetVotingYield,
 } from "../../lib/celo";
@@ -31,6 +30,7 @@ import { intervalToDuration, add } from "date-fns";
 
 import { FaTwitter } from "react-icons/fa";
 import { ValidatorGroup } from "../../lib/types";
+import { useCelo } from "../../hooks/useCelo";
 
 const InvestMachine = createMachine({
   id: "InvestFlow",
@@ -54,7 +54,7 @@ const InvestMachine = createMachine({
 const formatter = new Intl.NumberFormat("en-US");
 
 function Stake() {
-  const { address, kit, performActions } = useContractKit();
+  const { address, kit, contracts, performActions } = useCelo();
   const router = useRouter();
 
   const [current, send] = useMachine(InvestMachine);
@@ -87,8 +87,8 @@ function Stake() {
   const state = useStore();
 
   async function getTimeToNextEpoch() {
-    const block = await kit.web3.eth.getBlockNumber();
-    const EPOCH_SIZE = await kit.getEpochSize();
+    const block = await contracts.connection.web3.eth.getBlockNumber();
+    const EPOCH_SIZE = await getEpochSize(contracts);
     const BLOCK_TIME = 5;
     const secondsToNextEpoch = BLOCK_TIME * (EPOCH_SIZE - (block % EPOCH_SIZE));
     const timeToNextEpoch = intervalToDuration({
@@ -107,7 +107,7 @@ function Stake() {
 
   useEffect(() => {
     fetchExchangeRate().then((rate) => setExchangeRate(rate));
-    getTargetVotingYield(kit).then((value) => setEstimatedAPY(value));
+    getTargetVotingYield(contracts).then((value) => setEstimatedAPY(value));
   }, []);
 
   useEffect(() => {
@@ -138,8 +138,8 @@ function Stake() {
   const fetchAccountData = useCallback(
     async (address: string) => {
       const [unlockedCelo, nonVotingLockedCelo] = await Promise.all([
-        getCELOBalance(kit, address),
-        getNonVotingLockedGold(kit, address),
+        getCELOBalance(contracts, address),
+        getNonVotingLockedGold(contracts, address),
       ]);
 
       return { unlockedCelo, nonVotingLockedCelo };
@@ -178,10 +178,10 @@ function Stake() {
     try {
       await performActions(async (k) => {
         // await ensureAccount(k, k.defaultAccount);
-        const lockedCelo = await k.contracts.getLockedGold();
+        const lockedCelo = await contracts.getLockedGold();
         return lockedCelo.lock().sendAndWaitForReceipt({
           value: amount.toString(),
-          from: k.defaultAccount,
+          from: address!,
         });
       });
 
@@ -205,13 +205,13 @@ function Stake() {
 
     try {
       await performActions(async (k) => {
-        const election = await k.contracts.getElection();
+        const election = await contracts.getElection();
         await (
           await election.vote(
             selectedVgAddress,
             new BigNumber(parseFloat(celoToInvest)).times(1e18)
           )
-        ).sendAndWaitForReceipt({ from: k.defaultAccount });
+        ).sendAndWaitForReceipt({ from: address! });
       });
 
       trackVoteOrRevoke(

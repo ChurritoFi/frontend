@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useContractKit } from "@celo-tools/use-contractkit";
 import { useRouter } from "next/router";
 import Nav from "./nav";
 import useStore from "../../store/vg-store";
 import Mobile from "../mobile-view";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useCelo } from "../../hooks/useCelo";
 
 interface layoutProps {
   children: React.ReactChild;
@@ -39,7 +39,7 @@ export default function layout({ children }: layoutProps) {
       icon: "/assets/nav/nav-widget",
     },
   ];
-  const { destroy } = useContractKit();
+  const { destroy } = useCelo();
   const router = useRouter();
   const user = useStore((state) => state.user);
   const setUser = useStore((state) => state.setUser);
