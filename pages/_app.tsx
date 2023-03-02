@@ -13,6 +13,7 @@ import "@celo/react-celo/lib/styles.css";
 import "../style/global.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import useIsServer from "../hooks/useIsServer";
 
 declare global {
   namespace JSX {
@@ -42,6 +43,7 @@ const client = createClient({
 });
 
 function App({ Component, pageProps }: AppProps) {
+  const isServer = useIsServer();
   const router = useRouter();
 
   useEffect(() => {
@@ -62,23 +64,11 @@ function App({ Component, pageProps }: AppProps) {
     };
   }, []);
 
-  const appUrl =
-    typeof window === "undefined"
-      ? "https://churrito.fi"
-      : window.location.origin;
+  const appUrl = isServer ? "https://churrito.fi" : window.location.origin;
 
   return (
-    <div>
+    <>
       <Head>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Jost:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         <link rel="icon" href="/churritofi-logo.png" />
         <title>ChurritoFi - Staking CELO made easy</title>
       </Head>
@@ -92,8 +82,9 @@ function App({ Component, pageProps }: AppProps) {
         buildContractsCache={fullContractsCache}
       >
         <Provider value={client}>
+          {/* TODO fix the real issue(s) and remove this */}
           <div suppressHydrationWarning className="antialiased">
-            {typeof window === "undefined" ? null : (
+            {isServer ? null : (
               <>
                 <Component {...pageProps} />
               </>
@@ -101,7 +92,7 @@ function App({ Component, pageProps }: AppProps) {
           </div>
         </Provider>
       </CeloProvider>
-    </div>
+    </>
   );
 }
 export default App;

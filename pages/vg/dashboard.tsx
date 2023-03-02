@@ -118,10 +118,12 @@ function Dashboard() {
                         </a>
                         .
                       </p>
-                      <Link href="/app/dashboard" passHref>
-                        <a className="mt-6 text-white text-lg bg-primary rounded-md px-10 py-3 inline-block">
-                          Login as a CELO holder
-                        </a>
+                      <Link
+                        href="/app/dashboard"
+                        passHref
+                        className="mt-6 text-white text-lg bg-primary rounded-md px-10 py-3 inline-block"
+                      >
+                        Login as a CELO holder
                       </Link>
                     </div>
                   );

@@ -109,22 +109,24 @@ function Withdraw() {
     if (address == null) return;
     const now = new Date();
     setLoadingPendingWithdrawals(true);
-    fetchPendingWithdrawals(contracts, address).then(({ pendingWithdrawals }) => {
-      setPendingWithdrawals(
-        pendingWithdrawals.map((w: PendingWithdrawal) => {
-          const time = new Date(w.time.times(1000).toNumber());
-          return {
-            value: w.value,
-            time: time,
-            status:
-              now > time
-                ? WithdrawalStatus.AVAILABLE
-                : WithdrawalStatus.PENDING,
-          };
-        })
-      );
-      setLoadingPendingWithdrawals(false);
-    });
+    fetchPendingWithdrawals(contracts, address).then(
+      ({ pendingWithdrawals }) => {
+        setPendingWithdrawals(
+          pendingWithdrawals.map((w: PendingWithdrawal) => {
+            const time = new Date(w.time.times(1000).toNumber());
+            return {
+              value: w.value,
+              time: time,
+              status:
+                now > time
+                  ? WithdrawalStatus.AVAILABLE
+                  : WithdrawalStatus.PENDING,
+            };
+          })
+        );
+        setLoadingPendingWithdrawals(false);
+      }
+    );
   }, []);
 
   useEffect(() => {
@@ -137,9 +139,7 @@ function Withdraw() {
     try {
       await performActions(async (k) => {
         const locked = await contracts.getLockedGold();
-        await locked
-          .withdraw(idx)
-          .sendAndWaitForReceipt({ from: address! });
+        await locked.withdraw(idx).sendAndWaitForReceipt({ from: address! });
       });
       trackCELOLockedOrUnlockedOrWithdraw(
         pendingWithdrawals[idx].value.div(1e18).toNumber(),

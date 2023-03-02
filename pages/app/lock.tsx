@@ -59,7 +59,10 @@ function vote() {
       pendingWithdrawals.filter((w) => w.time.isLessThan(currentTime))
     );
     const celoBalance = await getCELOBalance(contracts, address);
-    const nonVotingLockedGold = await getNonVotingLockedGold(contracts, address);
+    const nonVotingLockedGold = await getNonVotingLockedGold(
+      contracts,
+      address
+    );
     const votingLockedCelo = await getVotingCelo(contracts, address);
 
     const totalCelo = celoBalance

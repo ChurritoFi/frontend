@@ -60,10 +60,12 @@ export default function VgLanding() {
                 />
               </div>
               <div className="flex justify-center lg:block mt-10">
-                <Link href="/vg/dashboard" passHref>
-                  <a className="py-2 text-lg bg-white text-primary border-2 border-primary hover:border-primary-dark hover:text-primary-dark focus:border-primary-dark focus:text-primary-dark focus:outline-none active:bg-primary-light-light active:border-primary-dark-dark active:text-primary-dark-dark font-medium rounded-md shadow-md flex justify-center whitespace-nowrap truncate w-3/4">
-                    Validator Group’s Dashboard
-                  </a>
+                <Link
+                  href="/vg/dashboard"
+                  passHref
+                  className="py-2 text-lg bg-white text-primary border-2 border-primary hover:border-primary-dark hover:text-primary-dark focus:border-primary-dark focus:text-primary-dark focus:outline-none active:bg-primary-light-light active:border-primary-dark-dark active:text-primary-dark-dark font-medium rounded-md shadow-md flex justify-center whitespace-nowrap truncate w-3/4"
+                >
+                  Validator Group’s Dashboard
                 </Link>
               </div>
             </div>
@@ -110,10 +112,12 @@ export default function VgLanding() {
               </div>
 
               <div className="mt-10 flex justify-end">
-                <Link href="/vg/dashboard" passHref>
-                  <a className="w-3/4 py-2 border-2 text-lg bg-white text-primary border-primary hover:border-primary-dark hover:text-primary-dark focus:border-primary-dark focus:text-primary-dark focus:outline-none active:bg-primary-light-light active:border-primary-dark-dark active:text-primary-dark-dark font-medium rounded-md shadow-md flex justify-center whitespace-nowrap truncate">
-                    Validator Group’s Dashboard
-                  </a>
+                <Link
+                  href="/vg/dashboard"
+                  passHref
+                  className="w-3/4 py-2 border-2 text-lg bg-white text-primary border-primary hover:border-primary-dark hover:text-primary-dark focus:border-primary-dark focus:text-primary-dark focus:outline-none active:bg-primary-light-light active:border-primary-dark-dark active:text-primary-dark-dark font-medium rounded-md shadow-md flex justify-center whitespace-nowrap truncate"
+                >
+                  Validator Group’s Dashboard
                 </Link>
               </div>
             </div>
@@ -134,10 +138,12 @@ export default function VgLanding() {
                 back...
               </p>
               <div className="mt-5 space-x-4 text-lg">
-                <Link href="/app/dashboard" passHref>
-                  <a className="inline-block px-14 py-2 border-2 border-primary bg-primary hover:bg-primary-dark focus:bg-primary-dark hover:border-primary-dark focus:border-primary-dark focus:outline-none text-white font-medium rounded-md shadow-md">
-                    Contact Us
-                  </a>
+                <Link
+                  href="/app/dashboard"
+                  passHref
+                  className="inline-block px-14 py-2 border-2 border-primary bg-primary hover:bg-primary-dark focus:bg-primary-dark hover:border-primary-dark focus:border-primary-dark focus:outline-none text-white font-medium rounded-md shadow-md"
+                >
+                  Contact Us
                 </Link>
               </div>
             </div>

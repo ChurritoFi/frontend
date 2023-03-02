@@ -180,9 +180,11 @@ function ValidatorExplorer() {
           <ul className="py-5 space-y-3">
             {validatorGroups?.map((vg: ValidatorGroup) => (
               <li className="font-medium px-9 py-6 border border-gray-light rounded-md cursor-pointer hover:border-primary-light-light hover:shadow-lg transform transition-all duration-100">
-                <Link href={`/app/validators/${vg.address}`} passHref>
-                  <a className="absolute inset-0 z-10" />
-                </Link>
+                <Link
+                  href={`/app/validators/${vg.address}`}
+                  passHref
+                  className="absolute inset-0 z-10"
+                ></Link>
                 <div
                   className="grid gap-9 text-center"
                   style={{

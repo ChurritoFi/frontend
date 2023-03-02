@@ -117,7 +117,10 @@ function vote() {
     const { totalCeloUnlocking, totalCeloWithdrawable } =
       await fetchPendingWithdrawals(contracts, address);
     const celoBalance = await getCELOBalance(contracts, address);
-    const nonVotingLockedGold = await getNonVotingLockedGold(contracts, address);
+    const nonVotingLockedGold = await getNonVotingLockedGold(
+      contracts,
+      address
+    );
     const votingLockedCelo = await getVotingCelo(contracts, address);
 
     const totalCelo = celoBalance

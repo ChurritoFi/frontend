@@ -116,10 +116,12 @@ function EpochRewardGraph({
               <h3 className="text-xl">
                 Sorry, you've no past rewards to show yet 🥲
               </h3>
-              <Link href="/app/stake" passHref>
-                <a className="bg-primary inline-block px-14 py-3 rounded-md text-white text-base shadow-sm hover:bg-primary-dark transition-all">
-                  Start Staking
-                </a>
+              <Link
+                href="/app/stake"
+                passHref
+                className="bg-primary inline-block px-14 py-3 rounded-md text-white text-base shadow-sm hover:bg-primary-dark transition-all"
+              >
+                Start Staking
               </Link>
             </div>
           )}

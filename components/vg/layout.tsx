@@ -142,22 +142,22 @@ function MenuLink({
   disabled: boolean;
 }) {
   return (
-    <Link href={to} passHref>
-      <a
-        className={`${
-          disabled
-            ? "opacity-40 text-primary-dark cursor-not-allowed"
-            : isActive
-            ? "bg-primary text-white"
-            : "text-primary-dark hover:bg-primary-light transition-all duration-150"
-        }  group flex justify-start items-center px-6 py-3 text-lg rounded-md space-x-2`}
-      >
-        <img
-          src={`${icon}${isActive ? "" : "-outlined"}.svg`}
-          className="h-5 w-5"
-        />
-        <span>{text}</span>
-      </a>
+    <Link
+      href={to}
+      passHref
+      className={`${
+        disabled
+          ? "opacity-40 text-primary-dark cursor-not-allowed"
+          : isActive
+          ? "bg-primary text-white"
+          : "text-primary-dark hover:bg-primary-light transition-all duration-150"
+      }  group flex justify-start items-center px-6 py-3 text-lg rounded-md space-x-2`}
+    >
+      <img
+        src={`${icon}${isActive ? "" : "-outlined"}.svg`}
+        className="h-5 w-5"
+      />
+      <span>{text}</span>
     </Link>
   );
 }
