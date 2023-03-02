@@ -105,8 +105,8 @@ function How() {
                 <Report />
               </div>
               <p className="text-gray mt-6 text-lg max-w-sm mx-auto">
-                Monitor growth as the CELO rewards automatically get
-                added to your staked CELO for compounding.
+                Monitor growth as the CELO rewards automatically get added to
+                your staked CELO for compounding.
               </p>
             </div>
           </section>

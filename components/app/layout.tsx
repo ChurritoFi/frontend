@@ -125,16 +125,17 @@ export default function layout({ children }: layoutProps) {
                     : "text-primary-dark hover:bg-primary-light transition-all duration-150";
 
                   return (
-                    <Link href={item.to} passHref key={item.to}>
-                      <a
-                        className={`${classes} group flex justify-start items-center px-6 py-3 text-lg rounded-md space-x-4`}
-                      >
-                        <img
-                          src={`${item.icon}${isActive ? "" : "-outlined"}.svg`}
-                          className="h-5 w-5"
-                        />
-                        <span>{item.text}</span>
-                      </a>
+                    <Link
+                      href={item.to}
+                      passHref
+                      key={item.to}
+                      className={`${classes} group flex justify-start items-center px-6 py-3 text-lg rounded-md space-x-4`}
+                    >
+                      <img
+                        src={`${item.icon}${isActive ? "" : "-outlined"}.svg`}
+                        className="h-5 w-5"
+                      />
+                      <span>{item.text}</span>
                     </Link>
                   );
                 })}

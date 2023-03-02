@@ -135,9 +135,11 @@ function ValidatorExplorer() {
                 className="relative font-medium px-9 py-6 border border-gray-light rounded-md cursor-pointer hover:border-primary-light-light hover:shadow-lg transform transition-all duration-100 overflow-x-auto overflow-y-hidden w-auto"
                 key={vg.address}
               >
-                <Link href={`/validators/${vg.address}`} passHref>
-                  <a className="absolute inset-0 z-10" />
-                </Link>
+                <Link
+                  href={`/validators/${vg.address}`}
+                  passHref
+                  className="absolute inset-0 z-10"
+                ></Link>
                 <div className="grid grid-cols-8 text-center">
                   <div>
                     <button
@@ -153,7 +155,7 @@ function ValidatorExplorer() {
                         className={`${
                           expandedVg == vg.address ? "rotate-180" : "rotate-0"
                         }
-                              h-6 w-6 transform transition-all duration-200`}
+                            h-6 w-6 transform transition-all duration-200`}
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >

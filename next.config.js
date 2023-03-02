@@ -5,17 +5,14 @@
 
 const { withSentryConfig } = require("@sentry/nextjs");
 
-const moduleExports = {
-  // Your existing module.exports
-  webpack: (config, { webpack }) => {
-    config.node = {
-      fs: "empty",
-      net: "empty",
-      child_process: "empty",
-      readline: "empty",
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  webpack: (config) => {
+    config.resolve.fallback = {
+      fs: false,
+      net: false,
     };
-    config.plugins.push(new webpack.IgnorePlugin(/^electron$/));
-
     return config;
   },
 };
@@ -34,4 +31,4 @@ const sentryWebpackPluginOptions = {
 
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
-module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions);
+module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);

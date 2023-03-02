@@ -28,13 +28,13 @@ function ValidatorGroupPage() {
           <ProfileHeader vg={vg} />
           <PerformanceMetricsPanel vg={vg} />
           <ValidatorsPanel vg={vg} />
-          <Link href={`/app/stake?vg=${vg.address}`} passHref>
-            <a
-              target="_blank"
-              className="fixed bottom-20 right-40 bg-primary hover:bg-primary-dark focus:bg-primary-dark active:bg-primary-dark-dark focus:outline-none px-14 py-3 rounded-md text-white text-lg font-medium shadow-sm transition-all"
-            >
-              Stake on {vg.name ? vg.name : `${vg.address.slice(0, 8)}...`}
-            </a>
+          <Link
+            href={`/app/stake?vg=${vg.address}`}
+            passHref
+            target="_blank"
+            className="fixed bottom-20 right-40 bg-primary hover:bg-primary-dark focus:bg-primary-dark active:bg-primary-dark-dark focus:outline-none px-14 py-3 rounded-md text-white text-lg font-medium shadow-sm transition-all"
+          >
+            Stake on{vg.name ? vg.name : `${vg.address.slice(0, 8)}...`}
           </Link>
         </div>
       )}

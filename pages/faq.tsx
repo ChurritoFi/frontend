@@ -59,10 +59,12 @@ function FAQ() {
               Contact Us
             </a>
 
-            <Link href="/how" passHref>
-              <a className="inline-block w-full lg:w-auto px-14 py-2 bg-white text-primary border-2 border-primary font-medium rounded-md shadow-md">
-                How it works?
-              </a>
+            <Link
+              href="/how"
+              passHref
+              className="inline-block w-full lg:w-auto px-14 py-2 bg-white text-primary border-2 border-primary font-medium rounded-md shadow-md"
+            >
+              How it works?
             </Link>
           </div>
         </div>

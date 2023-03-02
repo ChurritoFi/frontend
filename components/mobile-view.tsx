@@ -18,10 +18,12 @@ function Mobile() {
           Please visit ChurritoFi Dashboard via a Personal Computer or Laptop
           device.
         </p>
-        <Link href="/" passHref>
-          <a className="inline-flex items-center justify-center transition px-8 py-2 bg-primary text-white text-lg border border-primary rounded-md shadow focus:outline-none mt-16">
-            Back to Home
-          </a>
+        <Link
+          href="/"
+          passHref
+          className="inline-flex items-center justify-center transition px-8 py-2 bg-primary text-white text-lg border border-primary rounded-md shadow focus:outline-none mt-16"
+        >
+          Back to Home
         </Link>
       </div>
       <Footer />

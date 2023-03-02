@@ -44,15 +44,19 @@ export default function VgDash() {
 function NavButtons() {
   return (
     <div className="mt-10 space-x-4 text-center">
-      <Link href="/vg/edit" passHref>
-        <a className="inline-block px-11 py-3 border-2 border-primary bg-primary text-white font-medium rounded-md">
-          Complete Your Profile
-        </a>
+      <Link
+        href="/vg/edit"
+        passHref
+        className="inline-block px-11 py-3 border-2 border-primary bg-primary text-white font-medium rounded-md"
+      >
+        Complete Your Profile
       </Link>
-      <Link href="/vg/profile" passHref>
-        <a className="inline-block px-11 py-3 bg-white text-primary border-2 border-primary font-medium rounded-md">
-          View Your Profile
-        </a>
+      <Link
+        href="/vg/profile"
+        passHref
+        className="inline-block px-11 py-3 bg-white text-primary border-2 border-primary font-medium rounded-md"
+      >
+        View Your Profile
       </Link>
     </div>
   );
