@@ -78,6 +78,7 @@ function App({ Component, pageProps }: AppProps) {
           description: "Stake your CELO",
           url: appUrl,
           icon: `${appUrl}/favicon.ico`,
+          walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
         }}
         buildContractsCache={fullContractsCache}
       >
