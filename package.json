@@ -9,8 +9,8 @@
     "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
-    "@celo/contractkit": "^3.1.0",
-    "@celo/react-celo": "^4.3.0",
+    "@celo/contractkit": "^4.1.0",
+    "@celo/react-celo": "^5.0.4",
     "@headlessui/react": "^1.2.0",
     "@hookform/resolvers": "^2.6.0",
     "@sentry/nextjs": "^6.19.6",
