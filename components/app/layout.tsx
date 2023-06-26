@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Mainnet } from "@celo/react-celo";
+// import { Mainnet } from "@celo/react-celo";
 import { useRouter } from "next/router";
 import Nav from "./nav";
 import useStore from "../../store/store";
@@ -58,7 +58,7 @@ export default function layout({ children }: layoutProps) {
     },
   ];
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const { address, network, updateNetwork, destroy, contracts } = useCelo();
+  const { address, network, destroy, contracts } = useCelo();
 
   const router = useRouter();
   const state = useStore();
@@ -77,7 +77,9 @@ export default function layout({ children }: layoutProps) {
     } else {
       if (address == null) return;
       state.setUser(address);
-      updateNetwork(Mainnet);
+      // TODO: check whether we need to update the network
+      // updateNetwork(Mainnet);
+      if (!network) return;
       state.setNetwork(network.name);
 
       hasActivatablePendingVotes(contracts, address).then((res) => {

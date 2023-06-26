@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { PendingWithdrawal } from "@celo/contractkit/lib/wrappers/LockedGold";
 
 const Select = ({
   options,

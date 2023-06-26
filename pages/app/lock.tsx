@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { PendingWithdrawal } from "@celo/contractkit/lib/wrappers/LockedGold";
+import { PendingWithdrawal } from "../../lib/celo";
 import { BigNumber } from "bignumber.js";
 
 import useStore from "../../store/store";
@@ -40,7 +40,12 @@ function vote() {
   const [celoAmount, setCeloAmount] = useState("");
   const [reminderModalOpen, setReminderModalOpen] = useState(false);
 
-  const { address, network, contracts, performActions } = useCelo();
+  const {
+    address,
+    network,
+    contracts,
+    // performActions
+  } = useCelo();
   const state = useStore();
 
   useEffect(() => {
@@ -88,14 +93,21 @@ function vote() {
   const lockCELO = async () => {
     if (address == null) return;
     try {
-      await performActions(async (k) => {
-        // await ensureAccount(k, k.defaultAccount);
-        const lockedCelo = await contracts.getLockedGold();
-        return lockedCelo.lock().sendAndWaitForReceipt({
-          value: new BigNumber(parseFloat(celoAmount)).times(1e18).toString(),
-          from: address,
-        });
+      const lockedCelo = await contracts.getLockedGold();
+      const txHash = await lockedCelo.write.lock({
+        value: BigInt(parseFloat(celoAmount)) * BigInt(1e18),
       });
+      console.log("txHash", txHash);
+      // TODO: wait for tx to be mined.
+
+      // await performActions(async (k) => {
+      //   // await ensureAccount(k, k.defaultAccount);
+      //   const lockedCelo = await contracts.getLockedGold();
+      //   return lockedCelo.lock().sendAndWaitForReceipt({
+      //     value: new BigNumber(parseFloat(celoAmount)).times(1e18).toString(),
+      //     from: address,
+      //   });
+      // });
 
       console.log("CELO locked");
       trackCELOLockedOrUnlockedOrWithdraw(
@@ -113,12 +125,19 @@ function vote() {
   const unlockCELO = async () => {
     if (address == null) return;
     try {
-      await performActions(async (k) => {
-        const lockedCelo = await contracts.getLockedGold();
-        await lockedCelo
-          .unlock(new BigNumber(parseFloat(celoAmount)).times(1e18))
-          .sendAndWaitForReceipt({ from: address });
-      });
+      const lockedCelo = await contracts.getLockedGold();
+      const txHash = await lockedCelo.write.unlock([
+        BigInt(parseFloat(celoAmount)) * BigInt(1e18),
+      ]);
+      console.log("txHash", txHash);
+      // TODO: wait for tx to be mined.
+
+      // await performActions(async (k) => {
+      //   const lockedCelo = await contracts.getLockedGold();
+      //   await lockedCelo
+      //     .unlock(new BigNumber(parseFloat(celoAmount)).times(1e18))
+      //     .sendAndWaitForReceipt({ from: address });
+      // });
 
       setReminderModalOpen(true);
       trackCELOLockedOrUnlockedOrWithdraw(
@@ -138,12 +157,17 @@ function vote() {
     if (address == null) return;
     console.log("Withdraw CELO", withdrawals[selectedWithdrawal]);
     try {
-      await performActions(async (k) => {
-        const locked = await contracts.getLockedGold();
-        await locked
-          .withdraw(selectedWithdrawal)
-          .sendAndWaitForReceipt({ from: address });
-      });
+      const locked = await contracts.getLockedGold();
+      const txHash = await locked.write.withdraw([BigInt(selectedWithdrawal)]);
+      console.log("txHash", txHash);
+      // TODO: wait for tx to be mined.
+
+      // await performActions(async (k) => {
+      //   const locked = await contracts.getLockedGold();
+      //   await locked
+      //     .withdraw(selectedWithdrawal)
+      //     .sendAndWaitForReceipt({ from: address });
+      // });
       trackCELOLockedOrUnlockedOrWithdraw(
         withdrawals[selectedWithdrawal].value.div(1e18).toNumber(),
         address,

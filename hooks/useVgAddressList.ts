@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { ValidatorGroup } from "@celo/contractkit/lib/wrappers/Validators";
 import { useCelo } from "./useCelo";
+import { getRegisteredValidatorGroups, ValidatorGroup } from "../lib/celo";
 
 export default function useValidatorGroups() {
   const { contracts } = useCelo();
@@ -8,9 +8,8 @@ export default function useValidatorGroups() {
   const [loading, setLoading] = useState(true);
 
   const getVgs = useCallback(async () => {
-    const validators = await contracts.getValidators();
     const registeredGroups: ValidatorGroup[] =
-      await validators.getRegisteredValidatorGroups();
+      await getRegisteredValidatorGroups(contracts);
     return registeredGroups;
   }, []);
 

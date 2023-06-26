@@ -1,15 +1,21 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { Web3ContractCache } from "@celo/contractkit/lib/web3-contract-cache";
-import { WrapperCache } from "@celo/contractkit/lib/contract-cache";
-import { AddressRegistry } from "@celo/contractkit/lib/address-registry";
-import { ContractKit } from "@celo/contractkit";
-import { CeloProvider } from "@celo/react-celo";
+// import { Web3ContractCache } from "@celo/contractkit/lib/web3-contract-cache";
+// import { WrapperCache } from "@celo/contractkit/lib/contract-cache";
+// import { AddressRegistry } from "@celo/contractkit/lib/address-registry";
+// import { ContractKit } from "@celo/contractkit";
+// import { CeloProvider } from "@celo/react-celo";
 import { createClient, Provider } from "urql";
 import * as Fathom from "fathom-client";
+import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { configureChains, createConfig, WagmiConfig } from "wagmi";
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+import celoGroups from "@celo/rainbowkit-celo/lists";
+import { Celo } from "@celo/rainbowkit-celo/chains";
 
 import "tailwindcss/tailwind.css";
-import "@celo/react-celo/lib/styles.css";
+// import "@celo/react-celo/lib/styles.css";
+import "@rainbow-me/rainbowkit/styles.css";
 import "../style/global.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -27,19 +33,27 @@ declare global {
   }
 }
 
-// This creates a contracts cache exactly the same as contractkit.contracts
-// See https://github.com/celo-org/react-celo/blob/master/guides/contract-cache-recipes.md
-// TODO: use only the contracts we need
-function fullContractsCache(
-  connection: ContractKit["connection"],
-  registry: AddressRegistry
-) {
-  const web3Contracts = new Web3ContractCache(registry);
-  return new WrapperCache(connection, web3Contracts, registry);
-}
-
 const client = createClient({
   url: process.env.NEXT_PUBLIC_GRAPHQL_API_URL!,
+});
+
+const { chains, publicClient } = configureChains(
+  [Celo],
+  [
+    jsonRpcProvider({
+      rpc: (chain) => ({ http: chain.rpcUrls.default.http[0] }),
+    }),
+  ]
+);
+const connectors = celoGroups({
+  chains,
+  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
+  appName: "ChurritoFi",
+});
+const wagmiConfig = createConfig({
+  autoConnect: true,
+  connectors,
+  publicClient,
 });
 
 function App({ Component, pageProps }: AppProps) {
@@ -72,26 +86,20 @@ function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/churritofi-logo.png" />
         <title>ChurritoFi - Staking CELO made easy</title>
       </Head>
-      <CeloProvider
-        dapp={{
-          name: "ChurritoFi",
-          description: "Stake your CELO",
-          url: appUrl,
-          icon: `${appUrl}/favicon.ico`,
-        }}
-        buildContractsCache={fullContractsCache}
-      >
-        <Provider value={client}>
-          {/* TODO fix the real issue(s) and remove this */}
-          <div suppressHydrationWarning className="antialiased">
-            {isServer ? null : (
-              <>
-                <Component {...pageProps} />
-              </>
-            )}
-          </div>
-        </Provider>
-      </CeloProvider>
+      <WagmiConfig config={wagmiConfig}>
+        <RainbowKitProvider chains={chains} coolMode={true}>
+            <Provider value={client}>
+              {/* TODO fix the real issue(s) and remove this */}
+              <div suppressHydrationWarning className="antialiased">
+                {isServer ? null : (
+                  <>
+                    <Component {...pageProps} />
+                  </>
+                )}
+              </div>
+            </Provider>
+        </RainbowKitProvider>
+      </WagmiConfig>
     </>
   );
 }

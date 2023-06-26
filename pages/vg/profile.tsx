@@ -25,11 +25,12 @@ export default function Profile() {
   }, [fetching, validatorGroup]);
 
   useEffect(() => {
-    if (address == null) return;
-    state.setNetwork(network.name);
+    if (!address) return;
+    if (network) {
+      state.setNetwork(network.name);
+    }
     const GROUP = "0x15ed3f6b79f5fb9ef1d99d37314dd626b3005f0b";
     const TESTING_ADDRESS = "0x6f80f637896e7068ad28cc45d6810b1dc8b08cf5";
-    if (address === "") return;
     if (address == TESTING_ADDRESS) {
       state.setUser(GROUP);
     } else {

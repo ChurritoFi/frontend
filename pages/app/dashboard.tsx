@@ -12,6 +12,7 @@ import ActivateVgDialog from "../../components/app/dialogs/activate-vg";
 import CreateAccountDialog from "../../components/app/dialogs/create-account";
 
 import { useCelo } from "../../hooks/useCelo";
+import { activate } from "../../lib/celo";
 import {
   getCELOBalance,
   getNonVotingLockedGold,
@@ -37,7 +38,13 @@ export default function dashboard() {
   const [loadingAccountData, setLoadingAccountData] = useState<boolean>(false);
   const [pendingVotes, setPendingVotes] = useState<BigNumber>(new BigNumber(0));
 
-  const { contracts, address, connect, destroy, performActions } = useCelo();
+  const {
+    contracts,
+    address,
+    openConnectModal,
+    destroy,
+    // performActions,
+  } = useCelo();
 
   const state = useStore();
   const userConnected = useMemo(() => state.user.length > 0, [state.user]);
@@ -108,22 +115,27 @@ export default function dashboard() {
   }, [address]);
 
   async function connectWallet() {
-    await connect();
+    // await connect();
+    openConnectModal?.();
 
-    Fathom.trackGoal("Z3PWXCND", 0);
+    // Fathom.trackGoal("Z3PWXCND", 0);
   }
 
   const activateVg = async () => {
     if (address == null) return;
     try {
-      await performActions(async (k) => {
-        const election = await contracts.getElection();
-        await Promise.all(
-          (
-            await election.activate(address)
-          ).map((tx) => tx.sendAndWaitForReceipt({ from: address }))
-        );
-      });
+      const txHashes = await activate(contracts, address);
+      console.log(txHashes);
+      // TODO: wait for tx to be mined.
+
+      // await performActions(async (k) => {
+      //   const election = await contracts.getElection();
+      //   await Promise.all(
+      //     (
+      //       await election.activate(address)
+      //     ).map((tx) => tx.sendAndWaitForReceipt({ from: address }))
+      //   );
+      // });
       trackActivate(address);
       console.log("Votes activated");
       state.setHasActivatableVotes(false);

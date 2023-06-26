@@ -17,6 +17,7 @@ import {
   getEpochSize,
   getNonVotingLockedGold,
   getTargetVotingYield,
+  vote,
 } from "../../lib/celo";
 import useVg from "../../hooks/useValidatorGroups";
 import InfoIcon from "../../components/icons/info";
@@ -31,6 +32,8 @@ import { intervalToDuration, add } from "date-fns";
 import { FaTwitter } from "react-icons/fa";
 import { ValidatorGroup } from "../../lib/types";
 import { useCelo } from "../../hooks/useCelo";
+import { fetchBlockNumber } from "@wagmi/core";
+import { Address } from "wagmi";
 
 const InvestMachine = createMachine({
   id: "InvestFlow",
@@ -54,7 +57,11 @@ const InvestMachine = createMachine({
 const formatter = new Intl.NumberFormat("en-US");
 
 function Stake() {
-  const { address, kit, contracts, performActions } = useCelo();
+  const {
+    address,
+    contracts,
+    // performActions
+  } = useCelo();
   const router = useRouter();
 
   const [current, send] = useMachine(InvestMachine);
@@ -87,7 +94,8 @@ function Stake() {
   const state = useStore();
 
   async function getTimeToNextEpoch() {
-    const block = await contracts.connection.web3.eth.getBlockNumber();
+    // TODO: use bigint
+    const block = Number(await fetchBlockNumber());
     const EPOCH_SIZE = await getEpochSize(contracts);
     const BLOCK_TIME = 5;
     const secondsToNextEpoch = BLOCK_TIME * (EPOCH_SIZE - (block % EPOCH_SIZE));
@@ -176,14 +184,21 @@ function Stake() {
     console.log("Locking CELO");
     console.log(amount.lt(unlockedCelo));
     try {
-      await performActions(async (k) => {
-        // await ensureAccount(k, k.defaultAccount);
-        const lockedCelo = await contracts.getLockedGold();
-        return lockedCelo.lock().sendAndWaitForReceipt({
-          value: amount.toString(),
-          from: address!,
-        });
+      const lockedCelo = await contracts.getLockedGold();
+      const txHash = await lockedCelo.write.lock({
+        value: BigInt(amount.toString()),
       });
+      console.log("txHash", txHash);
+      // TODO: wait for tx to be mined.
+
+      // await performActions(async (k) => {
+      //   // await ensureAccount(k, k.defaultAccount);
+      //   const lockedCelo = await contracts.getLockedGold();
+      //   return lockedCelo.lock().sendAndWaitForReceipt({
+      //     value: amount.toString(),
+      //     from: address!,
+      //   });
+      // });
 
       console.log("CELO locked");
       trackCELOLockedOrUnlockedOrWithdraw(
@@ -204,15 +219,23 @@ function Stake() {
     if (!celoToInvest) return;
 
     try {
-      await performActions(async (k) => {
-        const election = await contracts.getElection();
-        await (
-          await election.vote(
-            selectedVgAddress,
-            new BigNumber(parseFloat(celoToInvest)).times(1e18)
-          )
-        ).sendAndWaitForReceipt({ from: address! });
-      });
+      const txHash = await vote(
+        contracts,
+        selectedVgAddress as Address,
+        new BigNumber(parseFloat(celoToInvest)).times(1e18)
+      );
+      console.log("txHash", txHash);
+      // TODO: wait for tx to be mined.
+
+      // await performActions(async (k) => {
+      //   const election = await contracts.getElection();
+      //   await (
+      //     await election.vote(
+      //       selectedVgAddress,
+      //       new BigNumber(parseFloat(celoToInvest)).times(1e18)
+      //     )
+      //   ).sendAndWaitForReceipt({ from: address! });
+      // });
 
       trackVoteOrRevoke(
         parseFloat(celoToInvest),

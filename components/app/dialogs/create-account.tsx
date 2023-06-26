@@ -5,7 +5,7 @@ import { useCelo } from "../../../hooks/useCelo";
 
 function CreateAccount() {
   const [open, setOpen] = useState(false);
-  const { address, performActions, kit } = useCelo();
+  const { address, contracts } = useCelo();
 
   const findIfAccountExists = useCallback(async () => {
     if (!address) {
@@ -13,8 +13,8 @@ function CreateAccount() {
       return;
     }
     try {
-      const accounts = await kit.contracts.getAccounts();
-      const isAccount = await accounts.isAccount(address);
+      const accounts = await contracts.getAccounts();
+      const isAccount = await accounts.read.isAccount([address]);
       setOpen(!isAccount);
       console.log("isAccount", isAccount);
     } catch (err) {
@@ -26,13 +26,18 @@ function CreateAccount() {
     console.log("creating account");
     if (address == null) return;
     try {
-      await performActions(async (kit) => {
-        const accounts = await kit.contracts.getAccounts();
-        const res = await accounts.createAccount().sendAndWaitForReceipt({
-          from: address,
-        });
-        console.log(await res);
-      });
+      const accounts = await contracts.getAccounts();
+      const txHash = await accounts.write.createAccount()
+      console.log("txHash", txHash);
+      // TODO: wait for tx to be mined
+
+      // await performActions(async (kit) => {
+      //   const accounts = await kit.contracts.getAccounts();
+      //   const res = await accounts.createAccount().sendAndWaitForReceipt({
+      //     from: address,
+      //   });
+      //   console.log(await res);
+      // });
     } catch (err) {
       console.log("there is an err");
       console.log(err);
