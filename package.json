@@ -9,11 +9,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "generate": "graphql-codegen --config codegen.yml",
-    "postinstall": "cp -f node_modules/@celo/abis/types/wagmi/index.ts lib/abis/celo.ts"
+    "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
-    "@celo/abis": "9.0.2",
+    "@celo/abis": "^9.0.6",
     "@celo/base": "^4.1.0",
     "@celo/rainbowkit-celo": "^1.0.1-beta.4",
     "@headlessui/react": "^1.2.0",

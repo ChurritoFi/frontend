@@ -14,7 +14,7 @@ import {
   electionABI,
   epochRewardsABI,
   validatorsABI,
-} from "../lib/abis/celo";
+} from "@celo/abis/types/wagmi";
 import { useEffect, useMemo, useRef } from "react";
 
 const REGISTRY_CONTRACT_ADDRESS = "0x000000000000000000000000000000000000ce10";
