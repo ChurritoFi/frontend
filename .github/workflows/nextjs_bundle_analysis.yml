@@ -1,7 +1,7 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
 
-name: 'Next.js Bundle Analysis'
+name: "Next.js Bundle Analysis"
 
 on:
   pull_request:
@@ -54,6 +54,9 @@ jobs:
           path: .next/cache
           # change this if you prefer a more strict cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}
+
+      # Env for next-bundle-analysis
+      - run: cp .env.example .env
 
       - name: Build next.js app
         # change this if your site requires a custom build command
@@ -110,7 +113,7 @@ jobs:
         id: fc
         with:
           issue-number: ${{ github.event.number }}
-          body-includes: '<!-- __NEXTJS_BUNDLE -->'
+          body-includes: "<!-- __NEXTJS_BUNDLE -->"
 
       - name: Create Comment
         uses: peter-evans/create-or-update-comment@v2
