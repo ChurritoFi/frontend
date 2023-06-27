@@ -15,7 +15,7 @@
   "dependencies": {
     "@celo/abis": "9.0.2",
     "@celo/base": "^4.1.0",
-    "@celo/rainbowkit-celo": "^1.0.0",
+    "@celo/rainbowkit-celo": "^1.0.1-beta.4",
     "@headlessui/react": "^1.2.0",
     "@hookform/resolvers": "^2.6.0",
     "@rainbow-me/rainbowkit": "^1.0.3",
