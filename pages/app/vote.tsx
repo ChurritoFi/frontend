@@ -264,7 +264,7 @@ function vote() {
   const activateVg = createWalletAction(async () => {
     if (address == null) return;
     try {
-      const txHashes = activate(contracts, address);
+      const txHashes = await activate(contracts, address);
       console.log("txHashes", txHashes);
       await Promise.all(txHashes.map((hash) => waitForTransaction({ hash })));
 
