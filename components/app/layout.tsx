@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Mainnet } from "@celo/react-celo";
 import { useRouter } from "next/router";
 import Nav from "./nav";
 import useStore from "../../store/store";
@@ -58,7 +57,7 @@ export default function layout({ children }: layoutProps) {
     },
   ];
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const { address, network, updateNetwork, destroy, contracts } = useCelo();
+  const { address, network, destroy, contracts } = useCelo();
 
   const router = useRouter();
   const state = useStore();
@@ -77,7 +76,9 @@ export default function layout({ children }: layoutProps) {
     } else {
       if (address == null) return;
       state.setUser(address);
-      updateNetwork(Mainnet);
+      // TODO: check whether we need to update the network
+      // updateNetwork(Mainnet);
+      if (!network) return;
       state.setNetwork(network.name);
 
       hasActivatablePendingVotes(contracts, address).then((res) => {
@@ -92,13 +93,16 @@ export default function layout({ children }: layoutProps) {
     <>
       <div className="flex-col flex min-h-screen">
         <ToastContainer
-          className="space-y-2"
-          toastClassName={(context) =>
-            `${
-              // @ts-expect-error
-              toastClasses[context?.type]
-            } relative flex p-3 rounded justify-between overflow-hidden cursor-pointer`
-          }
+          position="bottom-right"
+          newestOnTop={true}
+          // Use default style for now
+          // className="space-y-2"
+          // toastClassName={(context) =>
+          //   `${
+          //     // @ts-expect-error
+          //     toastClasses[context?.type]
+          //   } relative flex p-3 rounded justify-between overflow-hidden cursor-pointer`
+          // }
         />
         <Nav onToggleMenu={() => setMenuOpen((value) => !value)} />
         <div className="flex-1 flex relative">

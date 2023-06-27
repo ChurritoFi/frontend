@@ -11,7 +11,7 @@ import { FaVolumeUp } from "react-icons/fa";
 import { useCelo } from "../../hooks/useCelo";
 
 function Dashboard() {
-  const { connect, address, network } = useCelo();
+  const { openConnectModal, address, network } = useCelo();
   const state = useStore();
   const userConnected: boolean = !(address == null);
   const {
@@ -23,6 +23,7 @@ function Dashboard() {
   useEffect(() => {
     if (address == null) return;
     state.setUser(address);
+    if (!network) return;
     state.setNetwork(network.name);
   }, [address]);
 
@@ -77,7 +78,7 @@ function Dashboard() {
               <img src="/assets/wallet.svg" />
               <button
                 className="text-white bg-primary rounded-md px-10 py-3 mt-14 space-x-3 flex items-center"
-                onClick={async () => await connect()}
+                onClick={() => openConnectModal?.()}
               >
                 <img src="/assets/celo-wallet.png" />
                 <span>Connect Celo Wallet</span>

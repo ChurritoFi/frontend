@@ -1,11 +1,13 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import CreateAccountAsset from "../../icons/create-account-asset";
+import { waitForTransaction } from "@wagmi/core";
 import { useCelo } from "../../../hooks/useCelo";
+import { createWalletAction } from "../../../lib/walletAction";
 
 function CreateAccount() {
   const [open, setOpen] = useState(false);
-  const { address, performActions, kit } = useCelo();
+  const { address, contracts } = useCelo();
 
   const findIfAccountExists = useCallback(async () => {
     if (!address) {
@@ -13,8 +15,8 @@ function CreateAccount() {
       return;
     }
     try {
-      const accounts = await kit.contracts.getAccounts();
-      const isAccount = await accounts.isAccount(address);
+      const accounts = await contracts.getAccounts();
+      const isAccount = await accounts.read.isAccount([address]);
       setOpen(!isAccount);
       console.log("isAccount", isAccount);
     } catch (err) {
@@ -22,24 +24,25 @@ function CreateAccount() {
     }
   }, [address]);
 
-  const createAccount = useCallback(async () => {
-    console.log("creating account");
-    if (address == null) return;
-    try {
-      await performActions(async (kit) => {
-        const accounts = await kit.contracts.getAccounts();
-        const res = await accounts.createAccount().sendAndWaitForReceipt({
-          from: address,
-        });
-        console.log(await res);
-      });
-    } catch (err) {
-      console.log("there is an err");
-      console.log(err);
-    } finally {
-      findIfAccountExists();
-    }
-  }, [address]);
+  const createAccount = useCallback(
+    createWalletAction(async () => {
+      console.log("creating account");
+      if (address == null) return;
+      try {
+        const accounts = await contracts.getAccounts();
+        const txHash = await accounts.write.createAccount();
+        console.log("txHash", txHash);
+        await waitForTransaction({ hash: txHash });
+      } catch (err) {
+        console.log("there is an err");
+        console.log(err);
+        throw err;
+      } finally {
+        findIfAccountExists();
+      }
+    }),
+    [address]
+  );
 
   useEffect(() => {
     console.log(`Current address: ${address}`);

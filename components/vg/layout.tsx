@@ -59,13 +59,16 @@ export default function layout({ children }: layoutProps) {
     <>
       <div className="h-screen overflow-hidden hidden flex-col lg:flex">
         <ToastContainer
-          className="space-y-2"
-          toastClassName={(context) =>
-            `${
-              // @ts-expect-error
-              toastClasses[context?.type]
-            } relative flex p-3 rounded justify-between overflow-hidden cursor-pointer`
-          }
+          position="bottom-right"
+          newestOnTop={true}
+          // Use default style for now
+          // className="space-y-2"
+          // toastClassName={(context) =>
+          //   `${
+          //     // @ts-expect-error
+          //     toastClasses[context?.type]
+          //   } relative flex p-3 rounded justify-between overflow-hidden cursor-pointer`
+          // }
         />
         <Nav />
         <div className="flex-1 flex overflow-hidden">

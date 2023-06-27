@@ -17,6 +17,7 @@ import {
   getEpochSize,
   getNonVotingLockedGold,
   getTargetVotingYield,
+  vote,
 } from "../../lib/celo";
 import useVg from "../../hooks/useValidatorGroups";
 import InfoIcon from "../../components/icons/info";
@@ -31,6 +32,12 @@ import { intervalToDuration, add } from "date-fns";
 import { FaTwitter } from "react-icons/fa";
 import { ValidatorGroup } from "../../lib/types";
 import { useCelo } from "../../hooks/useCelo";
+import { fetchBlockNumber, waitForTransaction } from "@wagmi/core";
+import { Address } from "wagmi";
+import {
+  createWalletAction,
+  performWalletAction,
+} from "../../lib/walletAction";
 
 const InvestMachine = createMachine({
   id: "InvestFlow",
@@ -54,7 +61,7 @@ const InvestMachine = createMachine({
 const formatter = new Intl.NumberFormat("en-US");
 
 function Stake() {
-  const { address, kit, contracts, performActions } = useCelo();
+  const { address, contracts } = useCelo();
   const router = useRouter();
 
   const [current, send] = useMachine(InvestMachine);
@@ -87,7 +94,8 @@ function Stake() {
   const state = useStore();
 
   async function getTimeToNextEpoch() {
-    const block = await contracts.connection.web3.eth.getBlockNumber();
+    // TODO: use bigint
+    const block = Number(await fetchBlockNumber());
     const EPOCH_SIZE = await getEpochSize(contracts);
     const BLOCK_TIME = 5;
     const secondsToNextEpoch = BLOCK_TIME * (EPOCH_SIZE - (block % EPOCH_SIZE));
@@ -171,48 +179,46 @@ function Stake() {
     setYearlyEarning(yearly);
   }, [celoToInvest]);
 
-  const lockCELO = async (amount: BigNumber) => {
-    if (!unlockedCelo) return;
-    console.log("Locking CELO");
-    console.log(amount.lt(unlockedCelo));
-    try {
-      await performActions(async (k) => {
-        // await ensureAccount(k, k.defaultAccount);
+  const lockCELO = async (amount: BigNumber) =>
+    performWalletAction(async () => {
+      if (!unlockedCelo) return;
+      console.log("Locking CELO");
+      console.log(amount.lt(unlockedCelo));
+      try {
         const lockedCelo = await contracts.getLockedGold();
-        return lockedCelo.lock().sendAndWaitForReceipt({
-          value: amount.toString(),
-          from: address!,
+        const txHash = await lockedCelo.write.lock({
+          value: BigInt(amount.toFixed()),
         });
-      });
+        console.log("txHash", txHash);
+        await waitForTransaction({ hash: txHash });
 
-      console.log("CELO locked");
-      trackCELOLockedOrUnlockedOrWithdraw(
-        amount.div(1e18).toNumber(),
-        address!,
-        "lock"
-      );
-      send("NEXT");
-    } catch (e) {
-      console.log("Couldn't lock");
-      console.error("Failed to lock", e);
-    }
-  };
+        console.log("CELO locked");
+        trackCELOLockedOrUnlockedOrWithdraw(
+          amount.div(1e18).toNumber(),
+          address!,
+          "lock"
+        );
+        send("NEXT");
+      } catch (e) {
+        console.log("Couldn't lock");
+        console.error("Failed to lock", e);
+        throw e;
+      }
+    });
 
-  const voteOnVg = async () => {
+  const voteOnVg = createWalletAction(async () => {
     if (selectedVgAddress == undefined || selectedVgAddress == null) return;
 
     if (!celoToInvest) return;
 
     try {
-      await performActions(async (k) => {
-        const election = await contracts.getElection();
-        await (
-          await election.vote(
-            selectedVgAddress,
-            new BigNumber(parseFloat(celoToInvest)).times(1e18)
-          )
-        ).sendAndWaitForReceipt({ from: address! });
-      });
+      const txHash = await vote(
+        contracts,
+        selectedVgAddress as Address,
+        new BigNumber(parseFloat(celoToInvest)).times(1e18)
+      );
+      console.log("txHash", txHash);
+      await waitForTransaction({ hash: txHash });
 
       trackVoteOrRevoke(
         parseFloat(celoToInvest),
@@ -223,8 +229,9 @@ function Stake() {
       send("NEXT");
     } catch (e) {
       console.log("unable to vote", e);
+      throw e;
     }
-  };
+  });
 
   return (
     <Layout>

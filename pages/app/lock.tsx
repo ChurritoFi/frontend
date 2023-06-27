@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { PendingWithdrawal } from "@celo/contractkit/lib/wrappers/LockedGold";
+import { PendingWithdrawal } from "../../lib/celo";
 import { BigNumber } from "bignumber.js";
 
 import useStore from "../../store/store";
@@ -10,6 +10,7 @@ import Select from "../../components/app/select";
 import WithdrawalSelect from "../../components/app/withdrawal-select";
 import CeloInput from "../../components/app/celo-input";
 
+import { waitForTransaction } from "@wagmi/core";
 import {
   fetchPendingWithdrawals,
   getCELOBalance,
@@ -25,6 +26,7 @@ import ReactTooltip from "react-tooltip";
 import { trackCELOLockedOrUnlockedOrWithdraw } from "../../lib/supabase";
 import ReminderModal from "../../components/app/dialogs/reminder";
 import { useCelo } from "../../hooks/useCelo";
+import { createWalletAction } from "../../lib/walletAction";
 
 const options = ["Lock", "Unlock", "Withdraw"];
 function vote() {
@@ -40,7 +42,7 @@ function vote() {
   const [celoAmount, setCeloAmount] = useState("");
   const [reminderModalOpen, setReminderModalOpen] = useState(false);
 
-  const { address, network, contracts, performActions } = useCelo();
+  const { address, network, contracts } = useCelo();
   const state = useStore();
 
   useEffect(() => {
@@ -85,17 +87,17 @@ function vote() {
     fetchExchangeRate().then((rate) => setExchangeRate(rate));
   }, [address]);
 
-  const lockCELO = async () => {
+  const lockCELO = createWalletAction(async () => {
     if (address == null) return;
     try {
-      await performActions(async (k) => {
-        // await ensureAccount(k, k.defaultAccount);
-        const lockedCelo = await contracts.getLockedGold();
-        return lockedCelo.lock().sendAndWaitForReceipt({
-          value: new BigNumber(parseFloat(celoAmount)).times(1e18).toString(),
-          from: address,
-        });
+      const lockedCelo = await contracts.getLockedGold();
+      const txHash = await lockedCelo.write.lock({
+        value: BigInt(
+          new BigNumber(parseFloat(celoAmount)).times(1e18).toFixed()
+        ),
       });
+      console.log("txHash", txHash);
+      await waitForTransaction({ hash: txHash });
 
       console.log("CELO locked");
       trackCELOLockedOrUnlockedOrWithdraw(
@@ -105,20 +107,21 @@ function vote() {
       );
     } catch (e) {
       console.error("Failed to lock", e);
+      throw e;
     } finally {
       fetchAllAccountData(address);
     }
-  };
+  });
 
-  const unlockCELO = async () => {
+  const unlockCELO = createWalletAction(async () => {
     if (address == null) return;
     try {
-      await performActions(async (k) => {
-        const lockedCelo = await contracts.getLockedGold();
-        await lockedCelo
-          .unlock(new BigNumber(parseFloat(celoAmount)).times(1e18))
-          .sendAndWaitForReceipt({ from: address });
-      });
+      const lockedCelo = await contracts.getLockedGold();
+      const txHash = await lockedCelo.write.unlock([
+        BigInt(new BigNumber(parseFloat(celoAmount)).times(1e18).toFixed()),
+      ]);
+      console.log("txHash", txHash);
+      await waitForTransaction({ hash: txHash });
 
       setReminderModalOpen(true);
       trackCELOLockedOrUnlockedOrWithdraw(
@@ -129,21 +132,21 @@ function vote() {
       console.log("CELO unlocked");
     } catch (e) {
       console.error("Failed to unlock", e);
+      throw e;
     } finally {
       fetchAllAccountData(address);
     }
-  };
+  });
 
-  const withdrawCELO = async () => {
+  const withdrawCELO = createWalletAction(async () => {
     if (address == null) return;
     console.log("Withdraw CELO", withdrawals[selectedWithdrawal]);
     try {
-      await performActions(async (k) => {
-        const locked = await contracts.getLockedGold();
-        await locked
-          .withdraw(selectedWithdrawal)
-          .sendAndWaitForReceipt({ from: address });
-      });
+      const locked = await contracts.getLockedGold();
+      const txHash = await locked.write.withdraw([BigInt(selectedWithdrawal)]);
+      console.log("txHash", txHash);
+      await waitForTransaction({ hash: txHash });
+
       trackCELOLockedOrUnlockedOrWithdraw(
         withdrawals[selectedWithdrawal].value.div(1e18).toNumber(),
         address,
@@ -151,10 +154,11 @@ function vote() {
       );
     } catch (e) {
       console.log("Failed to withdraw", e);
+      throw e;
     } finally {
       fetchAllAccountData(address);
     }
-  };
+  });
 
   return (
     <Layout>

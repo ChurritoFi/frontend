@@ -12,6 +12,8 @@ import ActivateVgDialog from "../../components/app/dialogs/activate-vg";
 import CreateAccountDialog from "../../components/app/dialogs/create-account";
 
 import { useCelo } from "../../hooks/useCelo";
+import { activate } from "../../lib/celo";
+import { waitForTransaction } from "@wagmi/core";
 import {
   getCELOBalance,
   getNonVotingLockedGold,
@@ -28,6 +30,7 @@ import VotingSummary from "../../components/app/voting-summary";
 import EpochRewardGraph from "../../components/app/EpochRewardGraph";
 
 import { trackActivate } from "../../lib/supabase";
+import { createWalletAction } from "../../lib/walletAction";
 
 export default function dashboard() {
   const [votingSummary, setVotingSummary] = useState<GroupVoting[]>([]);
@@ -37,7 +40,7 @@ export default function dashboard() {
   const [loadingAccountData, setLoadingAccountData] = useState<boolean>(false);
   const [pendingVotes, setPendingVotes] = useState<BigNumber>(new BigNumber(0));
 
-  const { contracts, address, connect, destroy, performActions } = useCelo();
+  const { contracts, address, openConnectModal, destroy } = useCelo();
 
   const state = useStore();
   const userConnected = useMemo(() => state.user.length > 0, [state.user]);
@@ -108,32 +111,30 @@ export default function dashboard() {
   }, [address]);
 
   async function connectWallet() {
-    await connect();
+    // await connect();
+    openConnectModal?.();
 
-    Fathom.trackGoal("Z3PWXCND", 0);
+    // Fathom.trackGoal("Z3PWXCND", 0);
   }
 
-  const activateVg = async () => {
+  const activateVg = createWalletAction(async () => {
     if (address == null) return;
     try {
-      await performActions(async (k) => {
-        const election = await contracts.getElection();
-        await Promise.all(
-          (
-            await election.activate(address)
-          ).map((tx) => tx.sendAndWaitForReceipt({ from: address }))
-        );
-      });
+      const txHashes = await activate(contracts, address);
+      console.log(txHashes);
+      await Promise.all(txHashes.map((hash) => waitForTransaction({ hash })));
+
       trackActivate(address);
       console.log("Votes activated");
       state.setHasActivatableVotes(false);
     } catch (e) {
       console.log(`Unable to activate votes ${e}`);
+      throw e;
     } finally {
       fetchAllAccountData(address);
       fetchVotingSummary();
     }
-  };
+  });
 
   return (
     <Layout>

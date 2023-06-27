@@ -6,6 +6,7 @@ import {
   fetchPendingWithdrawals,
   getVgName,
   getVotingSummary,
+  revoke,
 } from "../../lib/celo";
 
 import { createMachine } from "xstate";
@@ -13,7 +14,7 @@ import { useMachine } from "@xstate/react";
 
 import useStore from "../../store/store";
 
-import { PendingWithdrawal } from "@celo/contractkit/lib/wrappers/LockedGold";
+import { PendingWithdrawal } from "../../lib/celo";
 import {
   GroupVoting,
   ProcessedWithdrawals,
@@ -26,6 +27,9 @@ import {
 } from "../../lib/supabase";
 import ReminderModal from "../../components/app/dialogs/reminder";
 import { useCelo } from "../../hooks/useCelo";
+import { waitForTransaction } from "@wagmi/core";
+import { Address } from "wagmi";
+import { performWalletAction } from "../../lib/walletAction";
 
 const StateMachine = createMachine({
   id: "StateMachine",
@@ -82,7 +86,7 @@ function Withdraw() {
   const [reminderModalOpen, setReminderModalOpen] = useState<boolean>(false);
 
   const [current, send] = useMachine(StateMachine);
-  const { address, network, kit, contracts, performActions } = useCelo();
+  const { address, contracts } = useCelo();
   const state = useStore();
 
   const fetchVotingSummary = useCallback(() => {
@@ -134,66 +138,75 @@ function Withdraw() {
     getPendingWithdrawals();
   }, []);
 
-  const withdrawCELO = async (idx: number) => {
-    console.log("Withdraw CELO", pendingWithdrawals[idx]);
-    try {
-      await performActions(async (k) => {
+  const withdrawCELO = async (idx: number) =>
+    performWalletAction(async () => {
+      console.log("Withdraw CELO", pendingWithdrawals[idx]);
+      try {
         const locked = await contracts.getLockedGold();
-        await locked.withdraw(idx).sendAndWaitForReceipt({ from: address! });
-      });
-      trackCELOLockedOrUnlockedOrWithdraw(
-        pendingWithdrawals[idx].value.div(1e18).toNumber(),
-        address!,
-        "withdraw"
-      );
-      send("WITHDRAW");
-    } catch (e) {
-      console.log("Failed to withdraw", e);
-    } finally {
-      getPendingWithdrawals();
-    }
-  };
+        const txHash = await locked.write.withdraw([BigInt(idx)]);
+        console.log("txHash", txHash);
+        await waitForTransaction({ hash: txHash });
 
-  const unvoteVg = async (vg: GroupVoting) => {
-    if (address == null) return;
-    try {
-      await performActions(async (k) => {
-        console.log(address);
-
-        const election = await contracts.getElection();
-        const lockedCelo = await contracts.getLockedGold();
-
-        console.log(vg);
-        await Promise.all(
-          (
-            await election.revoke(address, vg.vg, vg.active)
-          ).map((tx) => tx.sendAndWaitForReceipt({ from: address }))
-        );
-        await lockedCelo
-          .unlock(vg.active)
-          .sendAndWaitForReceipt({ from: address });
-      });
-      console.log("Unvote & Unlock");
-      setReminderModalOpen(true);
-      trackVoteOrRevoke(
-        vg.active.div(1e18).toNumber(),
-        address,
-        vg.vg,
-        "revoke"
-      ).then(() =>
         trackCELOLockedOrUnlockedOrWithdraw(
+          pendingWithdrawals[idx].value.div(1e18).toNumber(),
+          address!,
+          "withdraw"
+        );
+        send("WITHDRAW");
+      } catch (e) {
+        console.log("Failed to withdraw", e);
+        throw e;
+      } finally {
+        getPendingWithdrawals();
+      }
+    });
+
+  const unvoteVg = async (vg: GroupVoting) =>
+    performWalletAction(async () => {
+      if (address == null) return;
+      try {
+        console.log(address);
+        const revokeTxHashes = await revoke(
+          contracts,
+          address,
+          vg.vg as Address,
+          vg.active
+        );
+        console.log("revokeTxHashes", revokeTxHashes);
+
+        const lockedCelo = await contracts.getLockedGold();
+        const unlockTxHash = await lockedCelo.write.unlock([
+          BigInt(vg.active.toFixed()),
+        ]);
+        console.log("unlockTxHash", unlockTxHash);
+
+        const txHashes = [...revokeTxHashes, unlockTxHash];
+        await Promise.all(
+          txHashes.map((hash: any) => waitForTransaction({ hash }))
+        );
+
+        console.log("Unvote & Unlock");
+        setReminderModalOpen(true);
+        trackVoteOrRevoke(
           vg.active.div(1e18).toNumber(),
           address,
-          "unlock"
-        )
-      );
-    } catch (e) {
-      console.log(`Unable to vote ${e}`);
-    } finally {
-      fetchVotingSummary();
-      getPendingWithdrawals();
-    }
-  };
+          vg.vg,
+          "revoke"
+        ).then(() =>
+          trackCELOLockedOrUnlockedOrWithdraw(
+            vg.active.div(1e18).toNumber(),
+            address,
+            "unlock"
+          )
+        );
+      } catch (e) {
+        console.log(`Unable to vote ${e}`);
+        throw e;
+      } finally {
+        fetchVotingSummary();
+        getPendingWithdrawals();
+      }
+    });
 
   return (
     <Layout>

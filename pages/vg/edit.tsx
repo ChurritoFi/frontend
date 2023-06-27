@@ -57,11 +57,12 @@ export default function Edit() {
   }, [fetching, validatorGroup]);
 
   useEffect(() => {
-    state.setNetwork(network.name);
-    if (address == null) return;
+    if (network) {
+      state.setNetwork(network.name);
+    }
+    if (!address) return;
     const GROUP = "0x614b7654ba0cc6000abe526779911b70c1f7125a";
     const TESTING_ADDRESS = "0x6f80f637896e7068ad28cc45d6810b1dc8b08cf5";
-    if (address === "") return;
     if (address == TESTING_ADDRESS) {
       state.setUser(GROUP);
     } else {

@@ -1,4 +1,3 @@
-import { ContractKit } from "@celo/contractkit";
 import React, { useEffect, useState } from "react";
 import { fetchEpochRewards, getEpochFromBlock } from "../../lib/celo";
 import Select from "./select";
@@ -18,7 +17,8 @@ import Loader from "react-loader-spinner";
 import Link from "next/link";
 
 import subDays from "date-fns/subDays";
-import { WrapperCache } from "@celo/contractkit/lib/contract-cache";
+import { Contracts } from "../../hooks/useCelo";
+import { fetchBlockNumber } from "@wagmi/core";
 
 enum STATES {
   idle,
@@ -33,7 +33,7 @@ function EpochRewardGraph({
   contracts,
 }: {
   address: string | null | undefined;
-  contracts: WrapperCache;
+  contracts: Contracts;
 }) {
   const [selected, setSelected] = useState<string>(OPTIONS[0]);
   const [rewards, setRewards] = useState<Map<number, BigNumber>>(
@@ -59,7 +59,8 @@ function EpochRewardGraph({
   }, [address]);
 
   async function setDataForGraph() {
-    const blockN = await contracts.connection.web3.eth.getBlockNumber();
+    // TODO: use bigint
+    const blockN = Number(await fetchBlockNumber());
     const epochNow = getEpochFromBlock(blockN, 17280);
     let fromEpoch;
     if (selected == OPTIONS[0]) {
