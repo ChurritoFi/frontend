@@ -1,10 +1,5 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
-// import { Web3ContractCache } from "@celo/contractkit/lib/web3-contract-cache";
-// import { WrapperCache } from "@celo/contractkit/lib/contract-cache";
-// import { AddressRegistry } from "@celo/contractkit/lib/address-registry";
-// import { ContractKit } from "@celo/contractkit";
-// import { CeloProvider } from "@celo/react-celo";
 import { createClient, Provider } from "urql";
 import * as Fathom from "fathom-client";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
@@ -14,7 +9,6 @@ import celoGroups from "@celo/rainbowkit-celo/lists";
 import { Celo } from "@celo/rainbowkit-celo/chains";
 
 import "tailwindcss/tailwind.css";
-// import "@celo/react-celo/lib/styles.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import "../style/global.css";
 import { useRouter } from "next/router";
@@ -88,16 +82,16 @@ function App({ Component, pageProps }: AppProps) {
       </Head>
       <WagmiConfig config={wagmiConfig}>
         <RainbowKitProvider chains={chains} coolMode={true}>
-            <Provider value={client}>
-              {/* TODO fix the real issue(s) and remove this */}
-              <div suppressHydrationWarning className="antialiased">
-                {isServer ? null : (
-                  <>
-                    <Component {...pageProps} />
-                  </>
-                )}
-              </div>
-            </Provider>
+          <Provider value={client}>
+            {/* TODO fix the real issue(s) and remove this */}
+            <div suppressHydrationWarning className="antialiased">
+              {isServer ? null : (
+                <>
+                  <Component {...pageProps} />
+                </>
+              )}
+            </div>
+          </Provider>
         </RainbowKitProvider>
       </WagmiConfig>
     </>

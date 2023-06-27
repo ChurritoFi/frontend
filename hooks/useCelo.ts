@@ -1,6 +1,3 @@
-// import { WrapperCache } from "@celo/contractkit/lib/contract-cache";
-// import { useCelo as useCeloOrig, UseCelo } from "@celo/react-celo";
-
 import { useAccount, useDisconnect, useNetwork, useWalletClient } from "wagmi";
 import { Address, getContract, multicall, getWalletClient } from "@wagmi/core";
 import { useConnectModal } from "@rainbow-me/rainbowkit";

@@ -1,8 +1,4 @@
-// import { ContractKit } from "@celo/contractkit";
 import { BigNumber } from "bignumber.js";
-// import { PendingWithdrawal } from "@celo/contractkit/lib/wrappers/LockedGold";
-// import { GroupVote } from "@celo/contractkit/lib/wrappers/Election";
-// import { ValidatorGroup } from "@celo/contractkit/lib/wrappers/Validators";
 // TODO: remove @celo/base dependency
 import { concurrentMap } from "@celo/base/lib/async";
 import {
@@ -13,7 +9,6 @@ import {
 import { EpochReward } from "./types";
 import { Contracts } from "../hooks/useCelo";
 import { Address } from "wagmi";
-// import { WrapperCache } from "@celo/contractkit/lib/contract-cache";
 import { fetchBlockNumber } from "@wagmi/core";
 
 export const getEpochSize = async (contracts: Contracts) => {
