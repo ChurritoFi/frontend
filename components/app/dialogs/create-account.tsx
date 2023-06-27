@@ -1,7 +1,9 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import CreateAccountAsset from "../../icons/create-account-asset";
+import { waitForTransaction } from "@wagmi/core";
 import { useCelo } from "../../../hooks/useCelo";
+import { createWalletAction } from "../../../lib/walletAction";
 
 function CreateAccount() {
   const [open, setOpen] = useState(false);
@@ -22,29 +24,25 @@ function CreateAccount() {
     }
   }, [address]);
 
-  const createAccount = useCallback(async () => {
-    console.log("creating account");
-    if (address == null) return;
-    try {
-      const accounts = await contracts.getAccounts();
-      const txHash = await accounts.write.createAccount()
-      console.log("txHash", txHash);
-      // TODO: wait for tx to be mined
-
-      // await performActions(async (kit) => {
-      //   const accounts = await kit.contracts.getAccounts();
-      //   const res = await accounts.createAccount().sendAndWaitForReceipt({
-      //     from: address,
-      //   });
-      //   console.log(await res);
-      // });
-    } catch (err) {
-      console.log("there is an err");
-      console.log(err);
-    } finally {
-      findIfAccountExists();
-    }
-  }, [address]);
+  const createAccount = useCallback(
+    createWalletAction(async () => {
+      console.log("creating account");
+      if (address == null) return;
+      try {
+        const accounts = await contracts.getAccounts();
+        const txHash = await accounts.write.createAccount();
+        console.log("txHash", txHash);
+        await waitForTransaction({ hash: txHash });
+      } catch (err) {
+        console.log("there is an err");
+        console.log(err);
+        throw err;
+      } finally {
+        findIfAccountExists();
+      }
+    }),
+    [address]
+  );
 
   useEffect(() => {
     console.log(`Current address: ${address}`);

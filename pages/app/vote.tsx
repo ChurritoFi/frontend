@@ -37,7 +37,9 @@ import InfoIcon from "../../components/icons/info";
 import ReactTooltip from "react-tooltip";
 import { trackActivate, trackVoteOrRevoke } from "../../lib/supabase";
 import { useCelo } from "../../hooks/useCelo";
+import { waitForTransaction } from "@wagmi/core";
 import { Address } from "wagmi";
+import { createWalletAction } from "../../lib/walletAction";
 
 const options = ["Vote", "Revoke"];
 function vote() {
@@ -68,12 +70,7 @@ function vote() {
   const [hasActivatableVotes, setHasActivatableVotes] =
     useState<boolean>(false);
 
-  const {
-    address,
-    network,
-    contracts,
-    // performActions
-  } = useCelo();
+  const { address, contracts } = useCelo();
   const state = useStore();
   const { fetching: fetchingVg, error: errorFetchingVg, data } = useVg(true);
 
@@ -198,7 +195,7 @@ function vote() {
     calculateActiveAndPendingCelo();
   }, [votingSummary]);
 
-  const voteOnVg = async () => {
+  const voteOnVg = createWalletAction(async () => {
     if (address == null) return;
     if (selectedVg == undefined || selectedVg == null) return;
     if (!celoAmountToInvest) return;
@@ -210,17 +207,8 @@ function vote() {
         new BigNumber(parseFloat(celoAmountToInvest)).times(1e18)
       );
       console.log("txHash", txHash);
-      // TODO: wait for tx to be mined.
+      await waitForTransaction({ hash: txHash });
 
-      // await performActions(async (k) => {
-      //   const election = await contracts.getElection();
-      //   await (
-      //     await election.vote(
-      //       selectedVg,
-      //       new BigNumber(parseFloat(celoAmountToInvest)).times(1e18)
-      //     )
-      //   ).sendAndWaitForReceipt({ from: address });
-      // });
       setReminderModalOpen(true);
       trackVoteOrRevoke(
         parseFloat(celoAmountToInvest),
@@ -230,15 +218,16 @@ function vote() {
       );
     } catch (e) {
       console.log("unable to vote", e);
+      throw e;
     } finally {
       fetchAllAccountData(address);
       fetchVotingSummary();
       fetchActivatablePendingVotes();
       calculateActiveAndPendingCelo();
     }
-  };
+  });
 
-  const revokeVg = async () => {
+  const revokeVg = createWalletAction(async () => {
     if (address == null) return;
     try {
       console.log(address);
@@ -250,24 +239,10 @@ function vote() {
         new BigNumber(parseFloat(celoAmountToInvest)).times(1e18)
       );
       console.log("txHashes", txHashes);
-      // TODO: wait for TXs to be mined.
+      await Promise.all(
+        txHashes.map((hash: any) => waitForTransaction({ hash }))
+      );
 
-      // await performActions(async (k) => {
-      //   console.log(address);
-
-      //   const election = await contracts.getElection();
-      //   if (!selectedVg) return;
-      //   console.log(selectedVg);
-      //   await Promise.all(
-      //     (
-      //       await election.revoke(
-      //         address,
-      //         selectedVg,
-      //         new BigNumber(parseFloat(celoAmountToInvest)).times(1e18)
-      //       )
-      //     ).map((tx) => tx.sendAndWaitForReceipt({ from: address }))
-      //   );
-      // });
       trackVoteOrRevoke(
         parseFloat(celoAmountToInvest),
         address,
@@ -277,40 +252,34 @@ function vote() {
       console.log("Vote cast");
     } catch (e) {
       console.log(`Unable to vote ${e}`);
+      throw e;
     } finally {
       fetchAllAccountData(address);
       fetchVotingSummary();
       fetchActivatablePendingVotes();
       calculateActiveAndPendingCelo();
     }
-  };
+  });
 
-  const activateVg = async () => {
+  const activateVg = createWalletAction(async () => {
     if (address == null) return;
     try {
       const txHashes = activate(contracts, address);
       console.log("txHashes", txHashes);
-      // TODO: wait for TXs to be mined.
+      await Promise.all(txHashes.map((hash) => waitForTransaction({ hash })));
 
-      // await performActions(async (k) => {
-      //   const election = await contracts.getElection();
-      //   await Promise.all(
-      //     (
-      //       await election.activate(address)
-      //     ).map((tx) => tx.sendAndWaitForReceipt({ from: address }))
-      //   );
-      // });
       trackActivate(address);
       console.log("Votes activated");
     } catch (e) {
       console.log(`Unable to activate votes ${e}`);
+      throw e;
     } finally {
       fetchAllAccountData(address);
       fetchVotingSummary();
       fetchActivatablePendingVotes();
       calculateActiveAndPendingCelo();
     }
-  };
+  });
 
   return (
     <Layout>

@@ -94,13 +94,16 @@ export default function layout({ children }: layoutProps) {
     <>
       <div className="flex-col flex min-h-screen">
         <ToastContainer
-          className="space-y-2"
-          toastClassName={(context) =>
-            `${
-              // @ts-expect-error
-              toastClasses[context?.type]
-            } relative flex p-3 rounded justify-between overflow-hidden cursor-pointer`
-          }
+          position="bottom-right"
+          newestOnTop={true}
+          // Use default style for now
+          // className="space-y-2"
+          // toastClassName={(context) =>
+          //   `${
+          //     // @ts-expect-error
+          //     toastClasses[context?.type]
+          //   } relative flex p-3 rounded justify-between overflow-hidden cursor-pointer`
+          // }
         />
         <Nav onToggleMenu={() => setMenuOpen((value) => !value)} />
         <div className="flex-1 flex relative">

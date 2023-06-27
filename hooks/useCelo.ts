@@ -1,7 +1,7 @@
 // import { WrapperCache } from "@celo/contractkit/lib/contract-cache";
 // import { useCelo as useCeloOrig, UseCelo } from "@celo/react-celo";
 
-import { useAccount, useDisconnect, useNetwork } from "wagmi";
+import { useAccount, useDisconnect, useNetwork, useWalletClient } from "wagmi";
 import { Address, getContract, multicall, getWalletClient } from "@wagmi/core";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
@@ -15,7 +15,7 @@ import {
   epochRewardsABI,
   validatorsABI,
 } from "../lib/abis/celo";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 const REGISTRY_CONTRACT_ADDRESS = "0x000000000000000000000000000000000000ce10";
 
@@ -29,7 +29,8 @@ const CONTRACTS = {
   Validators: validatorsABI,
 };
 
-async function getContracts() {
+async function initContracts() {
+  console.log("Init contracts");
   const contractAddresses: Address[] = await multicall({
     contracts: Object.keys(CONTRACTS).map(
       (name) =>
@@ -44,6 +45,12 @@ async function getContracts() {
   });
 
   const walletClient = (await getWalletClient({ chainId: 42220 })) ?? undefined;
+
+  if (!walletClient) {
+    console.log("No wallet client");
+  } else {
+    console.log("Got wallet client");
+  }
 
   // Repetitive code, but at least it's type safe
   const contractsByName = {
@@ -100,43 +107,59 @@ async function getContracts() {
   return contractsByName;
 }
 
-function useContracts() {
-  // const walletClient = useWalletClient();
-  const contractsPromise = useRef(getContracts());
+let contractsPromise: ReturnType<typeof initContracts> | undefined;
+let hadWalletClient = false;
 
-  // useEffect(() => {
-  //   console.log("Changing contracts promise");
-  //   contractsPromise.current = getContracts();
-  // }, [walletClient]);
+function getContracts() {
+  contractsPromise =
+    contractsPromise ??
+    initContracts().catch((e) => {
+      contractsPromise = undefined;
+      throw e;
+    });
+  return contractsPromise;
+}
+
+function useContracts() {
+  const { data: walletClient } = useWalletClient();
+
+  // Reset contracts if wallet client changes
+  if (walletClient && !hadWalletClient) {
+    hadWalletClient = true;
+    contractsPromise = undefined;
+  } else if (!walletClient && hadWalletClient) {
+    hadWalletClient = false;
+    contractsPromise = undefined;
+  }
 
   const contracts = useMemo(() => {
     return {
       getAccounts: () =>
-        contractsPromise.current.then((contracts) => {
+        getContracts().then((contracts) => {
           return contracts.Accounts;
         }),
       getBlockchainParameters: () =>
-        contractsPromise.current.then((contracts) => {
+        getContracts().then((contracts) => {
           return contracts.BlockchainParameters;
         }),
       getGoldToken: () =>
-        contractsPromise.current.then((contracts) => {
+        getContracts().then((contracts) => {
           return contracts.GoldToken;
         }),
       getLockedGold: () =>
-        contractsPromise.current.then((contracts) => {
+        getContracts().then((contracts) => {
           return contracts.LockedGold;
         }),
       getElection: () =>
-        contractsPromise.current.then((contracts) => {
+        getContracts().then((contracts) => {
           return contracts.Election;
         }),
       getEpochRewards: () =>
-        contractsPromise.current.then((contracts) => {
+        getContracts().then((contracts) => {
           return contracts.EpochRewards;
         }),
       getValidators: () =>
-        contractsPromise.current.then((contracts) => {
+        getContracts().then((contracts) => {
           return contracts.Validators;
         }),
     };
