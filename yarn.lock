@@ -511,10 +511,10 @@
   resolved "https://registry.yarnpkg.com/@celo/base/-/base-4.1.0.tgz#9cd45f1c7d0ac61b4e2e98c046066f9eb9e143e9"
   integrity sha512-Q9wKLa4JJw06FXpToZm5PYfFYjx+tvwIQlvFofx+GleX+uq+BT/gdxgTQ/c08OrxZUyc53TUdqSCs+88VlhmlA==
 
-"@celo/rainbowkit-celo@^1.0.2-beta.1":
-  version "1.0.2-beta.1"
-  resolved "https://registry.yarnpkg.com/@celo/rainbowkit-celo/-/rainbowkit-celo-1.0.2-beta.1.tgz#c4dce3fb5fbb8347d61f25b0d00ddf70471e2c04"
-  integrity sha512-VLQAB3R1qjzwuXvBoayfVuqLve0sri34WuwtwzfXjrHBo7DKS+btbpSSMiRkSvR81Ao2DdmkoAsHrCwhSEQB3w==
+"@celo/rainbowkit-celo@^1.0.2-beta.2":
+  version "1.0.2-beta.2"
+  resolved "https://registry.yarnpkg.com/@celo/rainbowkit-celo/-/rainbowkit-celo-1.0.2-beta.2.tgz#2518a2f18d744d0a2d167c7bd237f67a2bb3c5f8"
+  integrity sha512-bBv4+6ebEWsLCgcMsB1KC4H+sOnmm1zLc6pmyhKDGVuM6DPSFmrKPfLgYXC2g+NR5nJU26mrRFpkXptIO6FDaw==
 
 "@coinbase/wallet-sdk@^3.6.6":
   version "3.7.1"
