@@ -106,6 +106,7 @@ export default function dashboard() {
       // gets all Vgs voted for by the user.
       fetchVotingSummary();
 
+      window.beam("/_custom-events/dashboard-address-viewed")
       Fathom.trackGoal("H0U4OOXH", 0);
     }
   }, [address]);
@@ -114,6 +115,8 @@ export default function dashboard() {
     // await connect();
     openConnectModal?.();
 
+    // TODO
+    // window.beam("/_custom-events/wallet-connected")
     // Fathom.trackGoal("Z3PWXCND", 0);
   }
 

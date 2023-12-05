@@ -79,6 +79,7 @@ export default function VgEditForm({
 
         send("NEXT");
         toast.success("Group details updated.");
+        window.beam("/_custom-events/validator-group-details-updated");
         Fathom.trackGoal("H0U4OOXH", 0);
 
         console.log("update complete");
