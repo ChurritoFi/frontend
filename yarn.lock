@@ -539,6 +539,11 @@
     stream-browserify "^3.0.0"
     util "^0.12.4"
 
+"@divvi/referral-sdk@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@divvi/referral-sdk/-/referral-sdk-1.0.0.tgz#008e0e882003486dae7db12bd7943c382f3c9831"
+  integrity sha512-X1i66AFQMJCu5jdOjg6mruSZ70YXolTNE1VHDr9tSHRnoR3EWki1Wtgb+A5fyE0AVl73uWZClqXlEGivyZbQ1w==
+
 "@emotion/hash@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"

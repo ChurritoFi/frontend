@@ -15,6 +15,7 @@
     "@celo/abis": "^9.0.6",
     "@celo/base": "^4.1.0",
     "@celo/rainbowkit-celo": "^1.0.2-beta.2",
+    "@divvi/referral-sdk": "^1.0.0",
     "@headlessui/react": "^1.2.0",
     "@hookform/resolvers": "^2.6.0",
     "@rainbow-me/rainbowkit": "^1.0.4",
